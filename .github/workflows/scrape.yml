@@ -1,0 +1,37 @@
+name: scrape-transactions
+
+# Weekly, Thursday mornings (matches the local-paper "Thursday transactions" cadence).
+# RETR reflects recorded transfers, so timing need not be precise.
+on:
+  schedule:
+    - cron: "0 11 * * 4"   # 11:00 UTC Thursday (~6am CT)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Scrape
+        run: python -m scraper.scrape
+
+      - name: Commit feed if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/transactions.json
+          git diff --staged --quiet || git commit -m "data: refresh property transactions feed"
+          git push

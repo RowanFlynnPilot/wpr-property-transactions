@@ -1,0 +1,20 @@
+:root {
+  /* WPR palette — teal accents on a cream/black newspaper base */
+  --wpr-teal: #3a867c;
+  --wpr-teal-bright: #4aaba7;
+  --wpr-cream: #f7f4ec;
+  --wpr-ink: #1a1a1a;
+  --wpr-rule: #d8d2c4; /* hairline rules / table borders */
+
+  /* Type */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+  --font-data: "JetBrains Mono", ui-monospace, monospace; /* prices, parcel IDs */
+}
+
+body {
+  margin: 0;
+  background: var(--wpr-cream);
+  color: var(--wpr-ink);
+  font-family: var(--font-body);
+}

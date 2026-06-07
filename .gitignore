@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Playwright
+playwright-report/
+.cache/
+
+# Node / Vite
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Spike artifacts (throwaway)
+spike/*.png
+spike/*.html
+spike/dump_*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
