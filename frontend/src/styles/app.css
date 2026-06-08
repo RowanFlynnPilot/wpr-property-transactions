@@ -11,7 +11,54 @@
   padding: 2rem 1.25rem 4rem;
 }
 
-/* --- Masthead ------------------------------------------------------------ */
+/* --- WPR shared masthead ------------------------------------------------- */
+.wpr-masthead {
+  border-top: 4px solid var(--wpr-slate);
+  border-bottom: 1px solid var(--wpr-slate);
+  padding: 16px 20px 12px;
+  text-align: center;
+  /* White nameplate (matches the paper and the WPR logo's own white ground) over
+     the cream body. */
+  background: #ffffff;
+}
+.wpr-logo-link {
+  display: inline-block;
+}
+.wpr-logo {
+  max-height: 56px;
+  max-width: 90%;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+}
+.wpr-tagline {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--wpr-slate);
+  margin-top: 8px;
+}
+.wpr-dateline {
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: #6b6b6b;
+  margin: 6px auto 0;
+  max-width: 880px;
+  padding-top: 8px;
+  border-top: 1px solid var(--wpr-rule);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.wpr-place {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* --- Feature title ------------------------------------------------------- */
 .masthead {
   border-bottom: 3px double var(--wpr-ink);
   padding-bottom: 1rem;

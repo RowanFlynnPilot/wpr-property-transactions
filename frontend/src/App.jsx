@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import Masthead from "./components/Masthead.jsx";
 import SummaryStats from "./components/SummaryStats.jsx";
 import Filters from "./components/Filters.jsx";
 import TransactionTable from "./components/TransactionTable.jsx";
@@ -74,30 +75,39 @@ export default function App() {
 
   if (error) {
     return (
-      <main className="page">
-        <p className="empty">Couldn’t load the transactions feed. Please try again later.</p>
-      </main>
+      <>
+        <Masthead />
+        <main className="page">
+          <p className="empty">Couldn’t load the transactions feed. Please try again later.</p>
+        </main>
+      </>
     );
   }
 
   if (!feed) {
     return (
-      <main className="page">
-        <p className="empty">Loading transactions…</p>
-      </main>
+      <>
+        <Masthead />
+        <main className="page">
+          <p className="empty">Loading transactions…</p>
+        </main>
+      </>
     );
   }
 
   return (
-    <main className="page">
-      <header className="masthead">
-        <h1>Property Transactions</h1>
-        <p className="dek">
-          Recent recorded real estate sales in Marathon County, Wisconsin. Source:
-          Wisconsin Department of Revenue Real Estate Transfer Returns. Addresses are
-          shown to the street or block only.
-        </p>
-      </header>
+    <>
+      <Masthead />
+      <main className="page">
+        <header className="masthead">
+          <h1>Property Transactions</h1>
+          <p className="dek">
+            Real estate sales recorded in Marathon County, Wisconsin over the past
+            month. Source: Wisconsin Department of Revenue Real Estate Transfer
+            Returns. Addresses are shown to the street or block only — use the Week
+            filter to focus on a single week.
+          </p>
+        </header>
 
       <SummaryStats records={filtered} generatedOn={feed.generated_on} />
       <PriceCharts records={filtered} />
@@ -118,6 +128,7 @@ export default function App() {
         DOR posting. Non–arm’s-length and nominal transfers are excluded; only genuine
         sales of $1,000 or more are shown. A Wausau Pilot &amp; Review civic-data tool.
       </footer>
-    </main>
+      </main>
+    </>
   );
 }
