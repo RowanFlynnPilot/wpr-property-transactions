@@ -197,6 +197,98 @@ h2 {
   margin-top: 0.75rem;
 }
 
+/* Custom trend tooltip — newspaper card */
+.history-tip {
+  background: #fff;
+  border: 1px solid var(--wpr-rule);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 0.5rem 0.65rem;
+  font-size: 0.82rem;
+}
+.history-tip-month {
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.history-tip-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #444;
+}
+.history-tip-row b {
+  font-family: var(--font-data);
+  margin-left: auto;
+  padding-left: 1rem;
+  color: var(--wpr-ink);
+}
+.tip-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex: none;
+}
+.history-tip-diff {
+  margin-top: 0.35rem;
+  padding-top: 0.3rem;
+  border-top: 1px solid var(--wpr-rule);
+  font-size: 0.76rem;
+}
+.history-tip-diff.pos {
+  color: #9a6a16;
+}
+.history-tip-diff.neg {
+  color: var(--wpr-teal);
+}
+
+/* Monthly data table under the trend chart */
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+}
+.history-table th {
+  text-align: left;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666;
+  border-bottom: 2px solid var(--wpr-ink);
+  padding: 0.4rem 0.6rem;
+}
+.history-table td {
+  padding: 0.35rem 0.6rem;
+  border-bottom: 1px solid var(--wpr-rule);
+}
+.history-table .num {
+  text-align: right;
+}
+.history-table .mono {
+  font-family: var(--font-data);
+}
+.history-table tbody tr:hover td {
+  background: #e9f3f1;
+}
+.history-table .diff.pos {
+  color: #9a6a16;
+  font-weight: 600;
+}
+.history-table .diff.neg {
+  color: var(--wpr-teal);
+  font-weight: 600;
+}
+.partial-tag {
+  color: #999;
+  font-style: italic;
+  font-size: 0.78em;
+}
+.history-foot {
+  margin: 0.6rem 0 0;
+  font-size: 0.78rem;
+  color: #777;
+  max-width: 70ch;
+}
+
 /* --- Map ----------------------------------------------------------------- */
 .map-wrap {
   height: 420px;
