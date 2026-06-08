@@ -23,7 +23,9 @@ def _iso_date(raw: str) -> str:
 
 
 def _acres(raw: str) -> float:
-    s = raw.strip()
+    """'0.85' -> 0.85; '20,269.00' -> 20269.0 (DOR uses thousands separators for
+    large land parcels). '' -> 0.0."""
+    s = raw.replace(",", "").strip()
     return float(s) if s else 0.0
 
 

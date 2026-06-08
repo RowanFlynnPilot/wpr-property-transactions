@@ -45,3 +45,7 @@ class TestAcres:
 
     def test_empty_is_zero(self):
         assert _acres("") == 0.0
+
+    def test_thousands_separator(self):
+        # DOR writes large land parcels with a comma, e.g. a 20,269-acre forest.
+        assert _acres("20,269.00") == 20269.0
