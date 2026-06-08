@@ -16,8 +16,11 @@ TAP_RETR_URL = "https://tap.revenue.wi.gov/mta/?Link=RETRSearch"
 # counties here once the editor signs off; each is a separate report download.
 COUNTIES = ["Marathon"]
 
-# Rolling window of recorded date to pull each run, in days.
-DATE_WINDOW_DAYS = 7
+# Rolling window of recorded date to pull each run, in days. A full month so the
+# published feed carries ~4 weeks of context; the frontend offers a week-level
+# drill-down filter within that window. The weekly cron refreshes the trailing
+# 30 days each run (overlap is fine — each run overwrites the feed).
+DATE_WINDOW_DAYS = 30
 
 # --- Output ---------------------------------------------------------------
 OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "transactions.json"
