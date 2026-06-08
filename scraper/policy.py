@@ -44,17 +44,38 @@ def _strip_city_zip(a: str) -> str:
     return without_zip.rsplit(" ", 1)[0].strip()
 
 
+# Marathon County parcel number embedded in an address string (e.g.
+# "County Road Ff (Vacant Land) - 004-3006-032-0999"). Parcel IDs are withheld
+# (a free GIS lookup re-identifies the property), so strip any that appear.
+_PARCEL = re.compile(r"\s*-?\s*\d{3}-\d{4}-\d{3}-\d{4}\b")
+
+
+def _strip_leading_number(segment: str) -> str:
+    """Drop a leading house/fire number (and a stray leading '&') from one address
+    segment. Returns '' if the segment is only a number."""
+    s = segment.strip().lstrip("&").strip()
+    first, _, rest = s.partition(" ")
+    if _HOUSE_NUMBER.match(first):
+        return rest.strip()
+    return s
+
+
 def _redact_address(address: str) -> str:
-    """Reduce a raw DOR address to a street/block label: strip the trailing postal
-    'City, WI ZIP', drop the leading house/fire number, and title-case the road
-    name. Addresses with no leading number (rural descriptors, blanks) pass through."""
-    a = _strip_city_zip(address.strip())
-    if not a:
-        return ""
-    first, _, rest = a.partition(" ")
-    if rest and _HOUSE_NUMBER.match(first):
-        return rest.strip().title()
-    return a.title()
+    """Reduce a raw DOR address to a street/block label:
+      - strip the trailing postal 'City, WI ZIP' (``_strip_city_zip``),
+      - remove any embedded parcel number (withheld per policy),
+      - per comma-segment, drop a leading house/fire number and a stray '&',
+        discard empties, and dedupe — this cleans malformed rows like
+        'Prairie View Cir, 152692 Prairie View Cir' and trailing-comma artifacts,
+      - title-case the result.
+    Ordinal street names ('15th Street') are kept — they are not house numbers."""
+    a = _PARCEL.sub("", _strip_city_zip(address.strip()))
+    seen = []
+    for seg in a.split(","):
+        cleaned = _strip_leading_number(seg).strip(" -").strip()
+        if cleaned and cleaned.lower() not in (s.lower() for s in seen):
+            seen.append(cleaned)
+    return ", ".join(seen).title()
 
 
 def _is_publishable(t: Transaction) -> bool:

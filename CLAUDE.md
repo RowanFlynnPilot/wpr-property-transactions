@@ -118,7 +118,11 @@ Editor's decisions, and how each is enforced:
    `N5678`/`N12W3456`), keeping the road name. Ordinal street names ("15th Street") are
    street names, not house numbers, and are kept. It also strips the trailing postal
    `City, WI ZIP` suffix (`_strip_city_zip`), anchored on the `WI`+ZIP — DOR is
-   inconsistent about the comma/spacing — so only the street/block remains.
+   inconsistent about the comma/spacing — so only the street/block remains. Per
+   comma-segment it drops leading house/fire numbers and a stray leading `&`,
+   removes any embedded parcel number, and dedupes — cleaning malformed DOR rows
+   such as `Prairie View Cir, 152692 Prairie View Cir`, `& 1007 N 3rd Ave`, and
+   `County Road Ff (Vacant Land) - 004-3006-032-0999`.
 4. **Never publish party mailing addresses** → structurally absent: they are not fields on
    `Transaction` or `PublishedRecord`, so they never enter the pipeline.
 5. **Community-level map** → no per-record geocoordinates are published; the frontend

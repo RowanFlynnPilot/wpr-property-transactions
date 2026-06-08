@@ -94,6 +94,45 @@ class TestStripCityZip:
         assert _redact_address("OKEEFE DR") == "Okeefe Dr"
 
 
+class TestMalformedAddresses:
+    """Pre-existing DOR data-quality oddities that must not leak identifying
+    numbers into the public feed."""
+
+    def test_embedded_parcel_number_stripped(self):
+        assert (
+            _redact_address("COUNTY ROAD FF (VACANT LAND) - 004-3006-032-0999")
+            == "County Road Ff (Vacant Land)"
+        )
+
+    def test_duplicated_street_with_fire_number(self):
+        assert (
+            _redact_address("PRAIRIE VIEW CIR, 152692 PRAIRIE VIEW CIR")
+            == "Prairie View Cir"
+        )
+
+    def test_duplicated_street_with_house_number(self):
+        assert _redact_address("BROOKS PL, 639 BROOKS PL") == "Brooks Pl"
+
+    def test_leading_ampersand_then_house_number(self):
+        assert _redact_address("& 1007 N 3RD AVE") == "N 3Rd Ave"
+
+    def test_trailing_comma_artifact(self):
+        assert _redact_address("ALLEN STREET,") == "Allen Street"
+        assert _redact_address("COUNTY ROAD M,") == "County Road M"
+
+    def test_lone_trailing_number_segment_dropped(self):
+        assert _redact_address("BROOKS PL, 639") == "Brooks Pl"
+
+    def test_keeps_apartment_segment(self):
+        assert _redact_address("WHITESPIRE RD, APT 11") == "Whitespire Rd, Apt 11"
+
+    def test_keeps_distinct_descriptor_segments(self):
+        assert (
+            _redact_address("VACANT LAND, EAU CLAIRE RIVER ROAD")
+            == "Vacant Land, Eau Claire River Road"
+        )
+
+
 class TestIsPublishable:
     def test_sale_above_floor_is_published(self):
         assert _is_publishable(_txn(conveyance_type="Sale", sale_price=1000)) is True
