@@ -13,6 +13,7 @@ permissions:
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    timeout-minutes: 15   # TAP sessions die at 15 min; never let a hung browser run longer.
     steps:
       - uses: actions/checkout@v4
 
@@ -26,7 +27,18 @@ jobs:
           python -m playwright install --with-deps chromium
 
       - name: Scrape
+        env:
+          RETR_TRACE_DIR: ${{ runner.temp }}/pw-trace   # capture trace + screenshot on failure
         run: python -m scraper.scrape
+
+      - name: Upload Playwright trace on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-trace
+          path: ${{ runner.temp }}/pw-trace
+          if-no-files-found: ignore
+          retention-days: 14
 
       - name: Commit feed if changed
         run: |

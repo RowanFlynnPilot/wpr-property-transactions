@@ -1,0 +1,26 @@
+name: tests
+
+# Pure browser-free logic (parse + editorial policy). Runs on every push/PR so a
+# regression in address redaction or price parsing is caught before it ships.
+on:
+  push:
+    paths:
+      - "scraper/**"
+      - "tests/**"
+      - "requirements*.txt"
+      - ".github/workflows/test.yml"
+  pull_request:
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - name: Install dev dependencies
+        run: pip install -r requirements-dev.txt
+      - name: Run tests
+        run: python -m pytest -q

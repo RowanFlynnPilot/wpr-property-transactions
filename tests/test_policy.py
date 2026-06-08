@@ -1,0 +1,93 @@
+"""Unit tests for the editorial publish policy (scraper/policy.py).
+
+The address redaction is a privacy control on a world-readable feed: a regression
+that lets a leading house number through re-identifies a specific home. These
+tests pin every documented edge case (urban number, hyphenated range, WI rural
+fire number, ordinal street name) so that can't regress silently.
+"""
+
+from scraper.policy import _redact_address, _is_publishable, apply_policy
+from scraper.models import Transaction, PublishedRecord
+
+
+def _txn(**over):
+    """A publishable Transaction with overridable fields."""
+    base = dict(
+        county="Marathon",
+        document_number="1",
+        recorded_date="2026-06-01",
+        document_type="Warranty deed",
+        conveyance_type="Sale",
+        municipality="Wausau, City of",
+        parcel_id="290-1234",
+        property_type="Land and buildings/improvements",
+        address="225 Grand Ave",
+        grantor="DOE, JANE",
+        grantee="ROE, RICHARD",
+        sale_price=220000,
+        acres=0.5,
+    )
+    base.update(over)
+    return Transaction(**base)
+
+
+class TestRedactAddress:
+    def test_strips_urban_house_number(self):
+        assert _redact_address("225 Grand Ave") == "Grand Ave"
+
+    def test_strips_hyphenated_range(self):
+        assert _redact_address("1224-1226 Third St") == "Third St"
+
+    def test_strips_wi_fire_number_simple(self):
+        assert _redact_address("N5678 County Road K") == "County Road K"
+
+    def test_strips_wi_fire_number_grid(self):
+        # N12W3456 — the WI grid-style rural fire number.
+        assert _redact_address("N12W3456 Smith Rd") == "Smith Rd"
+
+    def test_keeps_ordinal_street_name(self):
+        # "15th" is a street name, not a house number — must NOT be stripped.
+        out = _redact_address("15th Street")
+        assert "Street" in out
+        assert out.lower().startswith("15th")
+
+    def test_keeps_address_with_no_leading_number(self):
+        assert _redact_address("County Road X") == "County Road X"
+
+    def test_empty_passes_through(self):
+        assert _redact_address("") == ""
+        assert _redact_address("   ") == ""
+
+    def test_title_cases_road_name(self):
+        assert _redact_address("225 GRAND AVE") == "Grand Ave"
+
+
+class TestIsPublishable:
+    def test_sale_above_floor_is_published(self):
+        assert _is_publishable(_txn(conveyance_type="Sale", sale_price=1000)) is True
+
+    def test_below_floor_excluded(self):
+        assert _is_publishable(_txn(conveyance_type="Sale", sale_price=999)) is False
+
+    def test_non_sale_excluded(self):
+        assert _is_publishable(
+            _txn(conveyance_type="Trust (conveyance to)", sale_price=500000)
+        ) is False
+
+
+class TestApplyPolicy:
+    def test_filters_and_redacts(self):
+        txns = [
+            _txn(address="225 Grand Ave", sale_price=220000),          # kept
+            _txn(sale_price=500),                                      # dropped: below floor
+            _txn(conveyance_type="Quit claim", sale_price=300000),    # dropped: non-sale
+        ]
+        out = apply_policy(txns)
+        assert len(out) == 1
+        rec = out[0]
+        assert isinstance(rec, PublishedRecord)
+        assert rec.address == "Grand Ave"
+
+    def test_parcel_id_never_published(self):
+        rec = apply_policy([_txn(parcel_id="290-9999")])[0]
+        assert not hasattr(rec, "parcel_id")

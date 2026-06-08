@@ -1,0 +1,244 @@
+/* WPR Property Transactions — newspaper aesthetic on the cream/teal token base.
+   Layout + component styling. Tokens live in tokens.css. */
+
+* {
+  box-sizing: border-box;
+}
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+/* --- Masthead ------------------------------------------------------------ */
+.masthead {
+  border-bottom: 3px double var(--wpr-ink);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+.masthead h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--wpr-teal);
+  margin: 0 0 0.25rem;
+  letter-spacing: -0.01em;
+}
+.dek {
+  margin: 0;
+  max-width: 60ch;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--wpr-ink);
+  border-bottom: 1px solid var(--wpr-rule);
+  padding-bottom: 0.3rem;
+  margin: 2.5rem 0 1rem;
+}
+
+/* --- Summary stats ------------------------------------------------------- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--wpr-rule);
+  border: 1px solid var(--wpr-rule);
+}
+.stat {
+  background: #fff;
+  padding: 1rem 1.1rem;
+}
+.stat-value {
+  font-family: var(--font-data);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  color: var(--wpr-teal);
+}
+.stat-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #666;
+  margin-top: 0.2rem;
+}
+.stats-window {
+  font-size: 0.82rem;
+  color: #666;
+  margin: 0.6rem 0 0;
+}
+
+/* --- Charts -------------------------------------------------------------- */
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.chart {
+  margin: 0;
+  background: #fff;
+  border: 1px solid var(--wpr-rule);
+  padding: 1rem 0.75rem 0.5rem;
+}
+.chart figcaption {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--wpr-ink);
+  margin: 0 0 0.5rem 0.25rem;
+}
+
+/* --- Map ----------------------------------------------------------------- */
+.map-wrap {
+  height: 420px;
+  border: 1px solid var(--wpr-rule);
+}
+.map-missing {
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 0.5rem;
+}
+
+/* --- Filters ------------------------------------------------------------- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.filter-field label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #666;
+}
+.filter-field select,
+.filter-field input {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid var(--wpr-rule);
+  background: #fff;
+  color: var(--wpr-ink);
+}
+.filter-search {
+  flex: 1 1 220px;
+}
+.filter-search input {
+  width: 100%;
+}
+.filter-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+.filter-count {
+  font-family: var(--font-data);
+  font-size: 0.82rem;
+  color: #555;
+}
+.filter-reset {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  background: none;
+  border: 1px solid var(--wpr-rule);
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+  color: var(--wpr-teal);
+}
+.filter-reset:hover {
+  border-color: var(--wpr-teal);
+}
+
+/* --- Table --------------------------------------------------------------- */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--wpr-rule);
+}
+.txn-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  background: #fff;
+}
+.txn-table th {
+  text-align: left;
+  background: var(--wpr-cream);
+  border-bottom: 2px solid var(--wpr-ink);
+  position: sticky;
+  top: 0;
+}
+.txn-table th button {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--wpr-ink);
+  background: none;
+  border: none;
+  padding: 0.6rem 0.75rem;
+  cursor: pointer;
+  width: 100%;
+  text-align: inherit;
+}
+.txn-table th.num,
+.txn-table td.num {
+  text-align: right;
+}
+.txn-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--wpr-rule);
+  vertical-align: top;
+}
+.txn-table tbody tr:nth-child(even) td {
+  background: #fbf9f3;
+}
+.txn-table .price {
+  font-family: var(--font-data);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.txn-table .party {
+  max-width: 22ch;
+}
+
+/* --- States / footer ----------------------------------------------------- */
+.empty {
+  padding: 2rem;
+  text-align: center;
+  color: #777;
+}
+.colophon {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--wpr-rule);
+  font-size: 0.8rem;
+  color: #777;
+  max-width: 70ch;
+}
+
+/* --- Responsive ---------------------------------------------------------- */
+@media (max-width: 760px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .charts {
+    grid-template-columns: 1fr;
+  }
+  .filter-meta {
+    margin-left: 0;
+  }
+}

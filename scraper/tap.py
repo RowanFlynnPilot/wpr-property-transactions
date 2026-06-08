@@ -8,12 +8,19 @@ dropdowns and value fields are located by content, not by GenTax id, so they
 survive re-renders. Any missing control raises loudly.
 """
 
+import os
 from datetime import date
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright, Page
 
 from . import config
+
+# When set (the CI workflow sets it), capture a Playwright trace + a failure
+# screenshot under this directory so a failed runner scrape is debuggable instead
+# of just a stack trace. Unset locally — keeps normal runs clean. Evidence first:
+# the trace is how we'll tighten the flow's timing from real runner behaviour.
+_TRACE_DIR = os.environ.get("RETR_TRACE_DIR")
 
 
 def _unset_criterion_select(page: Page):
@@ -72,52 +79,79 @@ def download_report(county: str, date_from: date, date_to: date, dest_dir: Path)
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=config.HEADLESS)
         context = browser.new_context(user_agent=config.USER_AGENT, accept_downloads=True)
+        if _TRACE_DIR:
+            context.tracing.start(screenshots=True, snapshots=True, sources=True)
         page = context.new_page()
         page.set_default_timeout(config.NAV_TIMEOUT_MS)
 
-        page.goto(config.TAP_RETR_URL, wait_until="networkidle")
-        page.wait_for_timeout(3000)
-        page.click(config.SEL_DISCLAIMER_AGREE)
-        page.wait_for_timeout(2000)
-        page.click(config.SEL_ADVANCED_MODE)
-        page.wait_for_timeout(2000)
+        try:
+            return _run_flow(page, county, d_from, d_to, dest_dir)
+        except Exception:
+            if _TRACE_DIR:
+                _dump_diagnostics(page, context, county)
+            raise
+        finally:
+            browser.close()
 
-        # Filter 1: County and municipality
-        page.click(config.TXT_ADD_FILTER)
-        page.wait_for_timeout(2000)
-        _unset_criterion_select(page).select_option(label=config.CRIT_COUNTY)
-        page.wait_for_timeout(2500)
 
-        # Filter 2: Date recorded
-        page.click(config.TXT_ADD_FILTER)
-        page.wait_for_timeout(2000)
-        _unset_criterion_select(page).select_option(label=config.CRIT_DATE_RECORDED)
-        page.wait_for_timeout(2500)
+def _dump_diagnostics(page: Page, context, county: str) -> None:
+    """Persist a screenshot + trace.zip for the failing county so the CI run can
+    upload them as artifacts. Best-effort: never mask the original failure."""
+    out = Path(_TRACE_DIR)
+    out.mkdir(parents=True, exist_ok=True)
+    slug = county.lower().replace(" ", "_")
+    try:
+        page.screenshot(path=str(out / f"failure_{slug}.png"), full_page=True)
+    except Exception:
+        pass
+    try:
+        context.tracing.stop(path=str(out / f"trace_{slug}.zip"))
+    except Exception:
+        pass
 
-        di = _date_inputs(page)
-        di[-2].fill(d_from)
-        di[-1].fill(d_to)
-        page.wait_for_timeout(800)
 
-        # County LAST (adding a filter re-renders and clears it).
-        _county_select(page, county).select_option(label=county)
-        page.wait_for_timeout(1500)
+def _run_flow(page: Page, county: str, d_from: str, d_to: str, dest_dir: Path) -> Path:
+    page.goto(config.TAP_RETR_URL, wait_until="networkidle")
+    page.wait_for_timeout(3000)
+    page.click(config.SEL_DISCLAIMER_AGREE)
+    page.wait_for_timeout(2000)
+    page.click(config.SEL_ADVANCED_MODE)
+    page.wait_for_timeout(2000)
 
-        page.click(config.SEL_SEARCH)
-        page.wait_for_load_state("networkidle")
-        page.wait_for_timeout(5000)
+    # Filter 1: County and municipality
+    page.click(config.TXT_ADD_FILTER)
+    page.wait_for_timeout(2000)
+    _unset_criterion_select(page).select_option(label=config.CRIT_COUNTY)
+    page.wait_for_timeout(2500)
 
-        page.click(config.TXT_SELECT_ALL)
-        page.wait_for_timeout(2000)
-        page.click(config.TXT_GENERATE_REPORT)
-        page.wait_for_timeout(3000)
+    # Filter 2: Date recorded
+    page.click(config.TXT_ADD_FILTER)
+    page.wait_for_timeout(2000)
+    _unset_criterion_select(page).select_option(label=config.CRIT_DATE_RECORDED)
+    page.wait_for_timeout(2500)
 
-        dest_dir.mkdir(parents=True, exist_ok=True)
-        with page.expect_download(timeout=config.NAV_TIMEOUT_MS) as dlinfo:
-            page.click(config.TXT_CSV_REPORT)
-        download = dlinfo.value
-        out = dest_dir / f"retr_{county.lower()}.csv"
-        download.save_as(str(out))
+    di = _date_inputs(page)
+    di[-2].fill(d_from)
+    di[-1].fill(d_to)
+    page.wait_for_timeout(800)
 
-        browser.close()
-        return out
+    # County LAST (adding a filter re-renders and clears it).
+    _county_select(page, county).select_option(label=county)
+    page.wait_for_timeout(1500)
+
+    page.click(config.SEL_SEARCH)
+    page.wait_for_load_state("networkidle")
+    page.wait_for_timeout(5000)
+
+    page.click(config.TXT_SELECT_ALL)
+    page.wait_for_timeout(2000)
+    page.click(config.TXT_GENERATE_REPORT)
+    page.wait_for_timeout(3000)
+
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    with page.expect_download(timeout=config.NAV_TIMEOUT_MS) as dlinfo:
+        page.click(config.TXT_CSV_REPORT)
+    download = dlinfo.value
+    out = dest_dir / f"retr_{county.lower()}.csv"
+    download.save_as(str(out))
+    return out
