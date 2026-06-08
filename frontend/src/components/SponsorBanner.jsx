@@ -3,12 +3,8 @@ import { SPONSOR } from "../lib/sponsor.js";
 // Full-width sponsor banner card — placed at structural breakpoints (top, above
 // the charts, above the table) for prominent, ad-style presence. Links to the
 // sponsor. No-op without a sponsor.
-export default function SponsorBanner({ label = "Presented by" }) {
+export default function SponsorBanner({ label = "Presented by", cta = "Learn More" }) {
   if (!SPONSOR.name) return null;
-
-  const displayUrl = SPONSOR.url
-    ? SPONSOR.url.replace(/^https?:\/\//, "").replace(/\/$/, "")
-    : null;
 
   const inner = (
     <>
@@ -20,7 +16,12 @@ export default function SponsorBanner({ label = "Presented by" }) {
           <span className="sb-name">{SPONSOR.name}</span>
         )}
       </span>
-      {displayUrl && <span className="sb-cta">Visit {displayUrl} →</span>}
+      {SPONSOR.url && (
+        <span className="sb-cta">
+          {cta}
+          <span className="sb-cta-arrow" aria-hidden="true">→</span>
+        </span>
+      )}
     </>
   );
 
