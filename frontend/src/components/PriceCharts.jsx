@@ -13,6 +13,7 @@ import { median, money, moneyCompact, shortMuni } from "../lib/format.js";
 
 const TEAL = "#3a867c";
 const TEAL_BRIGHT = "#4aaba7";
+const HIGHLIGHT = "#c8922e"; // amber — marks the selected community against the teal bars
 
 // Price-distribution buckets (whole dollars). Open-ended top bucket.
 const BUCKETS = [
@@ -29,22 +30,29 @@ function bucketLabel([lo, hi]) {
   return `${moneyCompact(lo)}–${moneyCompact(hi)}`;
 }
 
-export default function PriceCharts({ records }) {
+export default function PriceCharts({ records, communityRecords, selected }) {
+  // The community comparison always spans all communities (communityRecords =
+  // every filter except the community drill-down), so it stays a full ranking
+  // and just highlights the selected one. The histogram below uses `records`, so
+  // it reflects the current selection.
+  const comparisonRows = communityRecords ?? records;
+
   const byMuni = useMemo(() => {
     const groups = new Map();
-    for (const r of records) {
+    for (const r of comparisonRows) {
       if (!groups.has(r.municipality)) groups.set(r.municipality, []);
       groups.get(r.municipality).push(r.sale_price);
     }
     return [...groups.entries()]
       .map(([m, prices]) => ({
         muni: shortMuni(m),
+        muniFull: m, // compared against `selected` so "Mosinee, City of" vs "Town of" don't both highlight
         count: prices.length,
         medianPrice: median(prices),
       }))
       .sort((a, b) => b.medianPrice - a.medianPrice)
       .slice(0, 12);
-  }, [records]);
+  }, [comparisonRows]);
 
   const distribution = useMemo(() => {
     return BUCKETS.map((b) => ({
@@ -80,7 +88,14 @@ export default function PriceCharts({ records }) {
               formatter={(v, _n, p) => [`${money(v)} · ${p.payload.count} sales`, "Median"]}
               cursor={{ fill: "rgba(58,134,124,0.08)" }}
             />
-            <Bar dataKey="medianPrice" fill={TEAL} radius={[0, 3, 3, 0]} />
+            <Bar dataKey="medianPrice" radius={[0, 3, 3, 0]} isAnimationActive={false}>
+              {byMuni.map((d) => (
+                <Cell
+                  key={d.muniFull}
+                  fill={d.muniFull === selected ? HIGHLIGHT : TEAL}
+                />
+              ))}
+            </Bar>
           </BarChart>
         </ResponsiveContainer>
         </div>
@@ -98,7 +113,7 @@ export default function PriceCharts({ records }) {
               formatter={(v) => [`${v} sales`, "Count"]}
               cursor={{ fill: "rgba(58,134,124,0.08)" }}
             />
-            <Bar dataKey="count" radius={[3, 3, 0, 0]}>
+            <Bar dataKey="count" radius={[3, 3, 0, 0]} isAnimationActive={false}>
               {distribution.map((_, i) => (
                 <Cell key={i} fill={i % 2 ? TEAL_BRIGHT : TEAL} />
               ))}

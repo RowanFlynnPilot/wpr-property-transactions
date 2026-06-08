@@ -127,7 +127,11 @@ export default function App() {
         </header>
 
       <SummaryStats records={filtered} generatedOn={feed.generated_on} />
-      <PriceCharts records={filtered} />
+      <PriceCharts
+        records={filtered}
+        communityRecords={filteredNoMuni}
+        selected={filters.municipality}
+      />
       <Suspense
         fallback={
           <section className="map-section">
