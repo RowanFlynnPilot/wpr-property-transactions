@@ -145,6 +145,16 @@ h2 {
   height: 420px;
   border: 1px solid var(--wpr-rule);
 }
+/* Placeholder shown while the lazy map chunk loads — reserves height to avoid
+   layout shift. */
+.map-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: #777;
+  font-size: 0.9rem;
+}
 .map-missing {
   font-size: 0.8rem;
   color: #777;

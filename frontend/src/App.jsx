@@ -1,11 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import Masthead from "./components/Masthead.jsx";
 import SummaryStats from "./components/SummaryStats.jsx";
 import Filters from "./components/Filters.jsx";
 import TransactionTable from "./components/TransactionTable.jsx";
 import PriceCharts from "./components/PriceCharts.jsx";
-import MunicipalityMap from "./components/MunicipalityMap.jsx";
 import { weekStartISO, weekLabel } from "./lib/format.js";
+
+// The Leaflet map is the heaviest dependency and sits below the fold, so it's
+// code-split: the initial bundle excludes Leaflet and the map chunk streams in
+// after first paint, behind a placeholder that reserves its height.
+const MunicipalityMap = lazy(() => import("./components/MunicipalityMap.jsx"));
 
 const EMPTY_FILTERS = { week: "", municipality: "", propertyType: "", minPrice: 0, query: "" };
 const DEFAULT_SORT = { key: "sale_price", dir: "desc" };
@@ -111,7 +115,16 @@ export default function App() {
 
       <SummaryStats records={filtered} generatedOn={feed.generated_on} />
       <PriceCharts records={filtered} />
-      <MunicipalityMap records={filtered} />
+      <Suspense
+        fallback={
+          <section className="map-section">
+            <h2>Where the sales were</h2>
+            <div className="map-wrap map-loading">Loading map…</div>
+          </section>
+        }
+      >
+        <MunicipalityMap records={filtered} />
+      </Suspense>
 
       <h2>All transactions</h2>
       <Filters

@@ -10,4 +10,22 @@ export default defineConfig({
   plugins: [react()],
   base: "/wpr-property-transactions/",
   publicDir: fileURLToPath(new URL("../data", import.meta.url)),
+  build: {
+    rollupOptions: {
+      output: {
+        // Split stable vendor libs into their own cacheable chunks. Leaflet/
+        // react-leaflet are excluded on purpose: they're reached only through the
+        // lazy map import (App.jsx), so Rollup already emits them as a separate
+        // on-demand chunk. Weekly feed-only deploys don't change these, so
+        // returning visitors re-use the cached vendor chunks.
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (id.includes("leaflet")) return; // stays in the lazy map chunk
+          if (/[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id))
+            return "react";
+          return "charts"; // recharts + its d3/lodash deps
+        },
+      },
+    },
+  },
 });
