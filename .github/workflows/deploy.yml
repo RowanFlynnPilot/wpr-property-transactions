@@ -9,6 +9,7 @@ on:
     paths:
       - "frontend/**"
       - "data/transactions.json"
+      - "data/price_history.json"
       - ".github/workflows/deploy.yml"
   workflow_dispatch: {}
 

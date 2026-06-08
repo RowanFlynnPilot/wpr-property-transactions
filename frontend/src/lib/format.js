@@ -39,6 +39,14 @@ export function shortMuni(name) {
   return name.replace(/,\s*(City|Village|Town) of$/, "").trim();
 }
 
+// "Wausau, City of" -> "Wausau (City)". Keeps the municipality TYPE so same-named
+// places stay distinct — e.g. the City of Wausau vs the Town of Wausau, or the
+// Village vs Town of Weston, which share a name within one county.
+export function muniLabel(name) {
+  const m = name.match(/^(.*),\s*(City|Village|Town) of$/);
+  return m ? `${m[1]} (${m[2]})` : name;
+}
+
 // The Sunday on or before an ISO date, as an ISO string. Anchors records into
 // calendar weeks for the week drill-down filter. Parsed as local to avoid a TZ
 // off-by-one.

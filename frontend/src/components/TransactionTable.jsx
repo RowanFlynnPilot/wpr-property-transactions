@@ -1,4 +1,4 @@
-import { money, prettyDate, shortMuni } from "../lib/format.js";
+import { money, prettyDate, muniLabel } from "../lib/format.js";
 
 // Sortable table of the filtered records. Sort state lives in App so the header
 // arrows stay in sync. Prices are mono-figure per the WPR data type convention.
@@ -49,7 +49,7 @@ export default function TransactionTable({ records, sort, onSort }) {
           {records.map((r) => (
             <tr key={r.document_number}>
               <td>{prettyDate(r.recorded_date)}</td>
-              <td>{shortMuni(r.municipality)}</td>
+              <td>{muniLabel(r.municipality)}</td>
               <td>{r.county}</td>
               <td>{r.property_type}</td>
               <td>{r.address || "—"}</td>

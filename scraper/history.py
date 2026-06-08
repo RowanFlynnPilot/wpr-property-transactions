@@ -16,6 +16,7 @@ import calendar
 import json
 import statistics
 import tempfile
+import time
 from datetime import date
 from pathlib import Path
 
@@ -23,6 +24,22 @@ from . import config
 from .parse import parse_csv
 from .policy import apply_policy
 from .tap import download_report
+
+# A backfill makes ~72 sequential TAP pulls; a single transient navigation
+# timeout shouldn't abort the whole run. Each pull opens its own browser, so a
+# retry is a clean fresh attempt.
+_PULL_ATTEMPTS = 3
+
+
+def _download(county: str, d_from: date, d_to: date, tmp_dir: Path) -> Path:
+    for attempt in range(1, _PULL_ATTEMPTS + 1):
+        try:
+            return download_report(county, d_from, d_to, tmp_dir)
+        except Exception as exc:
+            if attempt == _PULL_ATTEMPTS:
+                raise
+            print(f"    {county} {d_from:%Y-%m} attempt {attempt} failed ({exc}); retrying")
+            time.sleep(5)
 
 
 def _month_keys(today: date, n: int) -> list[str]:
@@ -74,7 +91,7 @@ def _pull_month(key: str, today: date, tmp_dir: Path) -> dict:
     entry: dict[str, dict] = {}
     all_prices: list[int] = []
     for county in config.COUNTIES:
-        csv_path = download_report(county, d_from, d_to, tmp_dir)
+        csv_path = _download(county, d_from, d_to, tmp_dir)
         published = apply_policy(parse_csv(csv_path))
         prices = [p.sale_price for p in published]
         all_prices.extend(prices)

@@ -1,4 +1,4 @@
-import { shortMuni } from "../lib/format.js";
+import { muniLabel } from "../lib/format.js";
 
 // Controlled filter bar. Owns no state itself — App holds the filter object and
 // the derived option lists, so the table, charts, and map all react together.
@@ -50,7 +50,7 @@ export default function Filters({ options, filters, onChange, resultCount, total
           <option value="">{filters.county ? "All communities" : "Pick a county first"}</option>
           {options.municipalities.map((m) => (
             <option key={m} value={m}>
-              {shortMuni(m)}
+              {muniLabel(m)}
             </option>
           ))}
         </select>

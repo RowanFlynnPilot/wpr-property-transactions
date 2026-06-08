@@ -4,6 +4,7 @@ import SummaryStats from "./components/SummaryStats.jsx";
 import Filters from "./components/Filters.jsx";
 import TransactionTable from "./components/TransactionTable.jsx";
 import PriceCharts from "./components/PriceCharts.jsx";
+import PriceHistoryChart from "./components/PriceHistoryChart.jsx";
 import { weekStartISO, weekLabel } from "./lib/format.js";
 
 // The Leaflet map is the heaviest dependency and sits below the fold, so it's
@@ -24,6 +25,7 @@ const DEFAULT_SORT = { key: "sale_price", dir: "desc" };
 export default function App() {
   const [feed, setFeed] = useState(null);
   const [error, setError] = useState(false);
+  const [history, setHistory] = useState(null);
   const [filters, setFilters] = useState(EMPTY_FILTERS);
   const [sort, setSort] = useState(DEFAULT_SORT);
 
@@ -35,6 +37,11 @@ export default function App() {
       })
       .then(setFeed)
       .catch(() => setError(true));
+    // Price history is optional — the page works without it (graceful null).
+    fetch(`${import.meta.env.BASE_URL}price_history.json`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then(setHistory)
+      .catch(() => setHistory(null));
   }, []);
 
   const all = feed?.transactions ?? [];
@@ -157,6 +164,7 @@ export default function App() {
         </header>
 
       <SummaryStats records={filtered} generatedOn={feed.generated_on} />
+      <PriceHistoryChart history={history} />
       <PriceCharts
         records={filtered}
         communityRecords={filteredNoMuni}

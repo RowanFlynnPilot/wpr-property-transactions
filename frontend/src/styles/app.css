@@ -154,6 +154,49 @@ h2 {
   min-height: 300px;
 }
 
+/* --- Price history trend -------------------------------------------------- */
+.history {
+  margin-top: 1.5rem;
+  background: #fff;
+  border: 1px solid var(--wpr-rule);
+  padding: 1rem 1rem 0.75rem;
+}
+.history-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.history-head h2 {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.history-pick {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #666;
+}
+.history-pick select {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  text-transform: none;
+  letter-spacing: 0;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--wpr-rule);
+  background: #fff;
+  color: var(--wpr-ink);
+}
+.history-chart {
+  height: 320px;
+  margin-top: 0.75rem;
+}
+
 /* --- Map ----------------------------------------------------------------- */
 .map-wrap {
   height: 420px;

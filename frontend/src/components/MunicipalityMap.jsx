@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { MapContainer, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { median, money, shortMuni } from "../lib/format.js";
+import { median, money, muniLabel } from "../lib/format.js";
 import { MUNI_CENTROIDS, REGION_CENTER, REGION_ZOOM } from "../lib/municipalities.js";
 
 // Case-insensitive centroid index: DOR and Census disagree on some capitalization
@@ -74,7 +74,7 @@ export default function MunicipalityMap({ records, selectedKey, onSelect }) {
                 }}
               >
                 <Tooltip direction="top">
-                  <strong>{shortMuni(p.muni)}</strong> · {p.county} Co.
+                  <strong>{muniLabel(p.muni)}</strong> · {p.county} Co.
                   <br />
                   {p.count} {p.count === 1 ? "sale" : "sales"} · median {money(p.medianPrice)}
                   {onSelect && (
@@ -92,7 +92,7 @@ export default function MunicipalityMap({ records, selectedKey, onSelect }) {
       {missing.length > 0 && (
         <p className="map-missing">
           Not mapped (no centroid on file):{" "}
-          {missing.map((m) => `${shortMuni(m.muni)} (${m.count})`).join(", ")}
+          {missing.map((m) => `${muniLabel(m.muni)} (${m.count})`).join(", ")}
         </p>
       )}
     </section>
