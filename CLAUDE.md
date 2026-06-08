@@ -226,5 +226,13 @@ npm run build                            # -> dist/, deployed to GitHub Pages
       `data/transactions.json` (verified: 144 returns for a live 7-day Marathon window).
 - [x] Editorial policy signed off (2026-06-07) and enforced in scraper/policy.py:
       sales only, ~$1,000 floor, street/block addresses, no parcel ID, community-level map.
-- [ ] GitHub Actions weekly cron (workflow scaffolded; needs a live run on the runner).
-- [ ] Frontend (filterable table + price charts + Leaflet map, WPR design system).
+- [x] GitHub Actions weekly cron: verified green on the runner (2026-06-08,
+      workflow_dispatch). `scrape.yml` has `timeout-minutes: 15` and, on failure,
+      uploads a Playwright trace + screenshot (tap.py honours `RETR_TRACE_DIR`).
+- [x] Unit tests (`tests/`, pytest): address-redaction edge cases + price/date
+      parsers; run on every push via `.github/workflows/test.yml`.
+- [x] Frontend built (filterable/sortable table + price charts + community Leaflet
+      map, WPR design system). Vite `publicDir` serves the committed feed.
+- [x] GitHub Pages deploy (`deploy.yml`) live at
+      https://rowanflynnpilot.github.io/wpr-property-transactions/ — redeploys on
+      frontend or feed change. Embed this URL in the WordPress iframe.
