@@ -30,25 +30,50 @@ function bucketLabel([lo, hi]) {
   return `${moneyCompact(lo)}–${moneyCompact(hi)}`;
 }
 
-export default function PriceCharts({ records, communityRecords, selected }) {
-  // The community comparison always spans all communities (communityRecords =
-  // every filter except the community drill-down), so it stays a full ranking
-  // and just highlights the selected one. The histogram below uses `records`, so
-  // it reflects the current selection.
+export default function PriceCharts({
+  records,
+  communityRecords,
+  countyRecords,
+  selected,
+  selectedCounty,
+}) {
+  // The county and community comparisons always span all counties/communities
+  // (countyRecords/communityRecords = the broader filter layers), so each stays a
+  // full ranking and just highlights the selection. The histogram uses `records`,
+  // so it reflects the current selection.
   const comparisonRows = communityRecords ?? records;
 
-  const byMuni = useMemo(() => {
+  const byCounty = useMemo(() => {
     const groups = new Map();
-    for (const r of comparisonRows) {
-      if (!groups.has(r.municipality)) groups.set(r.municipality, []);
-      groups.get(r.municipality).push(r.sale_price);
+    for (const r of countyRecords ?? records) {
+      if (!groups.has(r.county)) groups.set(r.county, []);
+      groups.get(r.county).push(r.sale_price);
     }
     return [...groups.entries()]
-      .map(([m, prices]) => ({
-        muni: shortMuni(m),
-        muniFull: m, // compared against `selected` so "Mosinee, City of" vs "Town of" don't both highlight
+      .map(([county, prices]) => ({
+        county,
         count: prices.length,
         medianPrice: median(prices),
+      }))
+      .sort((a, b) => b.medianPrice - a.medianPrice);
+  }, [countyRecords, records]);
+
+  const byMuni = useMemo(() => {
+    // Group by county+municipality — names repeat across counties, so a plain
+    // municipality key would merge e.g. two different "Cleveland, Town of".
+    const groups = new Map();
+    for (const r of comparisonRows) {
+      const key = `${r.county}|${r.municipality}`;
+      if (!groups.has(key)) groups.set(key, { county: r.county, muni: r.municipality, prices: [] });
+      groups.get(key).prices.push(r.sale_price);
+    }
+    return [...groups.values()]
+      .map((g) => ({
+        muni: shortMuni(g.muni),
+        muniFull: g.muni,
+        county: g.county,
+        count: g.prices.length,
+        medianPrice: median(g.prices),
       }))
       .sort((a, b) => b.medianPrice - a.medianPrice)
       .slice(0, 12);
@@ -65,6 +90,28 @@ export default function PriceCharts({ records, communityRecords, selected }) {
 
   return (
     <section className="charts" aria-label="Price charts">
+      <figure className="chart chart-wide">
+        <figcaption>Median sale price by county</figcaption>
+        <div className="chart-body">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={byCounty} margin={{ left: 8, right: 16 }}>
+            <CartesianGrid vertical={false} stroke="#e6e0d2" />
+            <XAxis dataKey="county" tick={{ fontSize: 11 }} stroke="#888" interval={0} />
+            <YAxis tickFormatter={moneyCompact} tick={{ fontSize: 11 }} stroke="#888" />
+            <Tooltip
+              formatter={(v, _n, p) => [`${money(v)} · ${p.payload.count} sales`, "Median"]}
+              cursor={{ fill: "rgba(58,134,124,0.08)" }}
+            />
+            <Bar dataKey="medianPrice" radius={[3, 3, 0, 0]} isAnimationActive={false}>
+              {byCounty.map((d) => (
+                <Cell key={d.county} fill={d.county === selectedCounty ? HIGHLIGHT : TEAL} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+        </div>
+      </figure>
+
       <figure className="chart">
         <figcaption>Median sale price by community (top 12)</figcaption>
         <div className="chart-body">
@@ -91,8 +138,12 @@ export default function PriceCharts({ records, communityRecords, selected }) {
             <Bar dataKey="medianPrice" radius={[0, 3, 3, 0]} isAnimationActive={false}>
               {byMuni.map((d) => (
                 <Cell
-                  key={d.muniFull}
-                  fill={d.muniFull === selected ? HIGHLIGHT : TEAL}
+                  key={`${d.county}|${d.muniFull}`}
+                  fill={
+                    d.muniFull === selected && d.county === selectedCounty
+                      ? HIGHLIGHT
+                      : TEAL
+                  }
                 />
               ))}
             </Bar>

@@ -12,9 +12,10 @@ from pathlib import Path
 TAP_RETR_URL = "https://tap.revenue.wi.gov/mta/?Link=RETRSearch"
 
 # --- Scope ----------------------------------------------------------------
-# County name must match the TAP dropdown option exactly. Add surrounding
-# counties here once the editor signs off; each is a separate report download.
-COUNTIES = ["Marathon"]
+# County name must match the TAP dropdown option exactly. Each is a separate
+# report download. This is the WPR 6-county core (Marathon + 5 contiguous
+# neighbors), matching the wpr-trails coverage area.
+COUNTIES = ["Marathon", "Lincoln", "Langlade", "Taylor", "Shawano", "Portage"]
 
 # Rolling window of recorded date to pull each run, in days. A full month so the
 # published feed carries ~4 weeks of context; the frontend offers a week-level

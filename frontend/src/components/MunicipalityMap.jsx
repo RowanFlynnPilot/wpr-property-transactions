@@ -2,34 +2,39 @@ import { useMemo } from "react";
 import { MapContainer, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { median, money, shortMuni } from "../lib/format.js";
-import { MUNI_CENTROIDS, MARATHON_CENTER } from "../lib/municipalities.js";
+import { MUNI_CENTROIDS, REGION_CENTER, REGION_ZOOM } from "../lib/municipalities.js";
 
-// Community-level map: one circle per municipality, sized by sale count, with
-// median price in the tooltip. Per the editorial policy there are NO per-record
-// coordinates in the feed — this aggregates by `municipality` and places markers
-// at approximate municipal centroids. Municipalities without a known centroid are
-// listed below the map rather than dropped silently.
+// Case-insensitive centroid index: DOR and Census disagree on some capitalization
+// (e.g. DOR "Mcmillan" vs Census "McMillan"), so match on lowercased keys.
+const CENTROIDS_LC = Object.fromEntries(
+  Object.entries(MUNI_CENTROIDS).map(([k, v]) => [k.toLowerCase(), v])
+);
+
+// Community-level map across the coverage area: one circle per municipality, sized
+// by sale count, with median price in the tooltip. Per the editorial policy there
+// are NO per-record coordinates in the feed — this aggregates by (county,
+// municipality) and places markers at Census municipal centroids. Municipality
+// names repeat across counties, so points are keyed by "county|municipality".
 function radiusFor(count, max) {
   // sqrt scale so area ~ count; clamp to a legible range.
   return 6 + 22 * Math.sqrt(count / max);
 }
 
-export default function MunicipalityMap({ records, selected, onSelect }) {
+export default function MunicipalityMap({ records, selectedKey, onSelect }) {
   const { points, missing } = useMemo(() => {
     const groups = new Map();
     for (const r of records) {
-      if (!groups.has(r.municipality)) groups.set(r.municipality, []);
-      groups.get(r.municipality).push(r.sale_price);
+      const key = `${r.county}|${r.municipality}`;
+      if (!groups.has(key)) groups.set(key, { county: r.county, muni: r.municipality, prices: [] });
+      groups.get(key).prices.push(r.sale_price);
     }
     const points = [];
     const missing = [];
-    for (const [muni, prices] of groups) {
-      const center = MUNI_CENTROIDS[muni];
-      if (center) {
-        points.push({ muni, center, count: prices.length, medianPrice: median(prices) });
-      } else {
-        missing.push({ muni, count: prices.length });
-      }
+    for (const [key, g] of groups) {
+      const center = CENTROIDS_LC[key.toLowerCase()];
+      const entry = { key, county: g.county, muni: g.muni, count: g.prices.length, medianPrice: median(g.prices) };
+      if (center) points.push({ ...entry, center });
+      else missing.push(entry);
     }
     return { points, missing };
   }, [records]);
@@ -44,8 +49,8 @@ export default function MunicipalityMap({ records, selected, onSelect }) {
       </p>
       <div className="map-wrap">
         <MapContainer
-          center={MARATHON_CENTER}
-          zoom={9}
+          center={REGION_CENTER}
+          zoom={REGION_ZOOM}
           scrollWheelZoom={false}
           style={{ height: "100%", width: "100%" }}
         >
@@ -54,13 +59,13 @@ export default function MunicipalityMap({ records, selected, onSelect }) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {points.map((p) => {
-            const isSelected = p.muni === selected;
+            const isSelected = p.key === selectedKey;
             return (
               <CircleMarker
-                key={p.muni}
+                key={p.key}
                 center={p.center}
                 radius={radiusFor(p.count, maxCount)}
-                eventHandlers={onSelect ? { click: () => onSelect(p.muni) } : undefined}
+                eventHandlers={onSelect ? { click: () => onSelect(p.county, p.muni) } : undefined}
                 pathOptions={{
                   color: isSelected ? "#2f6f66" : "#3a867c",
                   fillColor: isSelected ? "#2f6f66" : "#4aaba7",
@@ -69,7 +74,7 @@ export default function MunicipalityMap({ records, selected, onSelect }) {
                 }}
               >
                 <Tooltip direction="top">
-                  <strong>{shortMuni(p.muni)}</strong>
+                  <strong>{shortMuni(p.muni)}</strong> · {p.county} Co.
                   <br />
                   {p.count} {p.count === 1 ? "sale" : "sales"} · median {money(p.medianPrice)}
                   {onSelect && (

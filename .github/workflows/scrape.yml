@@ -14,7 +14,7 @@ permissions:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 15   # TAP sessions die at 15 min; never let a hung browser run longer.
+    timeout-minutes: 30   # 6 counties scrape sequentially (each a fresh <15-min TAP session).
     steps:
       - uses: actions/checkout@v4
 

@@ -5,6 +5,7 @@ import { money, prettyDate, shortMuni } from "../lib/format.js";
 const COLUMNS = [
   { key: "recorded_date", label: "Recorded", align: "left" },
   { key: "municipality", label: "Community", align: "left" },
+  { key: "county", label: "County", align: "left" },
   { key: "property_type", label: "Type", align: "left" },
   { key: "address", label: "Street / block", align: "left" },
   { key: "grantee", label: "Buyer", align: "left" },
@@ -48,6 +49,7 @@ export default function TransactionTable({ records, sort, onSort }) {
             <tr key={r.document_number}>
               <td>{prettyDate(r.recorded_date)}</td>
               <td>{shortMuni(r.municipality)}</td>
+              <td>{r.county}</td>
               <td>{r.property_type}</td>
               <td>{r.address || "—"}</td>
               <td className="party">{r.grantee}</td>

@@ -24,13 +24,30 @@ export default function Filters({ options, filters, onChange, resultCount, total
       </div>
 
       <div className="filter-field">
+        <label htmlFor="f-county">County</label>
+        <select
+          id="f-county"
+          value={filters.county}
+          onChange={(e) => set({ county: e.target.value, municipality: "" })}
+        >
+          <option value="">All counties</option>
+          {options.counties.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="filter-field">
         <label htmlFor="f-muni">Community</label>
         <select
           id="f-muni"
           value={filters.municipality}
+          disabled={!filters.county}
           onChange={(e) => set({ municipality: e.target.value })}
         >
-          <option value="">All communities</option>
+          <option value="">{filters.county ? "All communities" : "Pick a county first"}</option>
           {options.municipalities.map((m) => (
             <option key={m} value={m}>
               {shortMuni(m)}
@@ -89,7 +106,7 @@ export default function Filters({ options, filters, onChange, resultCount, total
           type="button"
           className="filter-reset"
           onClick={() =>
-            onChange({ week: "", municipality: "", propertyType: "", minPrice: 0, query: "" })
+            onChange({ week: "", county: "", municipality: "", propertyType: "", minPrice: 0, query: "" })
           }
         >
           Reset

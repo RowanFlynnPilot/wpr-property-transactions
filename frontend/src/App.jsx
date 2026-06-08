@@ -11,7 +11,14 @@ import { weekStartISO, weekLabel } from "./lib/format.js";
 // after first paint, behind a placeholder that reserves its height.
 const MunicipalityMap = lazy(() => import("./components/MunicipalityMap.jsx"));
 
-const EMPTY_FILTERS = { week: "", municipality: "", propertyType: "", minPrice: 0, query: "" };
+const EMPTY_FILTERS = {
+  week: "",
+  county: "",
+  municipality: "",
+  propertyType: "",
+  minPrice: 0,
+  query: "",
+};
 const DEFAULT_SORT = { key: "sale_price", dir: "desc" };
 
 export default function App() {
@@ -39,16 +46,24 @@ export default function App() {
         .sort()
         .reverse()
         .map((s) => ({ value: s, label: weekLabel(s) })),
-      municipalities: [...new Set(all.map((r) => r.municipality))].sort(),
+      counties: [...new Set(all.map((r) => r.county))].sort(),
       propertyTypes: [...new Set(all.map((r) => r.property_type))].sort(),
     }),
     [all]
   );
 
-  // Everything EXCEPT the community filter. The map is driven by this so it stays
-  // a full navigator (all communities clickable) while the table/stats/charts
-  // narrow to the selected one.
-  const filteredNoMuni = useMemo(() => {
+  // Community options are scoped to the selected county — municipality names repeat
+  // across counties, so a community filter is only meaningful within one.
+  const municipalities = useMemo(() => {
+    const scoped = filters.county ? all.filter((r) => r.county === filters.county) : all;
+    return [...new Set(scoped.map((r) => r.municipality))].sort();
+  }, [all, filters.county]);
+
+  // Filtering is layered: base (non-geographic) -> + county -> + municipality.
+  // Each viz reads the layer that keeps it useful: the county chart sees all
+  // counties (base), the community chart + map see the selected county (noMuni),
+  // and the table/stats see the full selection (filtered).
+  const base = useMemo(() => {
     const q = filters.query.trim().toLowerCase();
     return all.filter(
       (r) =>
@@ -62,6 +77,11 @@ export default function App() {
           r.grantee.toLowerCase().includes(q))
     );
   }, [all, filters.week, filters.propertyType, filters.minPrice, filters.query]);
+
+  const filteredNoMuni = useMemo(
+    () => (filters.county ? base.filter((r) => r.county === filters.county) : base),
+    [base, filters.county]
+  );
 
   const filtered = useMemo(() => {
     const rows = filters.municipality
@@ -78,10 +98,19 @@ export default function App() {
     });
   }, [filteredNoMuni, filters.municipality, sort]);
 
-  // Click a map bubble to focus the dashboard on that community; click the
-  // already-selected one again to clear.
-  const selectMunicipality = (m) =>
-    setFilters((f) => ({ ...f, municipality: f.municipality === m ? "" : m }));
+  // Click a map bubble to focus the dashboard on that community (county +
+  // municipality); click the already-selected one again to clear the community.
+  const selectMapPoint = (county, muni) =>
+    setFilters((f) =>
+      f.county === county && f.municipality === muni
+        ? { ...f, municipality: "" }
+        : { ...f, county, municipality: muni }
+    );
+
+  const selectedKey =
+    filters.county && filters.municipality
+      ? `${filters.county}|${filters.municipality}`
+      : null;
 
   const onSort = (key) =>
     setSort((s) =>
@@ -119,10 +148,11 @@ export default function App() {
         <header className="masthead">
           <h1>Property Transactions</h1>
           <p className="dek">
-            Real estate sales recorded in Marathon County, Wisconsin over the past
-            month. Source: Wisconsin Department of Revenue Real Estate Transfer
-            Returns. Addresses are shown to the street or block only — use the Week
-            filter to focus on a single week.
+            Real estate sales recorded across Marathon, Lincoln, Langlade, Taylor,
+            Shawano, and Portage counties, Wisconsin over the past month. Source:
+            Wisconsin Department of Revenue Real Estate Transfer Returns. Addresses are
+            shown to the street or block only — use the filters to focus on a county,
+            community, or week.
           </p>
         </header>
 
@@ -130,7 +160,9 @@ export default function App() {
       <PriceCharts
         records={filtered}
         communityRecords={filteredNoMuni}
+        countyRecords={base}
         selected={filters.municipality}
+        selectedCounty={filters.county}
       />
       <Suspense
         fallback={
@@ -142,14 +174,14 @@ export default function App() {
       >
         <MunicipalityMap
           records={filteredNoMuni}
-          selected={filters.municipality}
-          onSelect={selectMunicipality}
+          selectedKey={selectedKey}
+          onSelect={selectMapPoint}
         />
       </Suspense>
 
       <h2>All transactions</h2>
       <Filters
-        options={options}
+        options={{ ...options, municipalities }}
         filters={filters}
         onChange={setFilters}
         resultCount={filtered.length}

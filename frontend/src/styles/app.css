@@ -148,6 +148,11 @@ h2 {
   flex: 1;
   min-height: 0; /* let the flex child shrink so ResponsiveContainer can measure */
 }
+/* Full-width chart spanning both grid columns (the county overview). */
+.chart-wide {
+  grid-column: 1 / -1;
+  min-height: 300px;
+}
 
 /* --- Map ----------------------------------------------------------------- */
 .map-wrap {
