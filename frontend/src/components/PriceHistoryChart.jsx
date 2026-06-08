@@ -1,8 +1,7 @@
 import { useMemo, useState } from "react";
 import {
-  ComposedChart,
+  AreaChart,
   Area,
-  Bar,
   XAxis,
   YAxis,
   Tooltip,
@@ -99,10 +98,6 @@ export default function PriceHistoryChart({ history }) {
     return [Math.max(0, lo), hi];
   }, [data, county]);
 
-  // Right-axis ceiling = 3x the busiest month, so the volume bars sit in the
-  // bottom third as a backdrop rather than competing with the price lines.
-  const maxCount = useMemo(() => Math.max(1, ...data.map((d) => d.count || 0)), [data]);
-
   // Table rows oldest -> newest, matching the chart's left-to-right order.
   const rows = useMemo(
     () =>
@@ -137,7 +132,7 @@ export default function PriceHistoryChart({ history }) {
 
       <div className="history-chart">
         <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart data={data} margin={{ left: 8, right: 12, top: 8 }}>
+          <AreaChart data={data} margin={{ left: 8, right: 16, top: 8 }}>
             <defs>
               <linearGradient id="gradOverall" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={TEAL} stopOpacity={0.16} />
@@ -151,35 +146,15 @@ export default function PriceHistoryChart({ history }) {
             <CartesianGrid stroke="#e6e0d2" vertical={false} />
             <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke="#b8b2a4" tickMargin={8} />
             <YAxis
-              yAxisId="price"
               domain={domain}
               tickFormatter={moneyAxis}
               tick={{ fontSize: 11 }}
               stroke="#b8b2a4"
               width={52}
             />
-            <YAxis
-              yAxisId="vol"
-              orientation="right"
-              domain={[0, maxCount * 3]}
-              tick={{ fontSize: 10 }}
-              stroke="#c9c2b2"
-              width={28}
-              tickCount={3}
-            />
             <Tooltip content={<HistoryTooltip countyName={county} />} cursor={{ fill: "rgba(58,134,124,0.06)" }} />
             <Legend />
-            <Bar
-              yAxisId="vol"
-              dataKey="count"
-              name={`${county} sales`}
-              fill={AMBER}
-              fillOpacity={0.16}
-              radius={[2, 2, 0, 0]}
-              isAnimationActive={false}
-            />
             <Area
-              yAxisId="price"
               type="monotone"
               dataKey="Overall"
               name="Region overall"
@@ -192,7 +167,6 @@ export default function PriceHistoryChart({ history }) {
               isAnimationActive={false}
             />
             <Area
-              yAxisId="price"
               type="monotone"
               dataKey={county}
               name={`${county} median`}
@@ -204,7 +178,7 @@ export default function PriceHistoryChart({ history }) {
               connectNulls
               isAnimationActive={false}
             />
-          </ComposedChart>
+          </AreaChart>
         </ResponsiveContainer>
       </div>
 

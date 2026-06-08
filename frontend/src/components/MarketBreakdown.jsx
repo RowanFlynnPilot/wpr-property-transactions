@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import { pctChange, fmtPct } from "../lib/format.js";
+import { median, money, moneyCompact, pctChange, fmtPct } from "../lib/format.js";
 
 const TYPE_COLORS = ["#3a867c", "#4aaba7", "#c8922e", "#32373c", "#9ab8b1"];
 const TYPE_LABEL = {
@@ -10,6 +10,17 @@ const TYPE_LABEL = {
   Condominium: "Condominium",
 };
 const typeLabel = (t) => TYPE_LABEL[t] || t;
+
+function monthShort(key) {
+  const [y, m] = key.split("-").map(Number);
+  return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "short", year: "2-digit" });
+}
+
+function signedMoney(n) {
+  if (n == null) return "—";
+  const sign = n > 0 ? "+" : n < 0 ? "−" : "";
+  return sign + money(Math.abs(n));
+}
 
 function DonutTooltip({ active, payload, total }) {
   if (!active || !payload?.length) return null;
@@ -37,82 +48,118 @@ export default function MarketBreakdown({ records, history }) {
 
   const total = byType.reduce((a, b) => a + b.value, 0);
 
-  const movers = useMemo(() => {
-    if (!history) return [];
+  const { rows, curMonth } = useMemo(() => {
+    if (!history) return { rows: [], curMonth: "" };
     const last = history.months.length - 1;
-    return (history.counties ?? [])
+    const rows = (history.counties ?? [])
       .map((c) => {
         const s = history.series[c] ?? [];
-        return { county: c, change: pctChange(s[last], s[0]) };
+        const cnt = history.counts[c] ?? [];
+        const median12 = median(s.filter((v) => v != null));
+        const curMedian = s[last];
+        return {
+          county: c,
+          median12,
+          totalSales: cnt.reduce((a, b) => a + (b || 0), 0),
+          curMedian,
+          curSales: cnt[last] ?? 0,
+          diffDollar: curMedian != null && median12 != null ? curMedian - median12 : null,
+          diffPct: pctChange(curMedian, median12),
+        };
       })
-      .filter((m) => m.change != null)
-      .sort((a, b) => b.change - a.change);
+      .sort((a, b) => b.median12 - a.median12);
+    return { rows, curMonth: monthShort(history.months[last]) };
   }, [history]);
-
-  const maxAbs = Math.max(0.0001, ...movers.map((m) => Math.abs(m.change)));
 
   if (!records.length) return null;
 
   return (
     <section className="breakdown" aria-label="Market breakdown">
+      {rows.length > 0 && (
+        <figure className="breakdown-card county-detail">
+          <figcaption>County market detail · trailing 12 months</figcaption>
+          <div className="table-wrap">
+            <table className="county-table">
+              <thead>
+                <tr>
+                  <th>County</th>
+                  <th className="num">12-mo median</th>
+                  <th className="num">12-mo sales</th>
+                  <th className="num">{curMonth} median</th>
+                  <th className="num">{curMonth} sales</th>
+                  <th className="num">Δ vs 12-mo</th>
+                  <th className="num">Δ %</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((r) => {
+                  const up = (r.diffDollar ?? 0) >= 0;
+                  return (
+                    <tr key={r.county}>
+                      <td>{r.county}</td>
+                      <td className="num mono">{money(r.median12)}</td>
+                      <td className="num mono">{r.totalSales.toLocaleString()}</td>
+                      <td className="num mono">{r.curMedian == null ? "—" : money(r.curMedian)}</td>
+                      <td className="num mono">{r.curSales.toLocaleString()}</td>
+                      <td className={`num mono diff ${r.diffDollar == null ? "" : up ? "pos" : "neg"}`}>
+                        {signedMoney(r.diffDollar)}
+                      </td>
+                      <td className={`num mono diff ${r.diffPct == null ? "" : up ? "pos" : "neg"}`}>
+                        {fmtPct(r.diffPct)}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p className="movers-foot">
+            “12-mo median” is the median of the trailing 12 monthly medians; Δ compares the
+            current month to it. The current month is still accruing recordings.
+          </p>
+        </figure>
+      )}
+
       <figure className="breakdown-card breakdown-donut">
         <figcaption>Sales by property type</figcaption>
-        <div className="donut-body">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={byType}
-                dataKey="value"
-                nameKey="name"
-                innerRadius="58%"
-                outerRadius="86%"
-                paddingAngle={2}
-                stroke="none"
-                isAnimationActive={false}
-              >
-                {byType.map((_, i) => (
-                  <Cell key={i} fill={TYPE_COLORS[i % TYPE_COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip content={<DonutTooltip total={total} />} />
-            </PieChart>
-          </ResponsiveContainer>
-          <div className="donut-center">
-            <div className="donut-total">{total.toLocaleString()}</div>
-            <div className="donut-total-label">sales</div>
+        <div className="donut-row">
+          <div className="donut-body">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={byType}
+                  dataKey="value"
+                  nameKey="name"
+                  innerRadius="58%"
+                  outerRadius="86%"
+                  paddingAngle={2}
+                  stroke="none"
+                  isAnimationActive={false}
+                >
+                  {byType.map((_, i) => (
+                    <Cell key={i} fill={TYPE_COLORS[i % TYPE_COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip content={<DonutTooltip total={total} />} />
+              </PieChart>
+            </ResponsiveContainer>
+            <div className="donut-center">
+              <div className="donut-total">{total.toLocaleString()}</div>
+              <div className="donut-total-label">sales</div>
+            </div>
           </div>
-        </div>
-        <ul className="donut-legend">
-          {byType.map((d, i) => (
-            <li key={d.name}>
-              <span className="lg-swatch" style={{ background: TYPE_COLORS[i % TYPE_COLORS.length] }} />
-              {d.name}
-              <span className="lg-val">{total ? Math.round((d.value / total) * 100) : 0}%</span>
-            </li>
-          ))}
-        </ul>
-      </figure>
-
-      <figure className="breakdown-card breakdown-movers">
-        <figcaption>12-month change by county</figcaption>
-        <ul className="movers">
-          {movers.map((m) => {
-            const up = m.change >= 0;
-            return (
-              <li key={m.county}>
-                <span className="mover-name">{m.county}</span>
-                <span className="mover-track">
-                  <span
-                    className={`mover-fill ${up ? "up" : "down"}`}
-                    style={{ width: `${(Math.abs(m.change) / maxAbs) * 100}%` }}
-                  />
+          <ul className="donut-legend">
+            {byType.map((d, i) => (
+              <li key={d.name}>
+                <span className="lg-swatch" style={{ background: TYPE_COLORS[i % TYPE_COLORS.length] }} />
+                {d.name}
+                <span className="lg-val">
+                  {d.value.toLocaleString()} · {total ? Math.round((d.value / total) * 100) : 0}%
                 </span>
-                <span className={`mover-val ${up ? "up" : "down"}`}>{fmtPct(m.change)}</span>
               </li>
-            );
-          })}
-        </ul>
-        <p className="movers-foot">Median sale price, most recent month vs. 12 months ago.</p>
+            ))}
+          </ul>
+        </div>
       </figure>
     </section>
   );

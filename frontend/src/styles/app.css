@@ -618,8 +618,8 @@ h2 {
 
 /* --- Market breakdown (donut + movers) ----------------------------------- */
 .breakdown {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
@@ -780,5 +780,310 @@ h2 {
   * {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* --- Sponsor strip ------------------------------------------------------- */
+.sponsor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0.5rem 0.9rem;
+  background: #fff;
+  border: 1px solid var(--wpr-rule);
+  border-left: 3px solid var(--wpr-gold);
+  box-shadow: var(--shadow);
+}
+.sponsor-kicker {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--wpr-slate);
+}
+.sponsor-by,
+.sponsor-pitch {
+  font-size: 0.82rem;
+  color: #666;
+}
+.sponsor-by strong,
+.sponsor-by a {
+  color: var(--wpr-teal);
+}
+.sponsor-slot {
+  font-weight: 700;
+  color: var(--wpr-gold);
+  border-bottom: 2px dotted var(--wpr-gold);
+}
+.sponsor-logo {
+  max-height: 22px;
+  vertical-align: middle;
+}
+
+/* --- Biggest deals ------------------------------------------------------- */
+.deals {
+  margin: 1.75rem 0;
+}
+.deals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.deal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  background: #fff;
+  border: 1px solid var(--wpr-rule);
+  border-top: 3px solid var(--wpr-gold);
+  box-shadow: var(--shadow);
+  padding: 0.9rem 1rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.deal-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+.deal-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.deal-rank {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: #bbb;
+}
+.deal-price {
+  font-family: var(--font-data);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--wpr-teal);
+}
+.deal-addr {
+  font-weight: 600;
+  color: var(--wpr-ink);
+}
+.deal-loc {
+  font-size: 0.82rem;
+  color: #666;
+}
+.deal-type {
+  font-size: 0.76rem;
+  color: #888;
+}
+.deal-parties {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  font-size: 0.76rem;
+  color: #444;
+  margin-top: 0.15rem;
+}
+.deal-arrow {
+  color: var(--wpr-gold);
+  font-weight: 700;
+}
+.deal-date {
+  font-size: 0.72rem;
+  color: #999;
+  margin-top: auto;
+  padding-top: 0.35rem;
+}
+
+/* --- County detail table ------------------------------------------------- */
+.county-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  background: #fff;
+}
+.county-table th {
+  text-align: left;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #666;
+  border-bottom: 2px solid var(--wpr-ink);
+  padding: 0.45rem 0.6rem;
+  white-space: nowrap;
+}
+.county-table td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--wpr-rule);
+  white-space: nowrap;
+}
+.county-table .num {
+  text-align: right;
+}
+.county-table .mono {
+  font-family: var(--font-data);
+}
+.county-table tbody tr:hover td {
+  background: #e9f3f1;
+}
+.county-table .diff.pos {
+  color: var(--wpr-up);
+  font-weight: 600;
+}
+.county-table .diff.neg {
+  color: var(--wpr-down);
+  font-weight: 600;
+}
+
+/* --- Donut row (donut + side legend) ------------------------------------- */
+.donut-row {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+.donut-row .donut-body {
+  flex: 0 0 220px;
+  width: 220px;
+  height: 220px;
+}
+.donut-row .donut-legend {
+  flex: 1;
+  margin-top: 0;
+}
+
+/* --- Share card ---------------------------------------------------------- */
+.share {
+  margin: 1.75rem 0;
+}
+.share-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.share-head h2 {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.share-btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: var(--wpr-teal);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.share-btn:hover {
+  background: #2f6f66;
+}
+.share-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.share-card {
+  max-width: 480px;
+  margin-top: 1rem;
+  background: #fff;
+  border: 1px solid var(--wpr-rule);
+  border-top: 4px solid var(--wpr-teal);
+  box-shadow: var(--shadow-lg);
+  padding: 1.5rem 1.6rem;
+}
+.share-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.share-logo {
+  height: 30px;
+}
+.share-tag {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: var(--wpr-gold);
+}
+.share-scope {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--wpr-ink);
+  margin-top: 1rem;
+}
+.share-month {
+  font-size: 0.74rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.share-median {
+  font-family: var(--font-data);
+  font-weight: 600;
+  font-size: 2.6rem;
+  line-height: 1.05;
+  color: var(--wpr-teal);
+  margin-top: 0.5rem;
+}
+.share-sublabel {
+  font-size: 0.85rem;
+  color: #555;
+}
+.share-sublabel .up {
+  color: var(--wpr-up);
+  font-weight: 600;
+}
+.share-sublabel .down {
+  color: var(--wpr-down);
+  font-weight: 600;
+}
+.share-spark {
+  margin: 0.8rem 0;
+}
+.share-spark .spark {
+  width: 100%;
+  height: 60px;
+}
+.share-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--wpr-rule);
+  padding-top: 0.7rem;
+  margin-top: 0.4rem;
+  font-size: 0.72rem;
+  color: #888;
+}
+.share-sponsor {
+  color: var(--wpr-gold);
+  font-weight: 600;
+}
+
+@media (max-width: 820px) {
+  .deals-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .donut-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .donut-row .donut-body {
+    flex: none;
+    width: 100%;
+  }
+}
+@media (max-width: 520px) {
+  .deals-grid {
+    grid-template-columns: 1fr;
   }
 }

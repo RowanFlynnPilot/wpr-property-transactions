@@ -1,11 +1,14 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import Masthead from "./components/Masthead.jsx";
 import KpiHero from "./components/KpiHero.jsx";
+import SponsorStrip from "./components/SponsorStrip.jsx";
+import BiggestDeals from "./components/BiggestDeals.jsx";
 import Filters from "./components/Filters.jsx";
 import TransactionTable from "./components/TransactionTable.jsx";
 import PriceCharts from "./components/PriceCharts.jsx";
 import PriceHistoryChart from "./components/PriceHistoryChart.jsx";
 import MarketBreakdown from "./components/MarketBreakdown.jsx";
+import ShareCard from "./components/ShareCard.jsx";
 import { weekStartISO, weekLabel } from "./lib/format.js";
 
 // The Leaflet map is the heaviest dependency and sits below the fold, so it's
@@ -162,6 +165,7 @@ export default function App() {
     <>
       <Masthead />
       <main className="page">
+        <SponsorStrip />
         <header className="masthead">
           <h1>Property Transactions</h1>
           <p className="dek">
@@ -174,6 +178,7 @@ export default function App() {
         </header>
 
       <KpiHero history={history} records={all} selectedCounty={filters.county} />
+      <BiggestDeals records={all} selectedCounty={filters.county} />
       <PriceHistoryChart history={history} />
       <PriceCharts
         records={filtered}
@@ -184,6 +189,7 @@ export default function App() {
         onSelectCounty={selectCounty}
       />
       <MarketBreakdown records={filtered} history={history} />
+      <ShareCard history={history} selectedCounty={filters.county} />
       <Suspense
         fallback={
           <section className="map-section">
