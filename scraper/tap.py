@@ -111,8 +111,11 @@ def _dump_diagnostics(page: Page, context, county: str) -> None:
 
 
 def _run_flow(page: Page, county: str, d_from: str, d_to: str, dest_dir: Path) -> Path:
-    page.goto(config.TAP_RETR_URL, wait_until="networkidle")
-    page.wait_for_timeout(3000)
+    # NOT networkidle: GenTax's FWDC.loadManager polls continuously, so the page
+    # often never reaches network-idle and goto times out. Wait for the DOM, then
+    # for the specific control we're about to use.
+    page.goto(config.TAP_RETR_URL, wait_until="domcontentloaded")
+    page.wait_for_selector(config.SEL_DISCLAIMER_AGREE)
     page.click(config.SEL_DISCLAIMER_AGREE)
     page.wait_for_timeout(2000)
     page.click(config.SEL_ADVANCED_MODE)
@@ -140,8 +143,10 @@ def _run_flow(page: Page, county: str, d_from: str, d_to: str, dest_dir: Path) -
     page.wait_for_timeout(1500)
 
     page.click(config.SEL_SEARCH)
-    page.wait_for_load_state("networkidle")
-    page.wait_for_timeout(5000)
+    # Results paint asynchronously; wait for the grid's Select All control rather
+    # than for network-idle (same loadManager caveat as the initial navigation).
+    page.wait_for_selector(config.TXT_SELECT_ALL)
+    page.wait_for_timeout(3000)
 
     page.click(config.TXT_SELECT_ALL)
     page.wait_for_timeout(2000)
