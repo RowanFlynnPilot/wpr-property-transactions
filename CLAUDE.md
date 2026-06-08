@@ -86,6 +86,10 @@ accepted; an XML export exists for full party lists, but we use one path — CSV
 - Generate Report needs a selection first, else "Please select at least one return."
 - Find the criterion "Type" dropdown by polling for an unset select that offers
   "Date recorded" as an option; fail loudly if it never paints.
+- **Never wait on `networkidle`.** GenTax's `FWDC.loadManager` polls continuously, so the
+  page rarely reaches network-idle and `goto`/`wait_for_load_state("networkidle")` time out
+  intermittently (it bit the first 30-day runner run). Use `wait_until="domcontentloaded"`
+  plus an explicit `wait_for_selector` on the control each step needs.
 
 ## Architecture (the one pipeline)
 
@@ -123,14 +127,15 @@ parcel number re-identifies the exact property, defeating decision (3). This ext
 editor's intent beyond her literal answers — flagged to her for confirmation. To re-include
 it, add the field to `PublishedRecord` and map it in `policy.apply_policy`.
 
-Live check: a 7-day Marathon window yields 144 scraped → **93 published** (sales ≥ $1,000),
-median ~$226k, zero house numbers, no parcel IDs.
+Live check: a 30-day Marathon window (the default — see `DATE_WINDOW_DAYS`) yields
+**224 published** sales ≥ $1,000 across four weeks, zero house numbers, no parcel IDs.
+The frontend defaults to the whole month with a week-level drill-down filter.
 
 ## Known constraints / gotchas
 
 - **Recording lag.** RETR reflects *recorded* transfers; there is a lag of days-to-weeks
-  between sale, recording, and DOR posting. "This week" means recorded this week. Same lag
-  the reference paper has.
+  between sale, recording, and DOR posting. "This month" means recorded in the trailing
+  30 days. Same lag the reference paper has.
 - **Session timeout.** A scrape session must complete its paginated read within 15 minutes
   or the session is lost. Keep the run tight; do not interleave long sleeps.
 - **Polite scraping.** Public data, but be a good citizen: one report download per county, run
@@ -223,7 +228,7 @@ npm run build                            # -> dist/, deployed to GitHub Pages
 - [x] Scaffold + this CLAUDE.md.
 - [x] Spike: TAP Advanced Search flow + CSV-export path confirmed end-to-end.
 - [x] Scraper implemented against the CSV path; runs end-to-end and writes
-      `data/transactions.json` (verified: 144 returns for a live 7-day Marathon window).
+      `data/transactions.json` (verified: 224 published sales for a live 30-day Marathon window).
 - [x] Editorial policy signed off (2026-06-07) and enforced in scraper/policy.py:
       sales only, ~$1,000 floor, street/block addresses, no parcel ID, community-level map.
 - [x] GitHub Actions weekly cron: verified green on the runner (2026-06-08,
