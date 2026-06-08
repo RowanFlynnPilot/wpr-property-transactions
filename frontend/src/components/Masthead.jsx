@@ -1,4 +1,4 @@
-import { WPR_LOGO, WPR_TAGLINE, WPR_URL } from "../lib/wpr-logo.js";
+import { WPR_LOGO, WPR_MARK, WPR_TAGLINE, WPR_URL } from "../lib/wpr-logo.js";
 
 // Wausau Pilot & Review masthead — the shared newspaper-style header used across
 // WPR widgets: the wordmark (linked home), the tagline, and a dateline, framed by
@@ -19,6 +19,7 @@ export default function Masthead() {
         aria-label="Wausau Pilot & Review home"
         className="wpr-logo-link"
       >
+        <img src={WPR_MARK} alt="" className="wpr-mark" />
         <img src={WPR_LOGO} alt="Wausau Pilot & Review" className="wpr-logo" />
       </a>
       <div className="wpr-tagline">{WPR_TAGLINE}</div>

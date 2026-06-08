@@ -1,7 +1,7 @@
 import { useRef, useState, useMemo } from "react";
 import { toPng } from "html-to-image";
 import Sparkline from "./Sparkline.jsx";
-import { WPR_LOGO } from "../lib/wpr-logo.js";
+import { WPR_LOGO, WPR_MARK } from "../lib/wpr-logo.js";
 import { SPONSOR } from "../lib/sponsor.js";
 import { money, fmtPct, pctChange } from "../lib/format.js";
 
@@ -71,7 +71,10 @@ export default function ShareCard({ history, selectedCounty }) {
 
       <div className="share-card" ref={ref}>
         <div className="share-card-top">
-          <img className="share-logo" src={WPR_LOGO} alt="Wausau Pilot & Review" />
+          <span className="share-brand">
+            <img className="share-mark" src={WPR_MARK} alt="" />
+            <img className="share-logo" src={WPR_LOGO} alt="Wausau Pilot & Review" />
+          </span>
           <span className="share-tag">HOME PRICE REPORT</span>
         </div>
         <div className="share-scope">{data.scopeName}</div>

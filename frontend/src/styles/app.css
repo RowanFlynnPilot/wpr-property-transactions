@@ -22,7 +22,14 @@
   background: #ffffff;
 }
 .wpr-logo-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.wpr-mark {
+  height: 52px;
+  width: auto;
+  flex: none;
 }
 .wpr-logo {
   max-height: 56px;
@@ -1002,6 +1009,15 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+.share-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.share-mark {
+  height: 34px;
+  width: auto;
 }
 .share-logo {
   height: 30px;
