@@ -91,13 +91,13 @@ export default function PriceHistoryChart({ history }) {
     return [Math.max(0, lo), hi];
   }, [data, county]);
 
-  // Table rows, newest month first.
+  // Table rows oldest -> newest, matching the chart's left-to-right order.
   const rows = useMemo(
     () =>
-      [...data].reverse().map((d, idx) => ({
+      data.map((d, idx) => ({
         key: d.key,
         label: fullMonth(d.key),
-        partial: idx === 0, // newest row = current, still-accruing month
+        partial: idx === data.length - 1, // newest (last) row = current, still-accruing month
         overall: d.Overall,
         county: d[county],
         diff: d[county] != null && d.Overall != null ? d[county] - d.Overall : null,
