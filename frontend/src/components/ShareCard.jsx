@@ -58,8 +58,6 @@ export default function ShareCard({ history, selectedCounty }) {
     }
   };
 
-  const sponsorLine = SPONSOR.name ? `Presented by ${SPONSOR.name}` : "Presented by  [ your brand here ]";
-
   return (
     <section className="share" aria-label="Share this report">
       <div className="share-head">
@@ -89,7 +87,17 @@ export default function ShareCard({ history, selectedCounty }) {
         </div>
         <div className="share-foot">
           <span>wausaupilotandreview.com</span>
-          <span className="share-sponsor">{sponsorLine}</span>
+          <span className="share-sponsor">
+            {SPONSOR.name ? (
+              <>
+                Presented by{" "}
+                {SPONSOR.logo && <img className="share-sponsor-logo" src={SPONSOR.logo} alt="" />}
+                <span>{SPONSOR.name}</span>
+              </>
+            ) : (
+              "Presented by  [ your brand here ]"
+            )}
+          </span>
         </div>
       </div>
     </section>

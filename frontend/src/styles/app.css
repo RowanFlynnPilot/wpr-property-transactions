@@ -843,21 +843,34 @@ h2 {
 }
 .sponsor-by,
 .sponsor-pitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   font-size: 0.82rem;
   color: #666;
 }
-.sponsor-by strong,
-.sponsor-by a {
+.sponsor-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   color: var(--wpr-teal);
+  text-decoration: none;
+}
+.sponsor-link:hover .sponsor-name {
+  text-decoration: underline;
+}
+.sponsor-name {
+  font-weight: 700;
+}
+.sponsor-logo {
+  height: 26px;
+  width: auto;
+  display: block;
 }
 .sponsor-slot {
   font-weight: 700;
   color: var(--wpr-gold);
   border-bottom: 2px dotted var(--wpr-gold);
-}
-.sponsor-logo {
-  max-height: 22px;
-  vertical-align: middle;
 }
 
 /* --- Biggest deals ------------------------------------------------------- */
@@ -1144,8 +1157,15 @@ h2 {
   color: #888;
 }
 .share-sponsor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   color: var(--wpr-gold);
   font-weight: 600;
+}
+.share-sponsor-logo {
+  height: 16px;
+  width: auto;
 }
 
 @media (max-width: 820px) {

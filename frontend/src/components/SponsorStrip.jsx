@@ -9,15 +9,17 @@ export default function SponsorStrip() {
       <span className="sponsor-kicker">Wausau-area Home Price Report</span>
       {SPONSOR.name ? (
         <span className="sponsor-by">
-          Presented by{" "}
-          {SPONSOR.logo ? (
-            <img className="sponsor-logo" src={SPONSOR.logo} alt={SPONSOR.name} />
-          ) : SPONSOR.url ? (
-            <a href={SPONSOR.url} target="_blank" rel="noopener noreferrer">
-              {SPONSOR.name}
+          <span className="sponsor-pre">Presented by</span>
+          {SPONSOR.url ? (
+            <a className="sponsor-link" href={SPONSOR.url} target="_blank" rel="noopener noreferrer">
+              {SPONSOR.logo && <img className="sponsor-logo" src={SPONSOR.logo} alt="" />}
+              <span className="sponsor-name">{SPONSOR.name}</span>
             </a>
           ) : (
-            <strong>{SPONSOR.name}</strong>
+            <span className="sponsor-link">
+              {SPONSOR.logo && <img className="sponsor-logo" src={SPONSOR.logo} alt="" />}
+              <strong className="sponsor-name">{SPONSOR.name}</strong>
+            </span>
           )}
         </span>
       ) : (
