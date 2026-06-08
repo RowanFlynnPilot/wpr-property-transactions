@@ -823,11 +823,11 @@ h2 {
 .sponsor-banner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: center;
+  gap: 2.5rem;
   flex-wrap: wrap;
   margin: 1.5rem 0;
-  padding: 0.9rem 1.25rem;
+  padding: 1.1rem 1.25rem;
   background: #fff;
   border: 1px solid var(--wpr-rule);
   border-left: 4px solid var(--wpr-gold);
@@ -845,11 +845,11 @@ h2 {
 .sb-left {
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.15rem;
 }
 .sb-eyebrow {
   font-family: var(--font-body);
-  font-size: 0.66rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -857,7 +857,7 @@ h2 {
   white-space: nowrap;
 }
 .sb-logo {
-  height: 46px;
+  height: 56px;
   width: auto;
   display: block;
 }
@@ -870,7 +870,7 @@ h2 {
 .sb-cta {
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   color: var(--wpr-teal);
   white-space: nowrap;
 }
