@@ -6,6 +6,13 @@
   --wpr-ink: #1a1a1a;
   --wpr-rule: #d8d2c4; /* hairline rules / table borders */
   --wpr-slate: #32373c; /* WPR masthead text/rule color */
+  --wpr-gold: #c8922e; /* premium accent */
+  --wpr-up: #2f8f5f; /* positive delta */
+  --wpr-down: #c0492f; /* negative delta */
+
+  /* Elevation */
+  --shadow: 0 1px 2px rgba(26, 26, 26, 0.05), 0 1px 3px rgba(26, 26, 26, 0.06);
+  --shadow-lg: 0 8px 28px rgba(26, 26, 26, 0.1);
 
   /* Type */
   --font-display: "Playfair Display", Georgia, serif;

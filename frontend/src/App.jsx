@@ -1,10 +1,11 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import Masthead from "./components/Masthead.jsx";
-import SummaryStats from "./components/SummaryStats.jsx";
+import KpiHero from "./components/KpiHero.jsx";
 import Filters from "./components/Filters.jsx";
 import TransactionTable from "./components/TransactionTable.jsx";
 import PriceCharts from "./components/PriceCharts.jsx";
 import PriceHistoryChart from "./components/PriceHistoryChart.jsx";
+import MarketBreakdown from "./components/MarketBreakdown.jsx";
 import { weekStartISO, weekLabel } from "./lib/format.js";
 
 // The Leaflet map is the heaviest dependency and sits below the fold, so it's
@@ -172,7 +173,7 @@ export default function App() {
           </p>
         </header>
 
-      <SummaryStats records={filtered} generatedOn={feed.generated_on} />
+      <KpiHero history={history} records={all} selectedCounty={filters.county} />
       <PriceHistoryChart history={history} />
       <PriceCharts
         records={filtered}
@@ -182,6 +183,7 @@ export default function App() {
         selectedCounty={filters.county}
         onSelectCounty={selectCounty}
       />
+      <MarketBreakdown records={filtered} history={history} />
       <Suspense
         fallback={
           <section className="map-section">

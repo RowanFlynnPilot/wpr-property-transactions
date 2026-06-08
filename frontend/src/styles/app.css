@@ -488,15 +488,297 @@ h2 {
   max-width: 70ch;
 }
 
+/* ======================================================================== */
+/* Premium pass — elevation, KPI hero, market breakdown, motion             */
+/* ======================================================================== */
+
+/* Soft elevation + a refined heading rule across the card surfaces. */
+.chart,
+.history,
+.breakdown-card {
+  box-shadow: var(--shadow);
+}
+h2 {
+  border-bottom-width: 2px;
+  border-bottom-color: var(--wpr-slate);
+}
+
+.history-tip-sub {
+  font-size: 0.74rem;
+  color: #777;
+  margin-top: 0.2rem;
+}
+
+/* --- KPI hero ------------------------------------------------------------ */
+.kpi {
+  margin: 1.25rem 0 1.75rem;
+}
+.kpi-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+.kpi-scope {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #fff;
+  background: var(--wpr-teal);
+  padding: 0.28rem 0.6rem;
+}
+.kpi-trend {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  color: var(--wpr-ink);
+}
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.kpi-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 156px;
+  background: #fff;
+  border: 1px solid var(--wpr-rule);
+  border-top: 3px solid var(--wpr-teal);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.1rem 0.9rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.kpi-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+.kpi-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #777;
+}
+.kpi-value {
+  font-family: var(--font-data);
+  font-weight: 600;
+  font-size: clamp(1.45rem, 3.4vw, 1.8rem);
+  line-height: 1.1;
+  color: var(--wpr-teal);
+  margin-top: 0.3rem;
+}
+.kpi-change.up {
+  color: var(--wpr-up);
+}
+.kpi-change.down {
+  color: var(--wpr-down);
+}
+.kpi-meta {
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+.kpi-sub {
+  font-size: 0.74rem;
+  color: #888;
+}
+.kpi-topsale {
+  line-height: 1.3;
+}
+.kpi-spark {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+.kpi-spark .spark {
+  display: block;
+  width: 100%;
+  height: 36px;
+}
+.delta {
+  font-family: var(--font-data);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.delta.up {
+  color: var(--wpr-up);
+}
+.delta.down {
+  color: var(--wpr-down);
+}
+.delta.flat {
+  color: #888;
+}
+
+/* --- Market breakdown (donut + movers) ----------------------------------- */
+.breakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.breakdown-card {
+  background: #fff;
+  border: 1px solid var(--wpr-rule);
+  padding: 1rem 1.1rem 1rem;
+}
+.breakdown-card figcaption {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--wpr-ink);
+  margin: 0 0 0.6rem 0.1rem;
+}
+.donut-body {
+  position: relative;
+  height: 220px;
+}
+.donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.donut-total {
+  font-family: var(--font-data);
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--wpr-ink);
+}
+.donut-total-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #888;
+}
+.donut-legend {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+  font-size: 0.83rem;
+}
+.donut-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.lg-swatch {
+  width: 11px;
+  height: 11px;
+  flex: none;
+}
+.lg-val {
+  margin-left: auto;
+  font-family: var(--font-data);
+  color: #555;
+}
+.movers {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.movers li {
+  display: grid;
+  grid-template-columns: 84px 1fr 62px;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.85rem;
+}
+.mover-name {
+  color: var(--wpr-ink);
+}
+.mover-track {
+  height: 10px;
+  background: #f0ece1;
+  overflow: hidden;
+}
+.mover-fill {
+  display: block;
+  height: 100%;
+  min-width: 2px;
+}
+.mover-fill.up {
+  background: var(--wpr-up);
+}
+.mover-fill.down {
+  background: var(--wpr-down);
+}
+.mover-val {
+  text-align: right;
+  font-family: var(--font-data);
+  font-weight: 600;
+}
+.mover-val.up {
+  color: var(--wpr-up);
+}
+.mover-val.down {
+  color: var(--wpr-down);
+}
+.movers-foot {
+  margin: 0.85rem 0 0;
+  font-size: 0.76rem;
+  color: #888;
+}
+
+/* --- Subtle entrance motion --------------------------------------------- */
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.kpi,
+.history,
+.charts,
+.breakdown,
+.map-section {
+  animation: riseIn 0.5s ease both;
+}
+
 /* --- Responsive ---------------------------------------------------------- */
-@media (max-width: 760px) {
-  .stats-grid {
+@media (max-width: 880px) {
+  .kpi-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+@media (max-width: 760px) {
   .charts {
+    grid-template-columns: 1fr;
+  }
+  .breakdown {
     grid-template-columns: 1fr;
   }
   .filter-meta {
     margin-left: 0;
+  }
+}
+@media (max-width: 480px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }

@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import {
-  AreaChart,
+  ComposedChart,
   Area,
+  Bar,
   XAxis,
   YAxis,
   Tooltip,
@@ -39,6 +40,7 @@ function HistoryTooltip({ active, payload, label, countyName }) {
   if (!active || !payload?.length) return null;
   const overall = payload.find((p) => p.dataKey === "Overall")?.value;
   const county = payload.find((p) => p.dataKey === countyName)?.value;
+  const count = payload.find((p) => p.dataKey === "count")?.value;
   const diff = county != null && overall != null ? county - overall : null;
   return (
     <div className="history-tip">
@@ -51,6 +53,11 @@ function HistoryTooltip({ active, payload, label, countyName }) {
         <span className="tip-swatch" style={{ background: AMBER }} />
         {countyName}<b>{county == null ? "—" : money(county)}</b>
       </div>
+      {count != null && (
+        <div className="history-tip-sub">
+          {count} {county === 1 ? "sale" : "sales"} in {countyName}
+        </div>
+      )}
       {diff != null && (
         <div className={`history-tip-diff ${diff >= 0 ? "pos" : "neg"}`}>
           {countyName} {diff >= 0 ? "above" : "below"} region by {money(Math.abs(diff))}
@@ -78,6 +85,7 @@ export default function PriceHistoryChart({ history }) {
       month: shortMonth(mo),
       Overall: history.series.Overall?.[i] ?? null,
       [county]: history.series[county]?.[i] ?? null,
+      count: history.counts?.[county]?.[i] ?? 0,
     }));
   }, [history, county]);
 
@@ -90,6 +98,10 @@ export default function PriceHistoryChart({ history }) {
     const hi = Math.ceil(Math.max(...vals) / 20000) * 20000;
     return [Math.max(0, lo), hi];
   }, [data, county]);
+
+  // Right-axis ceiling = 3x the busiest month, so the volume bars sit in the
+  // bottom third as a backdrop rather than competing with the price lines.
+  const maxCount = useMemo(() => Math.max(1, ...data.map((d) => d.count || 0)), [data]);
 
   // Table rows oldest -> newest, matching the chart's left-to-right order.
   const rows = useMemo(
@@ -125,7 +137,7 @@ export default function PriceHistoryChart({ history }) {
 
       <div className="history-chart">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ left: 8, right: 16, top: 8 }}>
+          <ComposedChart data={data} margin={{ left: 8, right: 12, top: 8 }}>
             <defs>
               <linearGradient id="gradOverall" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={TEAL} stopOpacity={0.16} />
@@ -139,15 +151,35 @@ export default function PriceHistoryChart({ history }) {
             <CartesianGrid stroke="#e6e0d2" vertical={false} />
             <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke="#b8b2a4" tickMargin={8} />
             <YAxis
+              yAxisId="price"
               domain={domain}
               tickFormatter={moneyAxis}
               tick={{ fontSize: 11 }}
               stroke="#b8b2a4"
               width={52}
             />
-            <Tooltip content={<HistoryTooltip countyName={county} />} />
+            <YAxis
+              yAxisId="vol"
+              orientation="right"
+              domain={[0, maxCount * 3]}
+              tick={{ fontSize: 10 }}
+              stroke="#c9c2b2"
+              width={28}
+              tickCount={3}
+            />
+            <Tooltip content={<HistoryTooltip countyName={county} />} cursor={{ fill: "rgba(58,134,124,0.06)" }} />
             <Legend />
+            <Bar
+              yAxisId="vol"
+              dataKey="count"
+              name={`${county} sales`}
+              fill={AMBER}
+              fillOpacity={0.16}
+              radius={[2, 2, 0, 0]}
+              isAnimationActive={false}
+            />
             <Area
+              yAxisId="price"
               type="monotone"
               dataKey="Overall"
               name="Region overall"
@@ -160,9 +192,10 @@ export default function PriceHistoryChart({ history }) {
               isAnimationActive={false}
             />
             <Area
+              yAxisId="price"
               type="monotone"
               dataKey={county}
-              name={county}
+              name={`${county} median`}
               stroke={AMBER}
               strokeWidth={2.5}
               fill="url(#gradCounty)"
@@ -171,7 +204,7 @@ export default function PriceHistoryChart({ history }) {
               connectNulls
               isAnimationActive={false}
             />
-          </AreaChart>
+          </ComposedChart>
         </ResponsiveContainer>
       </div>
 

@@ -27,6 +27,19 @@ export function prettyDate(iso) {
   });
 }
 
+// Fractional change cur/prev (e.g. 0.032 for +3.2%); null if not computable.
+export function pctChange(cur, prev) {
+  if (cur == null || prev == null || prev === 0) return null;
+  return (cur - prev) / prev;
+}
+
+// 0.032 -> "+3.2%", -0.05 -> "−5.0%" (real minus sign), null -> "—".
+export function fmtPct(n, digits = 1) {
+  if (n == null) return "—";
+  const sign = n > 0 ? "+" : n < 0 ? "−" : "";
+  return `${sign}${(Math.abs(n) * 100).toFixed(digits)}%`;
+}
+
 export function median(nums) {
   if (!nums.length) return 0;
   const s = [...nums].sort((a, b) => a - b);
