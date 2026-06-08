@@ -1,14 +1,20 @@
 """Apply the editorial publish policy. One responsibility: turn raw scraped
 Transactions into the PublishedRecord set that becomes the world-readable feed.
 
-Editor sign-off (2026-06-07):
+Editor sign-off (2026-06-07), amended (2026-06-08):
   (1) genuine sales only        -> keep conveyance_type in SALE_CONVEYANCE_TYPES
   (2) ~$1,000 floor             -> keep sale_price >= MIN_SALE_PRICE
-  (3) street/block, no house no -> strip leading house/fire number from address
-  (4) never publish mailing     -> already absent from the data model
+  (3) full street address       -> keep the house number; still drop the redundant
+                                   trailing 'City, WI ZIP' (county + municipality are
+                                   separate fields) and any embedded parcel number.
+                                   [AMENDED 2026-06-08: the editor reversed the
+                                   original "street/block, no house number" choice —
+                                   the feed now carries full property addresses.]
+  (4) never publish mailing     -> party NAMES are published (grantor/grantee); their
+                                   mailing addresses are absent from the data model.
   (5) community-level map       -> no geocoordinates published (municipality only)
 
-Redaction happens HERE, before write_json, because the feed is public.
+Address cleaning happens HERE, before write_json, because the feed is public.
 """
 
 import re
@@ -60,22 +66,34 @@ def _strip_leading_number(segment: str) -> str:
     return s
 
 
-def _redact_address(address: str) -> str:
-    """Reduce a raw DOR address to a street/block label:
-      - strip the trailing postal 'City, WI ZIP' (``_strip_city_zip``),
-      - remove any embedded parcel number (withheld per policy),
-      - per comma-segment, drop a leading house/fire number and a stray '&',
-        discard empties, and dedupe — this cleans malformed rows like
-        'Prairie View Cir, 152692 Prairie View Cir' and trailing-comma artifacts,
+def _clean_address(address: str) -> str:
+    """Normalize a raw DOR address to a clean full street address (house number
+    KEPT, per the 2026-06-08 amendment):
+      - strip the trailing postal 'City, WI ZIP' (``_strip_city_zip``) — county and
+        municipality are separate published fields,
+      - remove any embedded parcel number (still withheld),
+      - per comma-segment, drop a stray leading '&' and trailing-comma artifacts,
+        and collapse malformed 'St, <num> St' duplications to the numbered form,
       - title-case the result.
-    Ordinal street names ('15th Street') are kept — they are not house numbers."""
+    `_strip_leading_number` is used only to derive a street key for dedupe — the
+    house number itself is preserved in the output."""
     a = _PARCEL.sub("", _strip_city_zip(address.strip()))
-    seen = []
+    chosen: dict[str, str] = {}  # street key -> display segment
+    order: list[str] = []
     for seg in a.split(","):
-        cleaned = _strip_leading_number(seg).strip(" -").strip()
-        if cleaned and cleaned.lower() not in (s.lower() for s in seen):
-            seen.append(cleaned)
-    return ", ".join(seen).title()
+        s = seg.strip().lstrip("&").strip(" -").strip()
+        if not s:
+            continue
+        key = _strip_leading_number(s).strip(" -").strip().lower()
+        if not key:
+            continue  # segment was only a number
+        has_number = _strip_leading_number(s) != s
+        if key not in chosen:
+            chosen[key] = s
+            order.append(key)
+        elif has_number and _strip_leading_number(chosen[key]) == chosen[key]:
+            chosen[key] = s  # upgrade a bare street to its numbered duplicate
+    return ", ".join(chosen[k] for k in order).title()
 
 
 def _is_publishable(t: Transaction) -> bool:
@@ -95,7 +113,7 @@ def apply_policy(transactions: list[Transaction]) -> list[PublishedRecord]:
             conveyance_type=t.conveyance_type,
             municipality=t.municipality,
             property_type=t.property_type,
-            address=_redact_address(t.address),
+            address=_clean_address(t.address),
             grantor=t.grantor,
             grantee=t.grantee,
             sale_price=t.sale_price,

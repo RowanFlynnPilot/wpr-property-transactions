@@ -41,8 +41,9 @@ class Transaction:
 class PublishedRecord:
     """The public projection of a Transaction, after the editorial policy is
     applied (scraper/policy.py). This is exactly what lands in the world-readable
-    feed: no house number (address is street/block level), no parcel number, no
-    party mailing addresses. If a field isn't here, it is not published.
+    feed: full street address (house number kept; city/ZIP and parcel removed), no
+    parcel number, no party mailing addresses. If a field isn't here, it is not
+    published.
     """
 
     county: str
@@ -52,9 +53,9 @@ class PublishedRecord:
     conveyance_type: str
     municipality: str
     property_type: str
-    address: str              # street/block level — house/fire number stripped
-    grantor: str
-    grantee: str
+    address: str              # full street address (city/ZIP + parcel removed)
+    grantor: str              # seller name
+    grantee: str              # buyer name
     sale_price: int
     acres: float
 

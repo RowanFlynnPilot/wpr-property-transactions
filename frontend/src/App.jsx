@@ -149,9 +149,9 @@ export default function App() {
           <h1>Property Transactions</h1>
           <p className="dek">
             Real estate sales recorded across Marathon, Lincoln, Langlade, Taylor,
-            Shawano, and Portage counties, Wisconsin over the past month. Source:
-            Wisconsin Department of Revenue Real Estate Transfer Returns. Addresses are
-            shown to the street or block only — use the filters to focus on a county,
+            Shawano, and Portage counties, Wisconsin over the past month — property
+            address, seller, buyer, and sale price. Source: Wisconsin Department of
+            Revenue Real Estate Transfer Returns. Use the filters to focus on a county,
             community, or week.
           </p>
         </header>

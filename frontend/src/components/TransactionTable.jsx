@@ -7,7 +7,8 @@ const COLUMNS = [
   { key: "municipality", label: "Community", align: "left" },
   { key: "county", label: "County", align: "left" },
   { key: "property_type", label: "Type", align: "left" },
-  { key: "address", label: "Street / block", align: "left" },
+  { key: "address", label: "Address", align: "left" },
+  { key: "grantor", label: "Seller", align: "left" },
   { key: "grantee", label: "Buyer", align: "left" },
   { key: "sale_price", label: "Price", align: "right" },
 ];
@@ -52,6 +53,7 @@ export default function TransactionTable({ records, sort, onSort }) {
               <td>{r.county}</td>
               <td>{r.property_type}</td>
               <td>{r.address || "—"}</td>
+              <td className="party">{r.grantor}</td>
               <td className="party">{r.grantee}</td>
               <td className="num price">{money(r.sale_price)}</td>
             </tr>
