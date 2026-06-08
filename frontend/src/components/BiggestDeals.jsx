@@ -18,9 +18,11 @@ export default function BiggestDeals({ records, selectedCounty }) {
       </h2>
       <div className="deals-grid">
         {deals.map((d, i) => (
-          <article className="deal-card" key={d.document_number}>
+          <article className={`deal-card${i === 0 ? " deal-first" : ""}`} key={d.document_number}>
+            <span className={`deal-rank${i === 0 ? " deal-rank-first" : ""}`} aria-label={`Rank ${i + 1}`}>
+              {i + 1}
+            </span>
             <div className="deal-top">
-              <span className="deal-rank">#{i + 1}</span>
               <span className="deal-price">{money(d.sale_price)}</span>
             </div>
             <div className="deal-addr">{d.address || "—"}</div>

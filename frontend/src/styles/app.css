@@ -835,12 +835,17 @@ h2 {
 .deals {
   margin: 1.75rem 0;
 }
+.deals h2 {
+  border-bottom-color: var(--wpr-gold);
+}
 .deals-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 1.1rem;
+  padding-top: 14px; /* clearance for the overhanging rank medallions */
 }
 .deal-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.28rem;
@@ -848,24 +853,53 @@ h2 {
   border: 1px solid var(--wpr-rule);
   border-top: 3px solid var(--wpr-gold);
   box-shadow: var(--shadow);
-  padding: 0.9rem 1rem;
+  padding: 1.25rem 1rem 0.95rem;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 .deal-card:hover {
   box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+}
+/* The #1 deal gets a heavier top rule, a soft gold halo, and a bigger price. */
+.deal-first {
+  border-top-width: 4px;
+  box-shadow: 0 3px 10px rgba(200, 146, 46, 0.18), var(--shadow);
+}
+.deal-first .deal-price {
+  font-size: 1.5rem;
 }
 .deal-top {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem;
+  justify-content: flex-end;
+  min-height: 1.7rem;
 }
+/* Rank medallion — overhangs the top-left like a pinned medal. */
 .deal-rank {
-  font-family: var(--font-body);
+  position: absolute;
+  top: -15px;
+  left: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--wpr-gold);
+  border: 2px solid #fff;
+  box-shadow: 0 2px 7px rgba(26, 26, 26, 0.28);
+  color: #fff;
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.72rem;
-  color: #bbb;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+.deal-rank-first {
+  top: -19px;
+  width: 46px;
+  height: 46px;
+  font-size: 1.45rem;
+  background: radial-gradient(circle at 32% 28%, #e7b84e 0%, #c8922e 55%, #a9781f 100%);
+  box-shadow: 0 3px 10px rgba(169, 120, 31, 0.45);
 }
 .deal-price {
   font-family: var(--font-data);
