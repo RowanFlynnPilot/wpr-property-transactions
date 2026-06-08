@@ -8,6 +8,22 @@ export default function Filters({ options, filters, onChange, resultCount, total
   return (
     <section className="filters" aria-label="Filter transactions">
       <div className="filter-field">
+        <label htmlFor="f-week">Week</label>
+        <select
+          id="f-week"
+          value={filters.week}
+          onChange={(e) => set({ week: e.target.value })}
+        >
+          <option value="">Whole month</option>
+          {options.weeks.map((w) => (
+            <option key={w.value} value={w.value}>
+              {w.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="filter-field">
         <label htmlFor="f-muni">Community</label>
         <select
           id="f-muni"
@@ -73,7 +89,7 @@ export default function Filters({ options, filters, onChange, resultCount, total
           type="button"
           className="filter-reset"
           onClick={() =>
-            onChange({ municipality: "", propertyType: "", minPrice: 0, query: "" })
+            onChange({ week: "", municipality: "", propertyType: "", minPrice: 0, query: "" })
           }
         >
           Reset

@@ -4,8 +4,9 @@ import Filters from "./components/Filters.jsx";
 import TransactionTable from "./components/TransactionTable.jsx";
 import PriceCharts from "./components/PriceCharts.jsx";
 import MunicipalityMap from "./components/MunicipalityMap.jsx";
+import { weekStartISO, weekLabel } from "./lib/format.js";
 
-const EMPTY_FILTERS = { municipality: "", propertyType: "", minPrice: 0, query: "" };
+const EMPTY_FILTERS = { week: "", municipality: "", propertyType: "", minPrice: 0, query: "" };
 const DEFAULT_SORT = { key: "sale_price", dir: "desc" };
 
 export default function App() {
@@ -28,6 +29,11 @@ export default function App() {
 
   const options = useMemo(
     () => ({
+      // Weeks present in the feed, newest first, as { value: weekStartISO, label }.
+      weeks: [...new Set(all.map((r) => weekStartISO(r.recorded_date)))]
+        .sort()
+        .reverse()
+        .map((s) => ({ value: s, label: weekLabel(s) })),
       municipalities: [...new Set(all.map((r) => r.municipality))].sort(),
       propertyTypes: [...new Set(all.map((r) => r.property_type))].sort(),
     }),
@@ -38,6 +44,7 @@ export default function App() {
     const q = filters.query.trim().toLowerCase();
     const rows = all.filter(
       (r) =>
+        (!filters.week || weekStartISO(r.recorded_date) === filters.week) &&
         (!filters.municipality || r.municipality === filters.municipality) &&
         (!filters.propertyType || r.property_type === filters.propertyType) &&
         r.sale_price >= filters.minPrice &&

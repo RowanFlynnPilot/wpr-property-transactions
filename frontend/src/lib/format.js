@@ -38,3 +38,25 @@ export function median(nums) {
 export function shortMuni(name) {
   return name.replace(/,\s*(City|Village|Town) of$/, "").trim();
 }
+
+// The Sunday on or before an ISO date, as an ISO string. Anchors records into
+// calendar weeks for the week drill-down filter. Parsed as local to avoid a TZ
+// off-by-one.
+export function weekStartISO(iso) {
+  const [y, m, d] = iso.split("-").map(Number);
+  const dt = new Date(y, m - 1, d);
+  dt.setDate(dt.getDate() - dt.getDay()); // back up to Sunday
+  const mm = String(dt.getMonth() + 1).padStart(2, "0");
+  const dd = String(dt.getDate()).padStart(2, "0");
+  return `${dt.getFullYear()}-${mm}-${dd}`;
+}
+
+// "2026-06-01" -> "Jun 1 – Jun 7, 2026" (the week starting that Sunday).
+export function weekLabel(startISO) {
+  const [y, m, d] = startISO.split("-").map(Number);
+  const start = new Date(y, m - 1, d);
+  const end = new Date(y, m - 1, d + 6);
+  const md = (dt) =>
+    dt.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  return `${md(start)} – ${md(end)}, ${end.getFullYear()}`;
+}
