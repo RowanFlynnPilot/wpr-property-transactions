@@ -59,7 +59,8 @@ export default function PriceCharts({ records }) {
     <section className="charts" aria-label="Price charts">
       <figure className="chart">
         <figcaption>Median sale price by community (top 12)</figcaption>
-        <ResponsiveContainer width="100%" height={Math.max(220, byMuni.length * 28)}>
+        <div className="chart-body">
+        <ResponsiveContainer width="100%" height="100%">
           <BarChart data={byMuni} layout="vertical" margin={{ left: 8, right: 16 }}>
             <CartesianGrid horizontal={false} stroke="#e6e0d2" />
             <XAxis
@@ -82,11 +83,13 @@ export default function PriceCharts({ records }) {
             <Bar dataKey="medianPrice" fill={TEAL} radius={[0, 3, 3, 0]} />
           </BarChart>
         </ResponsiveContainer>
+        </div>
       </figure>
 
       <figure className="chart">
-        <figcaption>How many sales in each price range</figcaption>
-        <ResponsiveContainer width="100%" height={240}>
+        <figcaption>Property sales by price range</figcaption>
+        <div className="chart-body">
+        <ResponsiveContainer width="100%" height="100%">
           <BarChart data={distribution} margin={{ left: 8, right: 16 }}>
             <CartesianGrid vertical={false} stroke="#e6e0d2" />
             <XAxis dataKey="label" tick={{ fontSize: 10 }} stroke="#888" interval={0} />
@@ -102,6 +105,7 @@ export default function PriceCharts({ records }) {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
+        </div>
       </figure>
     </section>
   );

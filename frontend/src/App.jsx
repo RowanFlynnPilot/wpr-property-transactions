@@ -45,12 +45,14 @@ export default function App() {
     [all]
   );
 
-  const filtered = useMemo(() => {
+  // Everything EXCEPT the community filter. The map is driven by this so it stays
+  // a full navigator (all communities clickable) while the table/stats/charts
+  // narrow to the selected one.
+  const filteredNoMuni = useMemo(() => {
     const q = filters.query.trim().toLowerCase();
-    const rows = all.filter(
+    return all.filter(
       (r) =>
         (!filters.week || weekStartISO(r.recorded_date) === filters.week) &&
-        (!filters.municipality || r.municipality === filters.municipality) &&
         (!filters.propertyType || r.property_type === filters.propertyType) &&
         r.sale_price >= filters.minPrice &&
         (!q ||
@@ -59,6 +61,12 @@ export default function App() {
           r.grantor.toLowerCase().includes(q) ||
           r.grantee.toLowerCase().includes(q))
     );
+  }, [all, filters.week, filters.propertyType, filters.minPrice, filters.query]);
+
+  const filtered = useMemo(() => {
+    const rows = filters.municipality
+      ? filteredNoMuni.filter((r) => r.municipality === filters.municipality)
+      : filteredNoMuni;
     const { key, dir } = sort;
     const mul = dir === "asc" ? 1 : -1;
     return [...rows].sort((a, b) => {
@@ -68,7 +76,12 @@ export default function App() {
       if (av > bv) return 1 * mul;
       return 0;
     });
-  }, [all, filters, sort]);
+  }, [filteredNoMuni, filters.municipality, sort]);
+
+  // Click a map bubble to focus the dashboard on that community; click the
+  // already-selected one again to clear.
+  const selectMunicipality = (m) =>
+    setFilters((f) => ({ ...f, municipality: f.municipality === m ? "" : m }));
 
   const onSort = (key) =>
     setSort((s) =>
@@ -123,7 +136,11 @@ export default function App() {
           </section>
         }
       >
-        <MunicipalityMap records={filtered} />
+        <MunicipalityMap
+          records={filteredNoMuni}
+          selected={filters.municipality}
+          onSelect={selectMunicipality}
+        />
       </Suspense>
 
       <h2>All transactions</h2>

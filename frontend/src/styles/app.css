@@ -130,7 +130,12 @@ h2 {
   margin: 0;
   background: #fff;
   border: 1px solid var(--wpr-rule);
-  padding: 1rem 0.75rem 0.5rem;
+  padding: 1rem 0.75rem 0.75rem;
+  /* Flex column so the chart body fills the figure — no dead whitespace, and
+     both charts stay the same height regardless of how many bars each has. */
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
 }
 .chart figcaption {
   font-family: var(--font-body);
@@ -138,6 +143,10 @@ h2 {
   font-size: 0.85rem;
   color: var(--wpr-ink);
   margin: 0 0 0.5rem 0.25rem;
+}
+.chart-body {
+  flex: 1;
+  min-height: 0; /* let the flex child shrink so ResponsiveContainer can measure */
 }
 
 /* --- Map ----------------------------------------------------------------- */
@@ -159,6 +168,11 @@ h2 {
   font-size: 0.8rem;
   color: #777;
   margin-top: 0.5rem;
+}
+.map-hint {
+  font-size: 0.82rem;
+  color: #666;
+  margin: -0.4rem 0 0.6rem;
 }
 
 /* --- Filters ------------------------------------------------------------- */

@@ -14,7 +14,7 @@ function radiusFor(count, max) {
   return 6 + 22 * Math.sqrt(count / max);
 }
 
-export default function MunicipalityMap({ records }) {
+export default function MunicipalityMap({ records, selected, onSelect }) {
   const { points, missing } = useMemo(() => {
     const groups = new Map();
     for (const r of records) {
@@ -39,6 +39,9 @@ export default function MunicipalityMap({ records }) {
   return (
     <section className="map-section" aria-label="Transactions by community">
       <h2>Where the sales were</h2>
+      <p className="map-hint">
+        Bubble size shows the number of sales. {onSelect && "Click a community to filter the page to it."}
+      </p>
       <div className="map-wrap">
         <MapContainer
           center={MARATHON_CENTER}
@@ -50,20 +53,35 @@ export default function MunicipalityMap({ records }) {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {points.map((p) => (
-            <CircleMarker
-              key={p.muni}
-              center={p.center}
-              radius={radiusFor(p.count, maxCount)}
-              pathOptions={{ color: "#3a867c", fillColor: "#4aaba7", fillOpacity: 0.55, weight: 1.5 }}
-            >
-              <Tooltip direction="top">
-                <strong>{shortMuni(p.muni)}</strong>
-                <br />
-                {p.count} {p.count === 1 ? "sale" : "sales"} · median {money(p.medianPrice)}
-              </Tooltip>
-            </CircleMarker>
-          ))}
+          {points.map((p) => {
+            const isSelected = p.muni === selected;
+            return (
+              <CircleMarker
+                key={p.muni}
+                center={p.center}
+                radius={radiusFor(p.count, maxCount)}
+                eventHandlers={onSelect ? { click: () => onSelect(p.muni) } : undefined}
+                pathOptions={{
+                  color: isSelected ? "#2f6f66" : "#3a867c",
+                  fillColor: isSelected ? "#2f6f66" : "#4aaba7",
+                  fillOpacity: isSelected ? 0.85 : 0.55,
+                  weight: isSelected ? 3 : 1.5,
+                }}
+              >
+                <Tooltip direction="top">
+                  <strong>{shortMuni(p.muni)}</strong>
+                  <br />
+                  {p.count} {p.count === 1 ? "sale" : "sales"} · median {money(p.medianPrice)}
+                  {onSelect && (
+                    <>
+                      <br />
+                      <em>{isSelected ? "Click to clear filter" : "Click to filter"}</em>
+                    </>
+                  )}
+                </Tooltip>
+              </CircleMarker>
+            );
+          })}
         </MapContainer>
       </div>
       {missing.length > 0 && (
