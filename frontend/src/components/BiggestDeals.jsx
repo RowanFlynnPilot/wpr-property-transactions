@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { money, prettyDate, muniLabel } from "../lib/format.js";
+import SponsorTag from "./SponsorTag.jsx";
 
 // The month's top sales — the most screenshot-able thing on the page. Scoped to
 // the selected county when one is active.
@@ -13,9 +14,12 @@ export default function BiggestDeals({ records, selectedCounty }) {
 
   return (
     <section className="deals" aria-label="Biggest deals">
-      <h2>
-        Biggest deals · last 30 days{selectedCounty ? ` · ${selectedCounty} County` : ""}
-      </h2>
+      <div className="deals-head">
+        <h2>
+          Biggest deals · last 30 days{selectedCounty ? ` · ${selectedCounty} County` : ""}
+        </h2>
+        <SponsorTag />
+      </div>
       <div className="deals-grid">
         {deals.map((d, i) => (
           <article className={`deal-card${i === 0 ? " deal-first" : ""}`} key={d.document_number}>

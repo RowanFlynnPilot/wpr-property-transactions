@@ -863,7 +863,7 @@ h2 {
   font-weight: 700;
 }
 .sponsor-logo {
-  height: 26px;
+  height: 30px;
   width: auto;
   display: block;
 }
@@ -877,8 +877,42 @@ h2 {
 .deals {
   margin: 1.75rem 0;
 }
-.deals h2 {
-  border-bottom-color: var(--wpr-gold);
+.deals-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--wpr-gold);
+  padding-bottom: 0.35rem;
+  margin: 0 0 1rem;
+}
+.deals-head h2 {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.sponsor-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  padding-bottom: 0.2rem;
+}
+.sponsor-tag-label {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+}
+.sponsor-tag-logo {
+  height: 30px;
+  width: auto;
+}
+.sponsor-tag:hover .sponsor-tag-logo {
+  opacity: 0.82;
 }
 .deals-grid {
   display: grid;
