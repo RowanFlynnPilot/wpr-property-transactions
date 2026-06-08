@@ -105,6 +105,15 @@ export default function App() {
     });
   }, [filteredNoMuni, filters.municipality, sort]);
 
+  // Click a county bar to focus on that county (clears any community); click the
+  // selected one again to clear.
+  const selectCounty = (c) =>
+    setFilters((f) =>
+      f.county === c
+        ? { ...f, county: "", municipality: "" }
+        : { ...f, county: c, municipality: "" }
+    );
+
   // Click a map bubble to focus the dashboard on that community (county +
   // municipality); click the already-selected one again to clear the community.
   const selectMapPoint = (county, muni) =>
@@ -171,6 +180,7 @@ export default function App() {
         countyRecords={base}
         selected={filters.municipality}
         selectedCounty={filters.county}
+        onSelectCounty={selectCounty}
       />
       <Suspense
         fallback={

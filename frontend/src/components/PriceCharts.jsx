@@ -8,12 +8,14 @@ import {
   ResponsiveContainer,
   CartesianGrid,
   Cell,
+  LabelList,
 } from "recharts";
 import { median, money, moneyCompact, shortMuni } from "../lib/format.js";
 
 const TEAL = "#3a867c";
 const TEAL_BRIGHT = "#4aaba7";
-const HIGHLIGHT = "#c8922e"; // amber — marks the selected community against the teal bars
+const HIGHLIGHT = "#c8922e"; // amber — marks the selected county/community against the teal bars
+const LABEL = "#5a564d"; // value-label text
 
 // Price-distribution buckets (whole dollars). Open-ended top bucket.
 const BUCKETS = [
@@ -30,12 +32,50 @@ function bucketLabel([lo, hi]) {
   return `${moneyCompact(lo)}–${moneyCompact(hi)}`;
 }
 
+// Styled tooltip for the median charts (county + community).
+function MedianTooltip({ active, payload }) {
+  if (!active || !payload?.length) return null;
+  const d = payload[0].payload;
+  const title = d.muni ?? d.county;
+  return (
+    <div className="chart-tip">
+      <div className="chart-tip-title">
+        {title}
+        {d.muni && <span className="chart-tip-scope"> · {d.county} Co.</span>}
+      </div>
+      <div className="chart-tip-row">
+        Median<b>{money(d.medianPrice)}</b>
+      </div>
+      <div className="chart-tip-sub">
+        {d.count} {d.count === 1 ? "sale" : "sales"}
+      </div>
+    </div>
+  );
+}
+
+// Styled tooltip for the price-range histogram.
+function CountTooltip({ active, payload }) {
+  if (!active || !payload?.length) return null;
+  const d = payload[0].payload;
+  return (
+    <div className="chart-tip">
+      <div className="chart-tip-title">{d.label}</div>
+      <div className="chart-tip-row">
+        Sales<b>{d.count}</b>
+      </div>
+    </div>
+  );
+}
+
+const TIP_CURSOR = { fill: "rgba(58,134,124,0.08)" };
+
 export default function PriceCharts({
   records,
   communityRecords,
   countyRecords,
   selected,
   selectedCounty,
+  onSelectCounty,
 }) {
   // The county and community comparisons always span all counties/communities
   // (countyRecords/communityRecords = the broader filter layers), so each stays a
@@ -76,7 +116,7 @@ export default function PriceCharts({
         medianPrice: median(g.prices),
       }))
       .sort((a, b) => b.medianPrice - a.medianPrice)
-      .slice(0, 12);
+      .slice(0, 10);
   }, [comparisonRows]);
 
   const distribution = useMemo(() => {
@@ -88,24 +128,38 @@ export default function PriceCharts({
 
   if (!records.length) return null;
 
+  const communityTitle =
+    "Median sale price by community (top 10)" + (selectedCounty ? ` · ${selectedCounty}` : "");
+
   return (
     <section className="charts" aria-label="Price charts">
-      <figure className="chart chart-wide">
-        <figcaption>Median sale price by county</figcaption>
+      <figure className="chart chart-wide chart-clickable">
+        <figcaption>
+          Median sale price by county
+          {onSelectCounty && <span className="chart-hint"> · click a county to filter the page</span>}
+        </figcaption>
         <div className="chart-body">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={byCounty} margin={{ left: 8, right: 16 }}>
+          <BarChart data={byCounty} margin={{ left: 8, right: 16, top: 22 }}>
             <CartesianGrid vertical={false} stroke="#e6e0d2" />
-            <XAxis dataKey="county" tick={{ fontSize: 11 }} stroke="#888" interval={0} />
-            <YAxis tickFormatter={moneyCompact} tick={{ fontSize: 11 }} stroke="#888" />
-            <Tooltip
-              formatter={(v, _n, p) => [`${money(v)} · ${p.payload.count} sales`, "Median"]}
-              cursor={{ fill: "rgba(58,134,124,0.08)" }}
-            />
-            <Bar dataKey="medianPrice" radius={[3, 3, 0, 0]} isAnimationActive={false}>
+            <XAxis dataKey="county" tick={{ fontSize: 11 }} stroke="#b8b2a4" interval={0} tickMargin={6} />
+            <YAxis tickFormatter={moneyCompact} tick={{ fontSize: 11 }} stroke="#b8b2a4" />
+            <Tooltip content={<MedianTooltip />} cursor={TIP_CURSOR} />
+            <Bar
+              dataKey="medianPrice"
+              radius={[3, 3, 0, 0]}
+              isAnimationActive={false}
+              onClick={onSelectCounty ? (d) => onSelectCounty(d.county) : undefined}
+            >
               {byCounty.map((d) => (
                 <Cell key={d.county} fill={d.county === selectedCounty ? HIGHLIGHT : TEAL} />
               ))}
+              <LabelList
+                dataKey="medianPrice"
+                position="top"
+                formatter={moneyCompact}
+                style={{ fontSize: 11, fill: LABEL }}
+              />
             </Bar>
           </BarChart>
         </ResponsiveContainer>
@@ -113,39 +167,29 @@ export default function PriceCharts({
       </figure>
 
       <figure className="chart">
-        <figcaption>Median sale price by community (top 12)</figcaption>
+        <figcaption>{communityTitle}</figcaption>
         <div className="chart-body">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={byMuni} layout="vertical" margin={{ left: 8, right: 16 }}>
+          <BarChart data={byMuni} layout="vertical" margin={{ left: 8, right: 52 }}>
             <CartesianGrid horizontal={false} stroke="#e6e0d2" />
-            <XAxis
-              type="number"
-              tickFormatter={moneyCompact}
-              tick={{ fontSize: 11 }}
-              stroke="#888"
-            />
-            <YAxis
-              type="category"
-              dataKey="muni"
-              width={96}
-              tick={{ fontSize: 11 }}
-              stroke="#888"
-            />
-            <Tooltip
-              formatter={(v, _n, p) => [`${money(v)} · ${p.payload.count} sales`, "Median"]}
-              cursor={{ fill: "rgba(58,134,124,0.08)" }}
-            />
+            <XAxis type="number" tickFormatter={moneyCompact} tick={{ fontSize: 11 }} stroke="#b8b2a4" />
+            <YAxis type="category" dataKey="muni" width={96} tick={{ fontSize: 11 }} stroke="#b8b2a4" />
+            <Tooltip content={<MedianTooltip />} cursor={TIP_CURSOR} />
             <Bar dataKey="medianPrice" radius={[0, 3, 3, 0]} isAnimationActive={false}>
               {byMuni.map((d) => (
                 <Cell
                   key={`${d.county}|${d.muniFull}`}
                   fill={
-                    d.muniFull === selected && d.county === selectedCounty
-                      ? HIGHLIGHT
-                      : TEAL
+                    d.muniFull === selected && d.county === selectedCounty ? HIGHLIGHT : TEAL
                   }
                 />
               ))}
+              <LabelList
+                dataKey="medianPrice"
+                position="right"
+                formatter={moneyCompact}
+                style={{ fontSize: 11, fill: LABEL }}
+              />
             </Bar>
           </BarChart>
         </ResponsiveContainer>
@@ -158,12 +202,9 @@ export default function PriceCharts({
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={distribution} margin={{ left: 8, right: 16 }}>
             <CartesianGrid vertical={false} stroke="#e6e0d2" />
-            <XAxis dataKey="label" tick={{ fontSize: 10 }} stroke="#888" interval={0} />
-            <YAxis allowDecimals={false} tick={{ fontSize: 11 }} stroke="#888" />
-            <Tooltip
-              formatter={(v) => [`${v} sales`, "Count"]}
-              cursor={{ fill: "rgba(58,134,124,0.08)" }}
-            />
+            <XAxis dataKey="label" tick={{ fontSize: 10 }} stroke="#b8b2a4" interval={0} />
+            <YAxis allowDecimals={false} tick={{ fontSize: 11 }} stroke="#b8b2a4" />
+            <Tooltip content={<CountTooltip />} cursor={TIP_CURSOR} />
             <Bar dataKey="count" radius={[3, 3, 0, 0]} isAnimationActive={false}>
               {distribution.map((_, i) => (
                 <Cell key={i} fill={i % 2 ? TEAL_BRIGHT : TEAL} />

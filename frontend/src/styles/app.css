@@ -148,6 +148,48 @@ h2 {
   flex: 1;
   min-height: 0; /* let the flex child shrink so ResponsiveContainer can measure */
 }
+.chart-hint {
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: #999;
+}
+/* Clickable county bars get a pointer cursor. */
+.chart-clickable .recharts-bar-rectangle {
+  cursor: pointer;
+}
+
+/* Styled bar-chart tooltip — newspaper card */
+.chart-tip {
+  background: #fff;
+  border: 1px solid var(--wpr-rule);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 0.5rem 0.65rem;
+  font-size: 0.82rem;
+}
+.chart-tip-title {
+  font-weight: 700;
+  color: var(--wpr-ink);
+  margin-bottom: 0.25rem;
+}
+.chart-tip-scope {
+  font-weight: 400;
+  color: #888;
+}
+.chart-tip-row {
+  display: flex;
+  gap: 1.25rem;
+  color: #444;
+}
+.chart-tip-row b {
+  font-family: var(--font-data);
+  margin-left: auto;
+  color: var(--wpr-ink);
+}
+.chart-tip-sub {
+  font-size: 0.76rem;
+  color: #777;
+  margin-top: 0.2rem;
+}
 /* Full-width chart spanning both grid columns (the county overview). */
 .chart-wide {
   grid-column: 1 / -1;
