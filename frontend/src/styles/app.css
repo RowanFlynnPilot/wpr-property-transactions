@@ -819,58 +819,63 @@ h2 {
   }
 }
 
-/* --- Sponsor strip ------------------------------------------------------- */
-.sponsor {
+/* --- Sponsor banner ------------------------------------------------------ */
+.sponsor-banner {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.25rem;
-  padding: 0.5rem 0.9rem;
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.25rem;
   background: #fff;
   border: 1px solid var(--wpr-rule);
-  border-left: 3px solid var(--wpr-gold);
+  border-left: 4px solid var(--wpr-gold);
   box-shadow: var(--shadow);
-}
-.sponsor-kicker {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--wpr-slate);
-}
-.sponsor-by,
-.sponsor-pitch {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.82rem;
-  color: #666;
-}
-.sponsor-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: var(--wpr-teal);
   text-decoration: none;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
-.sponsor-link:hover .sponsor-name {
-  text-decoration: underline;
+.sponsor-banner:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
 }
-.sponsor-name {
+.page > .sponsor-banner:first-child {
+  margin-top: 0;
+}
+.sb-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+.sb-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.66rem;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #999;
+  white-space: nowrap;
 }
-.sponsor-logo {
-  height: 30px;
+.sb-logo {
+  height: 46px;
   width: auto;
   display: block;
 }
-.sponsor-slot {
+.sb-name {
+  font-family: var(--font-display);
   font-weight: 700;
-  color: var(--wpr-gold);
-  border-bottom: 2px dotted var(--wpr-gold);
+  font-size: 1.2rem;
+  color: var(--wpr-ink);
+}
+.sb-cta {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--wpr-teal);
+  white-space: nowrap;
+}
+.sponsor-banner:hover .sb-cta {
+  text-decoration: underline;
 }
 
 /* --- Biggest deals ------------------------------------------------------- */

@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import Masthead from "./components/Masthead.jsx";
 import KpiHero from "./components/KpiHero.jsx";
-import SponsorStrip from "./components/SponsorStrip.jsx";
+import SponsorBanner from "./components/SponsorBanner.jsx";
 import BiggestDeals from "./components/BiggestDeals.jsx";
 import Filters from "./components/Filters.jsx";
 import TransactionTable from "./components/TransactionTable.jsx";
@@ -165,7 +165,7 @@ export default function App() {
     <>
       <Masthead />
       <main className="page">
-        <SponsorStrip />
+        <SponsorBanner />
         <header className="masthead">
           <h1>Property Transactions</h1>
           <p className="dek">
@@ -179,6 +179,7 @@ export default function App() {
 
       <KpiHero history={history} records={all} selectedCounty={filters.county} />
       <BiggestDeals records={all} selectedCounty={filters.county} />
+      <SponsorBanner label="Sponsored by" />
       <PriceHistoryChart history={history} />
       <PriceCharts
         records={filtered}
@@ -205,6 +206,7 @@ export default function App() {
         />
       </Suspense>
 
+      <SponsorBanner label="Sponsored by" />
       <h2>All transactions</h2>
       <Filters
         options={{ ...options, municipalities }}
