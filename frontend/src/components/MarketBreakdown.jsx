@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { median, money, moneyCompact, pctChange, fmtPct } from "../lib/format.js";
 
@@ -22,31 +22,49 @@ function signedMoney(n) {
   return sign + money(Math.abs(n));
 }
 
-function DonutTooltip({ active, payload, total }) {
+function DonutTooltip({ active, payload, mode, total }) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
-  const pct = total ? Math.round((d.value / total) * 100) : 0;
+  const val = mode === "dollars" ? d.dollars : d.count;
+  const pct = total ? Math.round((val / total) * 100) : 0;
   return (
     <div className="chart-tip">
       <div className="chart-tip-title">{d.name}</div>
       <div className="chart-tip-row">
-        Sales<b>{d.value.toLocaleString()}</b>
+        Sales<b>{d.count.toLocaleString()}</b>
       </div>
-      <div className="chart-tip-sub">{pct}% of sales</div>
+      <div className="chart-tip-row">
+        Volume<b>{money(d.dollars)}</b>
+      </div>
+      <div className="chart-tip-sub">
+        {pct}% of {mode === "dollars" ? "sales dollars" : "sales"}
+      </div>
     </div>
   );
 }
 
 export default function MarketBreakdown({ records, history }) {
+  // 'count' = number of sales; 'dollars' = total sale-price volume.
+  const [mode, setMode] = useState("count");
+
+  // Stable order (by count) so colors stay with each type when toggling metric.
   const byType = useMemo(() => {
-    const counts = new Map();
-    for (const r of records) counts.set(r.property_type, (counts.get(r.property_type) || 0) + 1);
-    return [...counts.entries()]
-      .map(([type, value]) => ({ name: typeLabel(type), value }))
-      .sort((a, b) => b.value - a.value);
+    const agg = new Map();
+    for (const r of records) {
+      const cur = agg.get(r.property_type) || { count: 0, dollars: 0 };
+      cur.count += 1;
+      cur.dollars += r.sale_price;
+      agg.set(r.property_type, cur);
+    }
+    return [...agg.entries()]
+      .map(([type, v]) => ({ name: typeLabel(type), count: v.count, dollars: v.dollars }))
+      .sort((a, b) => b.count - a.count);
   }, [records]);
 
-  const total = byType.reduce((a, b) => a + b.value, 0);
+  const dataKey = mode === "dollars" ? "dollars" : "count";
+  const totalCount = byType.reduce((a, b) => a + b.count, 0);
+  const totalDollars = byType.reduce((a, b) => a + b.dollars, 0);
+  const total = mode === "dollars" ? totalDollars : totalCount;
 
   const { rows, curMonth } = useMemo(() => {
     if (!history) return { rows: [], curMonth: "" };
@@ -121,14 +139,34 @@ export default function MarketBreakdown({ records, history }) {
       )}
 
       <figure className="breakdown-card breakdown-donut">
-        <figcaption>Sales by property type</figcaption>
+        <figcaption className="donut-cap">
+          <span>Sales by property type</span>
+          <span className="donut-toggle" role="group" aria-label="Metric">
+            <button
+              type="button"
+              className={mode === "count" ? "active" : ""}
+              aria-pressed={mode === "count"}
+              onClick={() => setMode("count")}
+            >
+              By count
+            </button>
+            <button
+              type="button"
+              className={mode === "dollars" ? "active" : ""}
+              aria-pressed={mode === "dollars"}
+              onClick={() => setMode("dollars")}
+            >
+              By $ volume
+            </button>
+          </span>
+        </figcaption>
         <div className="donut-row">
           <div className="donut-body">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={byType}
-                  dataKey="value"
+                  dataKey={dataKey}
                   nameKey="name"
                   innerRadius="58%"
                   outerRadius="86%"
@@ -140,24 +178,30 @@ export default function MarketBreakdown({ records, history }) {
                     <Cell key={i} fill={TYPE_COLORS[i % TYPE_COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip content={<DonutTooltip total={total} />} />
+                <Tooltip content={<DonutTooltip mode={mode} total={total} />} />
               </PieChart>
             </ResponsiveContainer>
             <div className="donut-center">
-              <div className="donut-total">{total.toLocaleString()}</div>
-              <div className="donut-total-label">sales</div>
+              <div className="donut-total">
+                {mode === "dollars" ? moneyCompact(totalDollars) : totalCount.toLocaleString()}
+              </div>
+              <div className="donut-total-label">{mode === "dollars" ? "in sales" : "sales"}</div>
             </div>
           </div>
           <ul className="donut-legend">
-            {byType.map((d, i) => (
-              <li key={d.name}>
-                <span className="lg-swatch" style={{ background: TYPE_COLORS[i % TYPE_COLORS.length] }} />
-                {d.name}
-                <span className="lg-val">
-                  {d.value.toLocaleString()} · {total ? Math.round((d.value / total) * 100) : 0}%
-                </span>
-              </li>
-            ))}
+            {byType.map((d, i) => {
+              const val = mode === "dollars" ? d.dollars : d.count;
+              const pct = total ? Math.round((val / total) * 100) : 0;
+              return (
+                <li key={d.name}>
+                  <span className="lg-swatch" style={{ background: TYPE_COLORS[i % TYPE_COLORS.length] }} />
+                  {d.name}
+                  <span className="lg-val">
+                    {mode === "dollars" ? moneyCompact(d.dollars) : d.count.toLocaleString()} · {pct}%
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </figure>
