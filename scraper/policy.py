@@ -22,11 +22,33 @@ from .models import Transaction, PublishedRecord
 # and so do NOT match — they are street names, not house numbers, and are kept.
 _HOUSE_NUMBER = re.compile(r"^([NSEW]?\d+([NSEW]\d+)?|\d+-\d+)$", re.IGNORECASE)
 
+# Trailing postal suffix "<city>, WI <zip>". DOR is inconsistent: the comma before
+# the city is sometimes missing and the city sometimes runs onto the street with
+# only a space (e.g. "Dj Lane Weston, WI 54476"). The state + ZIP is the reliable
+# anchor, so we match on that and remove the city separately.
+_STATE_ZIP = re.compile(r"\s*,?\s*WI\s+\d{5}(?:-\d{4})?\s*$", re.IGNORECASE)
+
+
+def _strip_city_zip(a: str) -> str:
+    """Remove a trailing 'City, WI ZIP' postal suffix, leaving just the street.
+    Only fires when the WI+ZIP anchor is present, so a bare comma elsewhere is
+    never touched."""
+    without_zip = _STATE_ZIP.sub("", a)
+    if without_zip == a:
+        return a  # no postal suffix
+    without_zip = without_zip.strip().rstrip(",").strip()
+    # Drop the city: everything after the last comma, or — when DOR ran the city
+    # onto the street with no comma — the trailing word.
+    if "," in without_zip:
+        return without_zip.rsplit(",", 1)[0].strip()
+    return without_zip.rsplit(" ", 1)[0].strip()
+
 
 def _redact_address(address: str) -> str:
-    """Drop the leading house/fire number; return the road name (title-cased).
-    Addresses with no leading number (rural descriptors, blanks) pass through."""
-    a = address.strip()
+    """Reduce a raw DOR address to a street/block label: strip the trailing postal
+    'City, WI ZIP', drop the leading house/fire number, and title-case the road
+    name. Addresses with no leading number (rural descriptors, blanks) pass through."""
+    a = _strip_city_zip(address.strip())
     if not a:
         return ""
     first, _, rest = a.partition(" ")

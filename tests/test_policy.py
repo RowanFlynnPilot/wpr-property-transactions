@@ -62,6 +62,38 @@ class TestRedactAddress:
         assert _redact_address("225 GRAND AVE") == "Grand Ave"
 
 
+class TestStripCityZip:
+    """Trailing 'City, WI ZIP' postal suffix is removed, leaving the street only.
+    Inputs use the raw uppercase DOR form."""
+
+    def test_comma_delimited_city(self):
+        assert _redact_address("FOLZ ROAD, STRATFORD, WI 54484") == "Folz Road"
+
+    def test_comma_city_with_house_number(self):
+        assert _redact_address("225 JAMES STREET, KRONENWETTER, WI 54455") == "James Street"
+
+    def test_no_comma_before_state(self):
+        assert _redact_address("11TH STREET, MOSINEE WI 54455") == "11Th Street"
+
+    def test_no_comma_before_city(self):
+        # City runs onto the street with only a space.
+        assert _redact_address("DJ LANE WESTON, WI 54476") == "Dj Lane"
+        assert _redact_address("SILVER BIRCH CIRCLE ELAND, WI 54427") == "Silver Birch Circle"
+
+    def test_multi_word_street_with_city(self):
+        assert (
+            _redact_address("VACANT LAND ON COUNTY ROAD F, SPENCER, WI 54479")
+            == "Vacant Land On County Road F"
+        )
+
+    def test_zip_plus_four(self):
+        assert _redact_address("BROWN STREET, WAUSAU, WI 54403-1234") == "Brown Street"
+
+    def test_no_postal_suffix_unchanged(self):
+        # A street with no WI+ZIP anchor is left alone (and a stray comma is safe).
+        assert _redact_address("OKEEFE DR") == "Okeefe Dr"
+
+
 class TestIsPublishable:
     def test_sale_above_floor_is_published(self):
         assert _is_publishable(_txn(conveyance_type="Sale", sale_price=1000)) is True
