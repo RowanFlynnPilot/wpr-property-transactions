@@ -26,6 +26,16 @@ DATE_WINDOW_DAYS = 30
 # --- Output ---------------------------------------------------------------
 OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "transactions.json"
 
+# --- Price history (rolling 12-month monthly median by county + overall) ---
+# TAP caps any single search at 1000 returns (spike-confirmed), so history is
+# pulled one calendar month per county at a time (each month is well under the
+# cap) and bucketed. Ongoing runs re-pull only the trailing REFRESH months (late
+# recordings settle) plus any month missing from the committed series; the first
+# run backfills all HISTORY_MONTHS.
+HISTORY_MONTHS = 12
+HISTORY_REFRESH_MONTHS = 2
+HISTORY_OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "price_history.json"
+
 # --- Browser --------------------------------------------------------------
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "

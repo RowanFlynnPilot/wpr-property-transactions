@@ -1,0 +1,64 @@
+name: price-history
+
+# Monthly: rebuild the rolling 12-month median trend (data/price_history.json).
+# Runs on the 2nd of each month (prior month has closed) and on demand. The first
+# run backfills all 12 months (~72 small pulls); later runs re-pull only the
+# trailing months, so they're light.
+on:
+  schedule:
+    - cron: "0 11 2 * *"   # 11:00 UTC on the 2nd (~6am CT)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  actions: write   # dispatch the Pages deploy after a history change
+
+jobs:
+  history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70   # first-run backfill is ~72 sequential TAP pulls
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Build price history
+        env:
+          RETR_TRACE_DIR: ${{ runner.temp }}/pw-trace
+        run: python -m scraper.history
+
+      - name: Upload Playwright trace on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-trace-history
+          path: ${{ runner.temp }}/pw-trace
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Commit history if changed
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/price_history.json
+          if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "data: refresh 12-month price history"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy the refreshed history
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml
