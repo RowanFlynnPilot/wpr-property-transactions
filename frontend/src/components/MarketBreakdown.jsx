@@ -58,7 +58,8 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
   // family, Commercial, Agricultural, …).
   const [dim, setDim] = useState("type");
 
-  // Stable order (by count) so colors stay with each slice when toggling metric.
+  // Aggregate, then lock a stable color to each slice by its count rank — so a
+  // category keeps its color when you flip the metric; only the order changes.
   const groups = useMemo(() => {
     const agg = new Map();
     for (const r of records) {
@@ -69,15 +70,28 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
       agg.set(key, cur);
     }
     const label = dim === "type" ? typeLabel : useLabel;
-    return [...agg.entries()]
-      .map(([key, v]) => ({ name: label(key), count: v.count, dollars: v.dollars }))
-      .sort((a, b) => b.count - a.count);
+    const items = [...agg.entries()].map(([key, v]) => ({
+      name: label(key),
+      count: v.count,
+      dollars: v.dollars,
+    }));
+    items.sort((a, b) => b.count - a.count);
+    items.forEach((it, i) => {
+      it.color = COLORS[i % COLORS.length];
+    });
+    return items;
   }, [records, dim]);
 
   const dataKey = mode === "dollars" ? "dollars" : "count";
   const totalCount = groups.reduce((a, b) => a + b.count, 0);
   const totalDollars = groups.reduce((a, b) => a + b.dollars, 0);
   const total = mode === "dollars" ? totalDollars : totalCount;
+
+  // Display order follows the selected metric, descending.
+  const ordered = useMemo(
+    () => [...groups].sort((a, b) => b[dataKey] - a[dataKey]),
+    [groups, dataKey]
+  );
 
   const { rows, curMonth } = useMemo(() => {
     if (!history) return { rows: [], curMonth: "" };
@@ -198,7 +212,7 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={groups}
+                  data={ordered}
                   dataKey={dataKey}
                   nameKey="name"
                   innerRadius="58%"
@@ -207,8 +221,8 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
                   stroke="none"
                   isAnimationActive={false}
                 >
-                  {groups.map((_, i) => (
-                    <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                  {ordered.map((d, i) => (
+                    <Cell key={i} fill={d.color} />
                   ))}
                 </Pie>
                 <Tooltip content={<DonutTooltip mode={mode} total={total} />} />
@@ -222,12 +236,12 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
             </div>
           </div>
           <ul className="donut-legend">
-            {groups.map((d, i) => {
+            {ordered.map((d) => {
               const val = mode === "dollars" ? d.dollars : d.count;
               const pct = total ? ((val / total) * 100).toFixed(1) : "0.0";
               return (
                 <li key={d.name}>
-                  <span className="lg-swatch" style={{ background: COLORS[i % COLORS.length] }} />
+                  <span className="lg-swatch" style={{ background: d.color }} />
                   {d.name}
                   <span className="lg-val">
                     {mode === "dollars" ? money(d.dollars) : d.count.toLocaleString()} · {pct}%
