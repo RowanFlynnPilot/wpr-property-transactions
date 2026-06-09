@@ -113,6 +113,7 @@ def apply_policy(transactions: list[Transaction]) -> list[PublishedRecord]:
             conveyance_type=t.conveyance_type,
             municipality=t.municipality,
             property_type=t.property_type,
+            property_use=t.property_use,
             address=_clean_address(t.address),
             grantor=t.grantor,
             grantee=t.grantee,

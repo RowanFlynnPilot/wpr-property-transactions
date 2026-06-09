@@ -21,6 +21,7 @@ def _txn(**over):
         municipality="Wausau, City of",
         parcel_id="290-1234",
         property_type="Land and buildings/improvements",
+        property_use="Residential",
         address="225 Grand Ave",
         grantor="DOE, JANE",
         grantee="ROE, RICHARD",

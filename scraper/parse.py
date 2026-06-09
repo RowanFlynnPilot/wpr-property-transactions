@@ -29,6 +29,15 @@ def _acres(raw: str) -> float:
     return float(s) if s else 0.0
 
 
+def _use(raw: str) -> str:
+    """DOR 'Property Use Type' -> a short category. 'Residential (Class 1)' ->
+    'Residential', 'Commercial (Class 2)' -> 'Commercial', etc. '' -> 'Unclassified'.
+    This is the residential/commercial/manufacturing distinction RETR carries; the
+    plain 'Property Type' field is only the structure (land/buildings)."""
+    s = (raw or "").split("(")[0].strip()
+    return s or "Unclassified"
+
+
 def parse_csv(path: Path) -> list[Transaction]:
     with open(path, newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
@@ -42,6 +51,7 @@ def parse_csv(path: Path) -> list[Transaction]:
                 municipality=r["Municipality"].strip(),
                 parcel_id=r["Parcel Number"].strip(),
                 property_type=r["Property Type"].strip(),
+                property_use=_use(r.get("Property Use Type", "")),
                 address=r["Physical Address"].strip(),
                 grantor=r["Grantor Name"].strip(),
                 grantee=r["Grantee Name"].strip(),

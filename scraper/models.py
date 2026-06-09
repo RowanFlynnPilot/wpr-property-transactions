@@ -23,7 +23,8 @@ class Transaction:
     conveyance_type: str      # e.g. "Sale", "Trust (conveyance to)" — sale signal
     municipality: str
     parcel_id: str
-    property_type: str
+    property_type: str        # structure: Land and buildings / Land only / Condominium
+    property_use: str         # DOR class: Residential / Commercial / Manufacturing / ...
     address: str
     grantor: str
     grantee: str
@@ -53,6 +54,7 @@ class PublishedRecord:
     conveyance_type: str
     municipality: str
     property_type: str
+    property_use: str         # Residential / Commercial / Manufacturing / Agricultural / ...
     address: str              # full street address (city/ZIP + parcel removed)
     grantor: str              # seller name
     grantee: str              # buyer name

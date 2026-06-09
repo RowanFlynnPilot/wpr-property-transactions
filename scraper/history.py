@@ -93,7 +93,9 @@ def _pull_month(key: str, today: date, tmp_dir: Path) -> dict:
     for county in config.COUNTIES:
         csv_path = _download(county, d_from, d_to, tmp_dir)
         published = apply_policy(parse_csv(csv_path))
-        prices = [p.sale_price for p in published]
+        # The 12-month trend is the residential home-price headline, so commercial /
+        # manufacturing / ag sales are excluded here (they're kept in the live feed).
+        prices = [p.sale_price for p in published if p.property_use == "Residential"]
         all_prices.extend(prices)
         entry[county] = {"median": _median(prices), "count": len(prices)}
     entry["Overall"] = {"median": _median(all_prices), "count": len(all_prices)}

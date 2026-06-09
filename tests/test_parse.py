@@ -6,7 +6,7 @@ CI on every push and guard the typed projection of the DOR CSV.
 
 import pytest
 
-from scraper.parse import _money, _iso_date, _acres
+from scraper.parse import _money, _iso_date, _acres, _use
 
 
 class TestMoney:
@@ -49,3 +49,14 @@ class TestAcres:
     def test_thousands_separator(self):
         # DOR writes large land parcels with a comma, e.g. a 20,269-acre forest.
         assert _acres("20,269.00") == 20269.0
+
+
+class TestUse:
+    def test_strips_class_suffix(self):
+        assert _use("Residential (Class 1)") == "Residential"
+        assert _use("Commercial (Class 2)") == "Commercial"
+        assert _use("Manufacturing (Class 3)") == "Manufacturing"
+
+    def test_empty_is_unclassified(self):
+        assert _use("") == "Unclassified"
+        assert _use(None) == "Unclassified"
