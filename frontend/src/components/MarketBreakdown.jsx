@@ -43,7 +43,8 @@ function DonutTooltip({ active, payload, mode, total }) {
   );
 }
 
-export default function MarketBreakdown({ records, history }) {
+export default function MarketBreakdown({ records, history, useGroup = "All", use = "Overall" }) {
+  const useWord = use === "Overall" ? "" : `${use.toLowerCase()} `;
   // 'count' = number of sales; 'dollars' = total sale-price volume.
   const [mode, setMode] = useState("count");
 
@@ -71,8 +72,8 @@ export default function MarketBreakdown({ records, history }) {
     const last = history.months.length - 1;
     const rows = (history.counties ?? [])
       .map((c) => {
-        const s = history.series[c] ?? [];
-        const cnt = history.counts[c] ?? [];
+        const s = history.series[useGroup]?.[c] ?? [];
+        const cnt = history.counts[useGroup]?.[c] ?? [];
         const median12 = median(s.filter((v) => v != null));
         const curMedian = s[last];
         return {
@@ -87,7 +88,7 @@ export default function MarketBreakdown({ records, history }) {
       })
       .sort((a, b) => b.median12 - a.median12);
     return { rows, curMonth: monthShort(history.months[last]) };
-  }, [history]);
+  }, [history, useGroup]);
 
   if (!records.length) return null;
 
@@ -95,7 +96,7 @@ export default function MarketBreakdown({ records, history }) {
     <section className="breakdown" aria-label="Market breakdown">
       {rows.length > 0 && (
         <figure className="breakdown-card county-detail">
-          <figcaption>County market detail · trailing 12 months</figcaption>
+          <figcaption>County {useWord}market detail · trailing 12 months</figcaption>
           <div className="table-wrap">
             <table className="county-table">
               <thead>

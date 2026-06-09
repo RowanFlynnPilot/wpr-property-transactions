@@ -10,6 +10,7 @@ import PriceHistoryChart from "./components/PriceHistoryChart.jsx";
 import MarketBreakdown from "./components/MarketBreakdown.jsx";
 import ShareCard from "./components/ShareCard.jsx";
 import { weekStartISO, weekLabel } from "./lib/format.js";
+import { matchesUse, historyGroup } from "./lib/use.js";
 
 // The Leaflet map is the heaviest dependency and sits below the fold, so it's
 // code-split: the initial bundle excludes Leaflet and the map chunk streams in
@@ -17,6 +18,7 @@ import { weekStartISO, weekLabel } from "./lib/format.js";
 const MunicipalityMap = lazy(() => import("./components/MunicipalityMap.jsx"));
 
 const EMPTY_FILTERS = {
+  use: "Overall",
   week: "",
   county: "",
   municipality: "",
@@ -78,6 +80,7 @@ export default function App() {
     const q = filters.query.trim().toLowerCase();
     return all.filter(
       (r) =>
+        matchesUse(r, filters.use) &&
         (!filters.week || weekStartISO(r.recorded_date) === filters.week) &&
         (!filters.propertyType || r.property_type === filters.propertyType) &&
         r.sale_price >= filters.minPrice &&
@@ -87,7 +90,7 @@ export default function App() {
           r.grantor.toLowerCase().includes(q) ||
           r.grantee.toLowerCase().includes(q))
     );
-  }, [all, filters.week, filters.propertyType, filters.minPrice, filters.query]);
+  }, [all, filters.use, filters.week, filters.propertyType, filters.minPrice, filters.query]);
 
   const filteredNoMuni = useMemo(
     () => (filters.county ? base.filter((r) => r.county === filters.county) : base),
@@ -177,10 +180,16 @@ export default function App() {
           </p>
         </header>
 
-      <KpiHero history={history} records={all} selectedCounty={filters.county} />
-      <BiggestDeals records={all} selectedCounty={filters.county} />
+      <KpiHero
+        history={history}
+        records={all}
+        selectedCounty={filters.county}
+        use={filters.use}
+        useGroup={historyGroup(filters.use)}
+      />
+      <BiggestDeals records={all} selectedCounty={filters.county} use={filters.use} />
       <SponsorBanner label="Sponsored by" />
-      <PriceHistoryChart history={history} />
+      <PriceHistoryChart history={history} useGroup={historyGroup(filters.use)} use={filters.use} />
       <PriceCharts
         records={filtered}
         communityRecords={filteredNoMuni}
@@ -189,8 +198,18 @@ export default function App() {
         selectedCounty={filters.county}
         onSelectCounty={selectCounty}
       />
-      <MarketBreakdown records={filtered} history={history} />
-      <ShareCard history={history} selectedCounty={filters.county} />
+      <MarketBreakdown
+        records={filtered}
+        history={history}
+        useGroup={historyGroup(filters.use)}
+        use={filters.use}
+      />
+      <ShareCard
+        history={history}
+        selectedCounty={filters.county}
+        useGroup={historyGroup(filters.use)}
+        use={filters.use}
+      />
       <Suspense
         fallback={
           <section className="map-section">

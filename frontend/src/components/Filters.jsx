@@ -1,4 +1,5 @@
 import { muniLabel } from "../lib/format.js";
+import { USE_OPTIONS } from "../lib/use.js";
 
 // Controlled filter bar. Owns no state itself — App holds the filter object and
 // the derived option lists, so the table, charts, and map all react together.
@@ -7,6 +8,21 @@ export default function Filters({ options, filters, onChange, resultCount, total
 
   return (
     <section className="filters" aria-label="Filter transactions">
+      <div className="filter-field">
+        <label htmlFor="f-use">Property use</label>
+        <select
+          id="f-use"
+          value={filters.use}
+          onChange={(e) => set({ use: e.target.value })}
+        >
+          {USE_OPTIONS.map((u) => (
+            <option key={u} value={u}>
+              {u}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div className="filter-field">
         <label htmlFor="f-week">Week</label>
         <select
@@ -106,7 +122,7 @@ export default function Filters({ options, filters, onChange, resultCount, total
           type="button"
           className="filter-reset"
           onClick={() =>
-            onChange({ week: "", county: "", municipality: "", propertyType: "", minPrice: 0, query: "" })
+            onChange({ use: "Overall", week: "", county: "", municipality: "", propertyType: "", minPrice: 0, query: "" })
           }
         >
           Reset

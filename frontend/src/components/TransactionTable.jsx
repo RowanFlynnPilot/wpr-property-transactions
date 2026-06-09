@@ -1,4 +1,5 @@
 import { money, prettyDate, muniLabel } from "../lib/format.js";
+import { useGroupOf } from "../lib/use.js";
 
 // Sortable table of the filtered records. Sort state lives in App so the header
 // arrows stay in sync. Prices are mono-figure per the WPR data type convention.
@@ -6,7 +7,7 @@ const COLUMNS = [
   { key: "recorded_date", label: "Recorded", align: "left" },
   { key: "municipality", label: "Community", align: "left" },
   { key: "county", label: "County", align: "left" },
-  { key: "property_type", label: "Type", align: "left" },
+  { key: "property_use", label: "Use / type", align: "left" },
   { key: "address", label: "Address", align: "left" },
   { key: "grantor", label: "Seller", align: "left" },
   { key: "grantee", label: "Buyer", align: "left" },
@@ -51,7 +52,12 @@ export default function TransactionTable({ records, sort, onSort }) {
               <td>{prettyDate(r.recorded_date)}</td>
               <td>{muniLabel(r.municipality)}</td>
               <td>{r.county}</td>
-              <td>{r.property_type}</td>
+              <td>
+                <span className={`use-badge use-${useGroupOf(r.property_use).toLowerCase()}`}>
+                  {r.property_use}
+                </span>{" "}
+                <span className="cell-sub">{r.property_type}</span>
+              </td>
               <td>{r.address || "—"}</td>
               <td className="party">{r.grantor}</td>
               <td className="party">{r.grantee}</td>

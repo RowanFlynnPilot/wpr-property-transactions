@@ -13,24 +13,26 @@ function monthLong(key) {
 // A co-branded, downloadable headline card — the "share image". Built from the
 // same history data; carries the WPR wordmark and the sponsor slot, so every share
 // travels with the brand.
-export default function ShareCard({ history, selectedCounty }) {
+export default function ShareCard({ history, selectedCounty, useGroup = "All", use = "Overall" }) {
   const ref = useRef(null);
   const [busy, setBusy] = useState(false);
 
   const data = useMemo(() => {
     if (!history) return null;
-    const key = selectedCounty || "Overall";
-    const med = history.series[key] ?? [];
+    const geoKey = selectedCounty || "Region";
+    const med = history.series[useGroup]?.[geoKey] ?? [];
+    if (!med.length) return null;
     const last = med.length - 1;
     return {
       scopeName: selectedCounty ? `${selectedCounty} County` : "6-County Region",
+      useWord: use === "Overall" ? "" : `${use.toLowerCase()} `,
       med,
       medianNow: med[last],
       yoy: pctChange(med[last], med[0]),
       month: monthLong(history.months[last]),
-      slug: key.toLowerCase(),
+      slug: `${(use === "Overall" ? "all" : use.toLowerCase())}-${(selectedCounty || "region").toLowerCase()}`,
     };
-  }, [history, selectedCounty]);
+  }, [history, selectedCounty, useGroup, use]);
 
   if (!data) return null;
 
@@ -79,7 +81,7 @@ export default function ShareCard({ history, selectedCounty }) {
         <div className="share-month">{data.month}</div>
         <div className="share-median">{money(data.medianNow)}</div>
         <div className="share-sublabel">
-          median sale price ·{" "}
+          {data.useWord}median sale price ·{" "}
           <span className={data.yoy >= 0 ? "up" : "down"}>{fmtPct(data.yoy)} year over year</span>
         </div>
         <div className="share-spark">

@@ -537,6 +537,46 @@ h2 {
   background: var(--wpr-teal);
   padding: 0.28rem 0.6rem;
 }
+.kpi-use {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #fff;
+  background: var(--wpr-gold);
+  padding: 0.28rem 0.55rem;
+}
+
+/* Use badges (Residential / Commercial / Other) */
+.use-badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.use-residential {
+  background: #e3f0ed;
+  color: #2f6f66;
+}
+.use-commercial {
+  background: #f6e9cf;
+  color: #9a6a16;
+}
+.use-other {
+  background: #ece8dc;
+  color: #6b6b6b;
+}
+.cell-sub {
+  color: #888;
+  font-size: 0.82rem;
+}
 .kpi-trend {
   margin: 0;
   font-family: var(--font-display);

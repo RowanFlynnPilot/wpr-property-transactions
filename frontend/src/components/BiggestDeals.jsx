@@ -1,14 +1,17 @@
 import { useMemo } from "react";
 import { money, prettyDate, muniLabel } from "../lib/format.js";
+import { matchesUse, useGroupOf } from "../lib/use.js";
 import SponsorTag from "./SponsorTag.jsx";
 
 // The month's top sales — the most screenshot-able thing on the page. Scoped to
 // the selected county when one is active.
-export default function BiggestDeals({ records, selectedCounty }) {
+export default function BiggestDeals({ records, selectedCounty, use = "Overall" }) {
   const deals = useMemo(() => {
-    const scoped = selectedCounty ? records.filter((r) => r.county === selectedCounty) : records;
+    const scoped = records.filter(
+      (r) => (!selectedCounty || r.county === selectedCounty) && matchesUse(r, use)
+    );
     return [...scoped].sort((a, b) => b.sale_price - a.sale_price).slice(0, 6);
-  }, [records, selectedCounty]);
+  }, [records, selectedCounty, use]);
 
   if (!deals.length) return null;
 
@@ -16,7 +19,9 @@ export default function BiggestDeals({ records, selectedCounty }) {
     <section className="deals" aria-label="Biggest deals">
       <div className="deals-head">
         <h2>
-          Biggest deals · last 30 days{selectedCounty ? ` · ${selectedCounty} County` : ""}
+          Biggest deals · last 30 days
+          {use !== "Overall" ? ` · ${use}` : ""}
+          {selectedCounty ? ` · ${selectedCounty} County` : ""}
         </h2>
         <SponsorTag />
       </div>
@@ -33,7 +38,12 @@ export default function BiggestDeals({ records, selectedCounty }) {
             <div className="deal-loc">
               {muniLabel(d.municipality)} · {d.county} Co.
             </div>
-            <div className="deal-type">{d.property_type}</div>
+            <div className="deal-type">
+              <span className={`use-badge use-${useGroupOf(d.property_use).toLowerCase()}`}>
+                {d.property_use}
+              </span>
+              {d.property_type}
+            </div>
             <div className="deal-parties">
               <span className="deal-party">{d.grantor}</span>
               <span className="deal-arrow">→</span>

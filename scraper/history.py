@@ -1,13 +1,17 @@
-"""Build the rolling 12-month monthly-median price history (per county + overall).
+"""Build the rolling 12-month monthly-median price history.
 
 One responsibility: produce `data/price_history.json`, a tiny aggregate artifact
-(medians + counts, no addresses or names) for the frontend trend chart.
+(medians + counts, no addresses or names) for the frontend trend chart and KPIs.
 
-TAP caps a search at 1000 returns, so each (county, month) is pulled separately
-(well under the cap) and bucketed. Runs are incremental: the trailing
-HISTORY_REFRESH_MONTHS plus any month missing from the committed series are
-re-pulled; older months are reused from the existing file. The first run, with no
-file, backfills the whole window.
+Carries three use groups so the headline follows the Overall/Residential/Commercial
+selector: All (every sale), Residential (DOR Single family + Multi-family), and
+Commercial (DOR Commercial + Manufacturing). For each (group, geography, month) we
+store the median sale price and the sale count, where geography is each county plus
+"Region" (all six combined).
+
+TAP caps a search at 1000 returns, so each (county, month) is pulled separately and
+bucketed. Runs are incremental — the trailing HISTORY_REFRESH_MONTHS plus any month
+missing from the committed series are re-pulled; the first run backfills the window.
 
     python -m scraper.history
 """
@@ -25,10 +29,23 @@ from .parse import parse_csv
 from .policy import apply_policy
 from .tap import download_report
 
-# A backfill makes ~72 sequential TAP pulls; a single transient navigation
-# timeout shouldn't abort the whole run. Each pull opens its own browser, so a
-# retry is a clean fresh attempt.
+# Use groups for the Overall/Residential/Commercial selector. Keep in sync with the
+# frontend grouping (frontend/src/lib/use.js).
+RESIDENTIAL_USES = {"Single family", "Multi-family"}
+COMMERCIAL_USES = {"Commercial", "Manufacturing"}
+USE_GROUPS = ["All", "Residential", "Commercial"]
+
 _PULL_ATTEMPTS = 3
+
+
+def _in_group(use: str, group: str) -> bool:
+    if group == "All":
+        return True
+    if group == "Residential":
+        return use in RESIDENTIAL_USES
+    if group == "Commercial":
+        return use in COMMERCIAL_USES
+    return False
 
 
 def _download(county: str, d_from: date, d_to: date, tmp_dir: Path) -> Path:
@@ -43,7 +60,6 @@ def _download(county: str, d_from: date, d_to: date, tmp_dir: Path) -> Path:
 
 
 def _month_keys(today: date, n: int) -> list[str]:
-    """The n trailing 'YYYY-MM' keys, oldest first, ending with today's month."""
     y, m = today.year, today.month
     keys = []
     for _ in range(n):
@@ -55,52 +71,56 @@ def _month_keys(today: date, n: int) -> list[str]:
 
 
 def _month_bounds(key: str, today: date) -> tuple[date, date]:
-    """First and last day of a 'YYYY-MM' month, clamped to today for the current
-    (still-accruing) month."""
     y, m = (int(p) for p in key.split("-"))
     first = date(y, m, 1)
     last = date(y, m, calendar.monthrange(y, m)[1])
     return first, min(last, today)
 
 
-def _load_existing() -> dict:
-    """Committed series -> {month: {key: {'median': int|None, 'count': int}}}."""
-    path = config.HISTORY_OUTPUT_PATH
-    if not path.exists():
-        return {}
-    data = json.loads(path.read_text(encoding="utf-8"))
-    out: dict[str, dict] = {}
-    for i, month in enumerate(data.get("months", [])):
-        out[month] = {}
-        for key, vals in data.get("series", {}).items():
-            out[month][key] = {
-                "median": vals[i],
-                "count": data.get("counts", {}).get(key, [0] * len(vals))[i],
-            }
-    return out
-
-
 def _median(prices: list[int]) -> int | None:
     return int(round(statistics.median(prices))) if prices else None
 
 
+def _load_existing() -> dict:
+    """Committed file -> {month: {group: {geoKey: {'median','count'}}}}."""
+    path = config.HISTORY_OUTPUT_PATH
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    groups = data.get("useGroups", [])
+    if not groups:  # old (pre-use-group) schema -> force a full rebuild
+        return {}
+    out: dict[str, dict] = {}
+    for i, month in enumerate(data["months"]):
+        out[month] = {}
+        for g in groups:
+            out[month][g] = {}
+            for k, vals in data["series"][g].items():
+                cnt = data["counts"][g][k]
+                out[month][g][k] = {"median": vals[i], "count": cnt[i]}
+    return out
+
+
 def _pull_month(key: str, today: date, tmp_dir: Path) -> dict:
-    """Pull every county for one month and aggregate medians + counts, including
-    an 'Overall' across all counties."""
+    """Pull every county for one month; aggregate medians + counts per use group and
+    geography. Returns {group: {geoKey: {'median','count'}}}."""
     d_from, d_to = _month_bounds(key, today)
-    entry: dict[str, dict] = {}
-    all_prices: list[int] = []
+    by_county = {}
     for county in config.COUNTIES:
-        csv_path = _download(county, d_from, d_to, tmp_dir)
-        published = apply_policy(parse_csv(csv_path))
-        # The 12-month trend is the residential home-price headline, so commercial /
-        # manufacturing / ag sales are excluded here (they're kept in the live feed).
-        prices = [p.sale_price for p in published if p.property_use == "Residential"]
-        all_prices.extend(prices)
-        entry[county] = {"median": _median(prices), "count": len(prices)}
-    entry["Overall"] = {"median": _median(all_prices), "count": len(all_prices)}
-    print(f"  {key}: {entry['Overall']['count']} sales, "
-          f"overall median {entry['Overall']['median']}")
+        published = apply_policy(parse_csv(_download(county, d_from, d_to, tmp_dir)))
+        by_county[county] = [(p.property_use, p.sale_price) for p in published]
+
+    entry = {g: {} for g in USE_GROUPS}
+    for g in USE_GROUPS:
+        region: list[int] = []
+        for county in config.COUNTIES:
+            prices = [pr for (use, pr) in by_county[county] if _in_group(use, g)]
+            entry[g][county] = {"median": _median(prices), "count": len(prices)}
+            region.extend(prices)
+        entry[g]["Region"] = {"median": _median(region), "count": len(region)}
+    print(f"  {key}: All={entry['All']['Region']['count']} "
+          f"Res={entry['Residential']['Region']['count']} "
+          f"Com={entry['Commercial']['Region']['count']}")
     return entry
 
 
@@ -120,26 +140,29 @@ def build() -> None:
         for key in sorted(refresh):
             fresh[key] = _pull_month(key, today, tmp_dir)
 
-    keys = ["Overall", *config.COUNTIES]
-    series = {k: [] for k in keys}
-    counts = {k: [] for k in keys}
+    geo_keys = ["Region", *config.COUNTIES]
+    series = {g: {k: [] for k in geo_keys} for g in USE_GROUPS}
+    counts = {g: {k: [] for k in geo_keys} for g in USE_GROUPS}
     for month in months:
         src = fresh.get(month) or existing.get(month) or {}
-        for k in keys:
-            cell = src.get(k, {"median": None, "count": 0})
-            series[k].append(cell["median"])
-            counts[k].append(cell["count"])
+        for g in USE_GROUPS:
+            gsrc = src.get(g, {})
+            for k in geo_keys:
+                cell = gsrc.get(k, {"median": None, "count": 0})
+                series[g][k].append(cell["median"])
+                counts[g][k].append(cell["count"])
 
     payload = {
         "generated_on": today.isoformat(),
         "months": months,
         "counties": list(config.COUNTIES),
+        "useGroups": USE_GROUPS,
         "series": series,
         "counts": counts,
     }
     config.HISTORY_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     config.HISTORY_OUTPUT_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    print(f"Wrote {len(months)}-month history for {len(keys)} series to "
+    print(f"Wrote {len(months)}-month history ({len(USE_GROUPS)} use groups) to "
           f"{config.HISTORY_OUTPUT_PATH}")
 
 

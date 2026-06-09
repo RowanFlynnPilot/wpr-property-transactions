@@ -69,24 +69,27 @@ function HistoryTooltip({ active, payload, label, countyName }) {
 // Rolling 12-month median trend: the region-wide "Overall" line plus one
 // user-selectable county, with a monthly data table (overall, county, difference)
 // below — both driven by the same county selector. The newest month is partial.
-export default function PriceHistoryChart({ history }) {
+export default function PriceHistoryChart({ history, useGroup = "All", use = "Overall" }) {
   const counties = history?.counties ?? [];
   // `picked` is empty until the user chooses; the effective county falls back to
   // the first one reactively (the component mounts before `history` loads, so a
   // useState initial value would be stuck empty).
   const [picked, setPicked] = useState("");
   const county = picked || counties[0] || "";
+  const useWord = use === "Overall" ? "" : `${use.toLowerCase()} `;
 
   const data = useMemo(() => {
     if (!history) return [];
+    const s = history.series[useGroup] ?? {};
+    const c = history.counts[useGroup] ?? {};
     return history.months.map((mo, i) => ({
       key: mo,
       month: shortMonth(mo),
-      Overall: history.series.Overall?.[i] ?? null,
-      [county]: history.series[county]?.[i] ?? null,
-      count: history.counts?.[county]?.[i] ?? 0,
+      Overall: s.Region?.[i] ?? null,
+      [county]: s[county]?.[i] ?? null,
+      count: c[county]?.[i] ?? 0,
     }));
-  }, [history, county]);
+  }, [history, county, useGroup]);
 
   // Non-zero, padded Y domain (rounded to $20k) so the trend fills the panel
   // instead of hugging the top — these are medians, clearly dollar-labeled.
@@ -117,7 +120,7 @@ export default function PriceHistoryChart({ history }) {
   return (
     <section className="history" aria-label="12-month price trend">
       <div className="history-head">
-        <h2>Median sale price · 12-month trend</h2>
+        <h2>Median {useWord}sale price · 12-month trend</h2>
         <label className="history-pick">
           Compare county
           <select value={county} onChange={(e) => setPicked(e.target.value)}>
