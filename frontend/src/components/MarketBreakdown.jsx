@@ -33,7 +33,7 @@ function DonutTooltip({ active, payload, mode, total }) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   const val = mode === "dollars" ? d.dollars : d.count;
-  const pct = total ? Math.round((val / total) * 100) : 0;
+  const pct = total ? ((val / total) * 100).toFixed(1) : "0.0";
   return (
     <div className="chart-tip">
       <div className="chart-tip-title">{d.name}</div>
@@ -224,13 +224,13 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
           <ul className="donut-legend">
             {groups.map((d, i) => {
               const val = mode === "dollars" ? d.dollars : d.count;
-              const pct = total ? Math.round((val / total) * 100) : 0;
+              const pct = total ? ((val / total) * 100).toFixed(1) : "0.0";
               return (
                 <li key={d.name}>
                   <span className="lg-swatch" style={{ background: COLORS[i % COLORS.length] }} />
                   {d.name}
                   <span className="lg-val">
-                    {mode === "dollars" ? moneyCompact(d.dollars) : d.count.toLocaleString()} · {pct}%
+                    {mode === "dollars" ? money(d.dollars) : d.count.toLocaleString()} · {pct}%
                   </span>
                 </li>
               );
