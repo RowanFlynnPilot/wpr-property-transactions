@@ -689,6 +689,9 @@ h2 {
   text-transform: uppercase;
   letter-spacing: 0.07em;
   color: #777;
+  /* Reserve the top-right corner for the expand button so long labels wrap
+     before colliding with it. */
+  padding-right: 1.9rem;
 }
 .kpi-value {
   font-family: var(--font-data);
@@ -740,6 +743,154 @@ h2 {
 }
 .delta.flat {
   color: #888;
+}
+.kpi-deltawrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+/* Per-card expand button (opens the full-size pop-out chart). */
+.kpi-expand {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 1.65rem;
+  height: 1.65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--wpr-rule);
+  background: #fff;
+  color: #a39d90;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.kpi-expand:hover {
+  color: #fff;
+  background: var(--wpr-teal);
+  border-color: var(--wpr-teal);
+}
+
+/* Text-valued cards (community name, price range) use a smaller, wrappable face
+   than the big mono numeric value. */
+.kpi-value-text {
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  line-height: 1.15;
+}
+.kpi-value-range {
+  font-size: clamp(1.2rem, 2.8vw, 1.55rem);
+}
+
+/* Mini horizontal bars — top communities. */
+.kpi-minibars {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.kpi-minibar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 2.1fr auto;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.66rem;
+  color: #777;
+}
+.kpi-minibar-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.kpi-minibar-track {
+  height: 7px;
+  background: #eee7d8;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.kpi-minibar-fill {
+  display: block;
+  height: 100%;
+  background: var(--wpr-teal);
+  border-radius: 4px;
+}
+.kpi-minibar-val {
+  font-family: var(--font-data);
+  color: #555;
+}
+
+/* Mini histogram — price-range distribution. */
+.kpi-minihist {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  height: 44px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+}
+.kpi-minihist-bar {
+  flex: 1;
+  min-height: 2px;
+  background: var(--wpr-teal);
+  border-radius: 2px 2px 0 0;
+}
+.kpi-minihist-bar:nth-child(even) {
+  background: #4aaba7;
+}
+
+/* Pop-out detail panel — an elevated, in-flow "pop-up" holding the full-size
+   chart for the expanded card. In-flow (not a fixed overlay) so it works inside
+   the auto-height WordPress embed, where a fixed modal would mis-position. */
+.kpi-detail {
+  margin-top: 1.1rem;
+  background: #fff;
+  border: 1px solid var(--wpr-rule);
+  border-top: 3px solid var(--wpr-teal);
+  box-shadow: var(--shadow-lg);
+  animation: riseIn 0.25s ease both;
+}
+.kpi-detail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--wpr-rule);
+}
+.kpi-detail-head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  color: var(--wpr-ink);
+}
+.kpi-detail-close {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--wpr-rule);
+  background: #fff;
+  border-radius: 6px;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #777;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.kpi-detail-close:hover {
+  color: #fff;
+  background: var(--wpr-teal);
+  border-color: var(--wpr-teal);
+}
+.kpi-detail-chart {
+  height: 420px;
+  width: 100%;
+  padding: 1rem 1.1rem 1.1rem;
 }
 
 /* --- Market breakdown (donut + movers) ----------------------------------- */
