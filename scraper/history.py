@@ -30,9 +30,11 @@ from .policy import apply_policy
 from .tap import download_report
 
 # Use groups for the Overall/Residential/Commercial selector. Keep in sync with the
-# frontend grouping (frontend/src/lib/use.js).
-RESIDENTIAL_USES = {"Single family", "Multi-family"}
-COMMERCIAL_USES = {"Commercial", "Manufacturing"}
+# frontend grouping (frontend/src/lib/use.js). Multi-family (apartment/investment
+# property) is grouped with Commercial per the editor — "Residential" means
+# single-family homes.
+RESIDENTIAL_USES = {"Single family"}
+COMMERCIAL_USES = {"Commercial", "Manufacturing", "Multi-family"}
 USE_GROUPS = ["All", "Residential", "Commercial"]
 
 _PULL_ATTEMPTS = 3

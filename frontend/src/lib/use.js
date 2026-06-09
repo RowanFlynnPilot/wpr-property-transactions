@@ -2,8 +2,8 @@
 // DOR's precise category (Single family, Multi-family, Commercial, Manufacturing,
 // Agricultural, Undeveloped land, …) is kept for labels; this maps it to a group.
 // Keep in sync with scraper/history.py (RESIDENTIAL_USES / COMMERCIAL_USES).
-const RESIDENTIAL = new Set(["Single family", "Multi-family"]);
-const COMMERCIAL = new Set(["Commercial", "Manufacturing"]);
+const RESIDENTIAL = new Set(["Single family"]);
+const COMMERCIAL = new Set(["Commercial", "Manufacturing", "Multi-family"]);
 
 export const USE_OPTIONS = ["Overall", "Residential", "Commercial"];
 
