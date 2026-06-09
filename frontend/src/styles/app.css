@@ -25,6 +25,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
+  /* Never let the brand row exceed the masthead, so the wordmark scales down to
+     fit any viewport instead of pushing the page wider than the screen. */
+  max-width: 100%;
 }
 .wpr-mark {
   height: 52px;
@@ -33,9 +36,9 @@
 }
 .wpr-logo {
   max-height: 56px;
-  max-width: 90%;
   height: auto;
   width: auto;
+  min-width: 0;
   object-fit: contain;
 }
 .wpr-tagline {
@@ -293,8 +296,12 @@ h2 {
 .history-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
   font-size: 0.85rem;
+}
+/* The monthly-values table sits in a shared .table-wrap (border + horizontal
+   scroll on narrow screens); space it from the chart above. */
+.history .table-wrap {
+  margin-top: 1rem;
 }
 .history-table th {
   text-align: left;
@@ -462,6 +469,9 @@ h2 {
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--wpr-rule);
   vertical-align: top;
+  /* Let long addresses and ALL-CAPS company names break instead of forcing the
+     table wider than its container in the mid-width (scrollable) zone. */
+  overflow-wrap: anywhere;
 }
 .txn-table tbody tr:nth-child(even) td {
   background: #fbf9f3;
@@ -478,6 +488,75 @@ h2 {
 }
 .txn-table .party {
   max-width: 22ch;
+}
+
+/* Narrow screens (phones, slim embeds): the 8-column grid can't fit, so each
+   row collapses into a labelled card. Every field stays visible — nothing is
+   clipped or hidden behind a horizontal scroll. data-label on each <td> (set in
+   TransactionTable.jsx) supplies the field name via ::before. */
+@media (max-width: 760px) {
+  /* Scoped to the transactions wrapper only — the shared .table-wrap class also
+     wraps the dense numeric County detail table, which keeps its own scroll. */
+  .txn-wrap {
+    overflow-x: visible;
+    border: none;
+  }
+  .txn-table {
+    font-size: 0.92rem;
+  }
+  .txn-table thead {
+    /* Column headers/sort controls don't apply in card mode; the Filters above
+       remain the way to narrow results. */
+    display: none;
+  }
+  .txn-table,
+  .txn-table tbody,
+  .txn-table tr,
+  .txn-table td {
+    display: block;
+    width: 100%;
+  }
+  .txn-table tr {
+    border: 1px solid var(--wpr-rule);
+    border-radius: 8px;
+    margin-bottom: 0.85rem;
+    padding: 0.35rem 0.85rem;
+    background: #fff;
+  }
+  /* Cards instead of zebra/hover backgrounds. */
+  .txn-table tbody tr:nth-child(even) td,
+  .txn-table tbody tr:hover td {
+    background: transparent;
+  }
+  .txn-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding: 0.4rem 0;
+    text-align: right;
+    border-bottom: 1px dotted var(--wpr-rule);
+  }
+  .txn-table tr td:last-child {
+    border-bottom: none;
+  }
+  .txn-table td::before {
+    content: attr(data-label);
+    flex: none;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--wpr-slate);
+    text-align: left;
+  }
+  .txn-table .party {
+    max-width: none;
+  }
+  .txn-table .price {
+    font-size: 1.02rem;
+  }
 }
 
 /* --- States / footer ----------------------------------------------------- */
@@ -851,6 +930,24 @@ h2 {
   .kpi-grid {
     grid-template-columns: 1fr;
   }
+  /* Scale the masthead brand so the wordmark never spills past a phone viewport. */
+  .wpr-masthead {
+    padding: 12px 14px 10px;
+  }
+  .wpr-mark {
+    height: 36px;
+  }
+  .wpr-logo {
+    max-height: 38px;
+  }
+  /* Let the share-card header wrap and trim its padding on narrow screens. */
+  .share-card {
+    padding: 1.25rem 1.15rem;
+  }
+  .share-card-top {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -1182,13 +1279,19 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  max-width: 100%;
+  min-width: 0;
 }
 .share-mark {
   height: 34px;
   width: auto;
+  flex: none;
 }
 .share-logo {
   height: 30px;
+  max-width: 100%;
+  min-width: 0;
+  object-fit: contain;
 }
 .share-tag {
   font-family: var(--font-body);

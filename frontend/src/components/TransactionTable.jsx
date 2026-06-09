@@ -22,7 +22,7 @@ export default function TransactionTable({ records, sort, onSort }) {
   }
 
   return (
-    <div className="table-wrap" role="region" aria-label="Transactions" tabIndex={0}>
+    <div className="table-wrap txn-wrap" role="region" aria-label="Transactions" tabIndex={0}>
       <table className="txn-table">
         <thead>
           <tr>
@@ -49,19 +49,19 @@ export default function TransactionTable({ records, sort, onSort }) {
         <tbody>
           {records.map((r) => (
             <tr key={r.document_number}>
-              <td>{prettyDate(r.recorded_date)}</td>
-              <td>{muniLabel(r.municipality)}</td>
-              <td>{r.county}</td>
-              <td>
+              <td data-label="Recorded">{prettyDate(r.recorded_date)}</td>
+              <td data-label="Community">{muniLabel(r.municipality)}</td>
+              <td data-label="County">{r.county}</td>
+              <td data-label="Use / type">
                 <span className={`use-badge use-${useGroupOf(r.property_use).toLowerCase()}`}>
                   {r.property_use}
                 </span>{" "}
                 <span className="cell-sub">{r.property_type}</span>
               </td>
-              <td>{r.address || "—"}</td>
-              <td className="party">{r.grantor}</td>
-              <td className="party">{r.grantee}</td>
-              <td className="num price">{money(r.sale_price)}</td>
+              <td data-label="Address">{r.address || "—"}</td>
+              <td className="party" data-label="Seller">{r.grantor}</td>
+              <td className="party" data-label="Buyer">{r.grantee}</td>
+              <td className="num price" data-label="Price">{money(r.sale_price)}</td>
             </tr>
           ))}
         </tbody>

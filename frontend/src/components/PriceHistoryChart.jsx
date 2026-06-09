@@ -185,31 +185,33 @@ export default function PriceHistoryChart({ history, useGroup = "All", use = "Ov
         </ResponsiveContainer>
       </div>
 
-      <table className="history-table">
-        <thead>
-          <tr>
-            <th>Month</th>
-            <th className="num">Region overall</th>
-            <th className="num">{county}</th>
-            <th className="num">Difference</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr key={r.key}>
-              <td>
-                {r.label}
-                {r.partial && <span className="partial-tag"> · partial</span>}
-              </td>
-              <td className="num mono">{r.overall == null ? "—" : money(r.overall)}</td>
-              <td className="num mono">{r.county == null ? "—" : money(r.county)}</td>
-              <td className={`num mono diff ${r.diff == null ? "" : r.diff >= 0 ? "pos" : "neg"}`}>
-                {signed(r.diff)}
-              </td>
+      <div className="table-wrap">
+        <table className="history-table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th className="num">Region overall</th>
+              <th className="num">{county}</th>
+              <th className="num">Difference</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.key}>
+                <td>
+                  {r.label}
+                  {r.partial && <span className="partial-tag"> · partial</span>}
+                </td>
+                <td className="num mono">{r.overall == null ? "—" : money(r.overall)}</td>
+                <td className="num mono">{r.county == null ? "—" : money(r.county)}</td>
+                <td className={`num mono diff ${r.diff == null ? "" : r.diff >= 0 ? "pos" : "neg"}`}>
+                  {signed(r.diff)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <p className="history-foot">
         Median sale price of genuine sales ≥ $1,000, by month recorded. “Difference”
