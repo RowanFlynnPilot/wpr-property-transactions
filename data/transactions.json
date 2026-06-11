@@ -1,5 +1,5 @@
 {
-  "generated_on": "2026-06-09",
+  "generated_on": "2026-06-11",
   "count": 638,
   "transactions": [
     {
@@ -16,6 +16,21 @@
       "grantee": "ESWEIN-PETERSON, LUKAS G",
       "sale_price": 220000,
       "acres": 0.85
+    },
+    {
+      "county": "Marathon",
+      "document_number": "1938749",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Mosinee, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "146104 Julie Ln",
+      "grantor": "LUEBBE, KATIE M.",
+      "grantee": "OLSON, ANDREW R.",
+      "sale_price": 354000,
+      "acres": 2.0
     },
     {
       "county": "Marathon",
@@ -94,6 +109,21 @@
     },
     {
       "county": "Marathon",
+      "document_number": "1938702",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Halsey, Town of",
+      "property_type": "Land only",
+      "property_use": "Agricultural",
+      "address": "Vacant Land On Nehrbass Road",
+      "grantor": "ALANN LAND CO., LLC",
+      "grantee": "JAMES M. PHILLIPPI SR. IRREVOCABLE TRUST DATED AUGUST 12, 2021",
+      "sale_price": 183950,
+      "acres": 40.0
+    },
+    {
+      "county": "Marathon",
       "document_number": "1937658",
       "recorded_date": "2026-05-26",
       "document_type": "Warranty deed",
@@ -166,6 +196,21 @@
       "grantee": "DOMINICK DEVELOPMENT, LLC",
       "sale_price": 650000,
       "acres": 0.53
+    },
+    {
+      "county": "Marathon",
+      "document_number": "1938751",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Rothschild, Village of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "705 South Line Road",
+      "grantor": "BURMEISTER, ALEXANDER E.",
+      "grantee": "WINTER, MATTHEW",
+      "sale_price": 225200,
+      "acres": 0.21
     },
     {
       "county": "Marathon",
@@ -424,21 +469,6 @@
     },
     {
       "county": "Marathon",
-      "document_number": "1936885",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Eau Pleine, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "214391 Wescott Ave",
-      "grantor": "JICINSKY, JAMES J",
-      "grantee": "ANDRES, KAREN",
-      "sale_price": 78667,
-      "acres": 2.0
-    },
-    {
-      "county": "Marathon",
       "document_number": "1937689",
       "recorded_date": "2026-05-26",
       "document_type": "Warranty deed",
@@ -664,6 +694,21 @@
     },
     {
       "county": "Marathon",
+      "document_number": "1938778",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Knowlton, Town of",
+      "property_type": "Land only",
+      "property_use": "Single family",
+      "address": "Vacant Land In The Town Of Knowlton",
+      "grantor": "LAFFERTY, KATHY L.",
+      "grantee": "NEUMANN REVOCABLE TRUST U/A DATED MAY 12, 2021",
+      "sale_price": 8000,
+      "acres": 0.42
+    },
+    {
+      "county": "Marathon",
       "document_number": "1938496",
       "recorded_date": "2026-06-08",
       "document_type": "Warranty deed",
@@ -859,21 +904,6 @@
     },
     {
       "county": "Marathon",
-      "document_number": "1936928",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Weston, Village of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "5912 Ferge Street",
-      "grantor": "AMMERMAN, LAURIE L.",
-      "grantee": "ANDERSON, MAKAYLA",
-      "sale_price": 160000,
-      "acres": 0.0
-    },
-    {
-      "county": "Marathon",
       "document_number": "1937621",
       "recorded_date": "2026-05-22",
       "document_type": "Quit claim deed",
@@ -1006,6 +1036,21 @@
       "grantee": "UNCLE EDWARD'S LLC",
       "sale_price": 150000,
       "acres": 5.0
+    },
+    {
+      "county": "Marathon",
+      "document_number": "1938710",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Bern, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "Vacant Land On Doering Road",
+      "grantor": "BEERY, DANIEL",
+      "grantee": "BEERY, STEPHEN JOHN",
+      "sale_price": 90000,
+      "acres": 19.3
     },
     {
       "county": "Marathon",
@@ -1279,21 +1324,6 @@
     },
     {
       "county": "Marathon",
-      "document_number": "1936888",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Wausau, City of",
-      "property_type": "Buildings/improvements only",
-      "property_use": "Single family",
-      "address": "1907 Zimmerman Street",
-      "grantor": "SWANSON, RICHARD T. AND MARY C.",
-      "grantee": "WOODBURY RENTALS LLC",
-      "sale_price": 262000,
-      "acres": 0.0
-    },
-    {
-      "county": "Marathon",
       "document_number": "1936996",
       "recorded_date": "2026-05-12",
       "document_type": "Personal representative's deed",
@@ -1384,21 +1414,6 @@
     },
     {
       "county": "Marathon",
-      "document_number": "1936947",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Wausau, City of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Commercial",
-      "address": "629 Brooks Pl",
-      "grantor": "HEARTBEAT PERFUSION SOLUTIONS INC.",
-      "grantee": "DELAND, KEITH",
-      "sale_price": 640000,
-      "acres": 0.4
-    },
-    {
-      "county": "Marathon",
       "document_number": "1938212",
       "recorded_date": "2026-06-02",
       "document_type": "Condominium deed",
@@ -1410,21 +1425,6 @@
       "grantor": "SAVVY SIX, LLC",
       "grantee": "201 JEFFERSON STREET, LLC",
       "sale_price": 70207,
-      "acres": 0.0
-    },
-    {
-      "county": "Marathon",
-      "document_number": "1936960",
-      "recorded_date": "2026-05-11",
-      "document_type": "Trustee's deed",
-      "conveyance_type": "Sale",
-      "municipality": "Stratford, Village of",
-      "property_type": "Buildings/improvements only",
-      "property_use": "Single family",
-      "address": "119300 Hawk Court",
-      "grantor": "DAVID A. WESCOTT REVOCABLE LIVING TRUST U/A DATED JULY 25, 2024",
-      "grantee": "FULLER, THOMAS J. AND MARY E.",
-      "sale_price": 222000,
       "acres": 0.0
     },
     {
@@ -1819,6 +1819,21 @@
     },
     {
       "county": "Marathon",
+      "document_number": "1938723",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Weston, Village of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "1802 Daley Ave",
+      "grantor": "ZYWICKI, IVEY",
+      "grantee": "WILSON, JESSICA L.",
+      "sale_price": 225000,
+      "acres": 0.34
+    },
+    {
+      "county": "Marathon",
       "document_number": "1938025",
       "recorded_date": "2026-06-01",
       "document_type": "Trustee's deed",
@@ -1864,6 +1879,21 @@
     },
     {
       "county": "Marathon",
+      "document_number": "1938761",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Spencer, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "207900 Abe Lincoln Avenue",
+      "grantor": "BEGERT, KELLY L.",
+      "grantee": "FORST, AMY M.",
+      "sale_price": 490000,
+      "acres": 4.5
+    },
+    {
+      "county": "Marathon",
       "document_number": "1937211",
       "recorded_date": "2026-05-15",
       "document_type": "Condominium deed",
@@ -1891,21 +1921,6 @@
       "grantee": "VANG, JANNIE YER",
       "sale_price": 100000,
       "acres": 1.0
-    },
-    {
-      "county": "Marathon",
-      "document_number": "1936818",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Wausau, City of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "821 S. 9Th Ave",
-      "grantor": "NETZEL, HOLLIE",
-      "grantee": "PRECHEL, TRACY",
-      "sale_price": 150000,
-      "acres": 0.06
     },
     {
       "county": "Marathon",
@@ -1954,6 +1969,21 @@
     },
     {
       "county": "Marathon",
+      "document_number": "1938742",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Maine, Village of",
+      "property_type": "Land only",
+      "property_use": "Single family",
+      "address": "Vacant Land On North 3Rd Avenue",
+      "grantor": "SRRT INCOME TRUST DATED NOVEMBER 7, 2022",
+      "grantee": "ENO, CHARLES R., II AND BETH",
+      "sale_price": 20000,
+      "acres": 1.12
+    },
+    {
+      "county": "Marathon",
       "document_number": "1937195",
       "recorded_date": "2026-05-15",
       "document_type": "Warranty deed",
@@ -1996,6 +2026,21 @@
       "grantee": "TD PROPERTIES EDGAR, LLC",
       "sale_price": 480000,
       "acres": 0.0
+    },
+    {
+      "county": "Marathon",
+      "document_number": "1938735",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Rib Mountain, Village of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Commercial",
+      "address": "226126 Hummingbird Rd",
+      "grantor": "FINANCIAL DESIGN GROUP OF WAUSAU, LLC, A WISCONSIN LIMITED LIABILITY COMPANY",
+      "grantee": "VERITAS REAL ESTATE LLC",
+      "sale_price": 600000,
+      "acres": 1.1
     },
     {
       "county": "Marathon",
@@ -2704,6 +2749,21 @@
     },
     {
       "county": "Marathon",
+      "document_number": "1938686",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Wausau, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "1030 South 8Th Avenue",
+      "grantor": "OLSON, ERIC AND SANDY",
+      "grantee": "WESTFALL, JESSE L.",
+      "sale_price": 164000,
+      "acres": 0.3
+    },
+    {
+      "county": "Marathon",
       "document_number": "1937799",
       "recorded_date": "2026-05-27",
       "document_type": "Personal representative's deed",
@@ -2896,6 +2956,21 @@
       "grantee": "GRENWALT, MARK D.",
       "sale_price": 55000,
       "acres": 3.0
+    },
+    {
+      "county": "Marathon",
+      "document_number": "1938714",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Wausau, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "1013 Le Messurier Street",
+      "grantor": "BOEHM, STEVEN",
+      "grantee": "MROZEK, AMBER",
+      "sale_price": 160725,
+      "acres": 0.15
     },
     {
       "county": "Marathon",
@@ -3154,21 +3229,6 @@
     },
     {
       "county": "Marathon",
-      "document_number": "1936957",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Weston, Village of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "6105 Morning View Lane",
-      "grantor": "WILKINS, BARBARA E",
-      "grantee": "PRITCHARD, HAYDEN",
-      "sale_price": 425000,
-      "acres": 1.39
-    },
-    {
-      "county": "Marathon",
       "document_number": "1938319",
       "recorded_date": "2026-06-03",
       "document_type": "Warranty deed",
@@ -3319,6 +3379,21 @@
     },
     {
       "county": "Marathon",
+      "document_number": "1938706",
+      "recorded_date": "2026-06-09",
+      "document_type": "Trustee's deed",
+      "conveyance_type": "Sale",
+      "municipality": "Knowlton, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "207990 Kris Lane",
+      "grantor": "BESTE ADMINISTRATION TRUST , SUCCESSOR OF THE BESTE REVOCABLE TRUST U/A DATED JANUARY 9, 1992",
+      "grantee": "FEDERICO, JOHN T",
+      "sale_price": 575000,
+      "acres": 2.71
+    },
+    {
+      "county": "Marathon",
       "document_number": "1937411",
       "recorded_date": "2026-05-19",
       "document_type": "Warranty deed",
@@ -3331,21 +3406,6 @@
       "grantee": "SCHREINER, MITCHELL",
       "sale_price": 625000,
       "acres": 40.0
-    },
-    {
-      "county": "Marathon",
-      "document_number": "1936839",
-      "recorded_date": "2026-05-11",
-      "document_type": "Personal representative's deed",
-      "conveyance_type": "Sale",
-      "municipality": "Eau Pleine, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "Abe Lincoln Ave",
-      "grantor": "ESTATE OF CAROL A BEIDEL",
-      "grantee": "WEAVER, DAVID K.",
-      "sale_price": 275000,
-      "acres": 57.63
     },
     {
       "county": "Marathon",
@@ -3529,6 +3589,21 @@
     },
     {
       "county": "Marathon",
+      "document_number": "1938684",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Schofield, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "1127 Depot Street",
+      "grantor": "LAWRENCE, JOYCE I.",
+      "grantee": "CITY OF SCHOFIELD",
+      "sale_price": 40000,
+      "acres": 0.34
+    },
+    {
+      "county": "Marathon",
       "document_number": "1937074",
       "recorded_date": "2026-05-13",
       "document_type": "Warranty deed",
@@ -3604,36 +3679,6 @@
     },
     {
       "county": "Marathon",
-      "document_number": "1936882",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Mosinee, Town of",
-      "property_type": "Land only",
-      "property_use": "Single family",
-      "address": "Vacant Land On Acorn Ridge Road",
-      "grantor": "VOLHARD, NICHOLAS A. AND HANNAH M.",
-      "grantee": "LTW INCOME TRUST",
-      "sale_price": 85000,
-      "acres": 2.3
-    },
-    {
-      "county": "Marathon",
-      "document_number": "1936803",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Wausau, City of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "814 North 2Nd Avenue",
-      "grantor": "XIONG, KHANG",
-      "grantee": "HIELEMA, JOSHUA AND EMILY",
-      "sale_price": 208000,
-      "acres": 0.2
-    },
-    {
-      "county": "Marathon",
       "document_number": "1938101",
       "recorded_date": "2026-06-01",
       "document_type": "Warranty deed",
@@ -3694,6 +3739,21 @@
     },
     {
       "county": "Marathon",
+      "document_number": "1938716",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Wausau, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "1215 Spruce St",
+      "grantor": "BUSTLE, DANIEL K.",
+      "grantee": "CRAIN, ALEXANDRA",
+      "sale_price": 325000,
+      "acres": 0.38
+    },
+    {
+      "county": "Marathon",
       "document_number": "1936997",
       "recorded_date": "2026-05-12",
       "document_type": "Warranty deed",
@@ -3721,21 +3781,6 @@
       "grantee": "201 JEFFERSON STREET, LLC",
       "sale_price": 226730,
       "acres": 0.0
-    },
-    {
-      "county": "Marathon",
-      "document_number": "1936963",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Rothschild, Village of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "514 Edgar Ave",
-      "grantor": "HANCOCK, BRYON T. & ALICE K.",
-      "grantee": "LIVINGSTON, MICHELLE M.",
-      "sale_price": 250000,
-      "acres": 0.19
     },
     {
       "county": "Marathon",
@@ -3826,6 +3871,21 @@
       "grantee": "BEYER, AARON MICHAEL",
       "sale_price": 170000,
       "acres": 0.1
+    },
+    {
+      "county": "Lincoln",
+      "document_number": "581682",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Somo, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "W11081 Greene Drive",
+      "grantor": "HINTZ, KEVIN G.",
+      "grantee": "THE MARK AND KATHLEEN DAHMS REVOCABLE TRUST DATED OCTOBER 15, 2024",
+      "sale_price": 160000,
+      "acres": 5.07
     },
     {
       "county": "Lincoln",
@@ -4009,21 +4069,6 @@
     },
     {
       "county": "Lincoln",
-      "document_number": "581138",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Harrison, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "N8605 Marquardt Rd",
-      "grantor": "HANSEN, ROBERT J",
-      "grantee": "KASPAR, MATTHEW B",
-      "sale_price": 350000,
-      "acres": 0.0
-    },
-    {
-      "county": "Lincoln",
       "document_number": "581647",
       "recorded_date": "2026-06-08",
       "document_type": "Warranty deed",
@@ -4036,21 +4081,6 @@
       "grantee": "LETENDRE, MICHELLE-MARIE",
       "sale_price": 150000,
       "acres": 0.95
-    },
-    {
-      "county": "Lincoln",
-      "document_number": "581139",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Merrill, City of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Commercial",
-      "address": "2213 E. Main St.",
-      "grantor": "ZELICH ENTERPRISES, LLC",
-      "grantee": "MENDOZA, MARIA",
-      "sale_price": 295000,
-      "acres": 0.0
     },
     {
       "county": "Lincoln",
@@ -4095,6 +4125,21 @@
       "grantor": "LASHUA, CHAD",
       "grantee": "BOATWRIGHT, AARON",
       "sale_price": 275000,
+      "acres": 0.0
+    },
+    {
+      "county": "Lincoln",
+      "document_number": "581695",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Merrill, City of",
+      "property_type": "Buildings/improvements only",
+      "property_use": "Single family",
+      "address": "",
+      "grantor": "SCHIEFELBEIN, JOSEPH R.",
+      "grantee": "WALLACE, MARK S. & DAWN M.",
+      "sale_price": 315000,
       "acres": 0.0
     },
     {
@@ -4159,21 +4204,6 @@
     },
     {
       "county": "Lincoln",
-      "document_number": "581135",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Merrill, City of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "700 N Mill St.",
-      "grantor": "SCHWARCZKOPF PROPERTIES, LLC",
-      "grantee": "LEWIS, ROWAN",
-      "sale_price": 220000,
-      "acres": 1.0
-    },
-    {
-      "county": "Lincoln",
       "document_number": "581277",
       "recorded_date": "2026-05-19",
       "document_type": "Warranty deed",
@@ -4216,6 +4246,21 @@
       "grantee": "DEVINS, GREGORY AND CHERYL",
       "sale_price": 109900,
       "acres": 1.55
+    },
+    {
+      "county": "Lincoln",
+      "document_number": "581705",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Harrison, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "N8491 Lower Long Lake Dr",
+      "grantor": "O'CONNELL, BRIAN J.",
+      "grantee": "TLC INCOME TRUST AND /OR ASSIGNS",
+      "sale_price": 465000,
+      "acres": 0.0
     },
     {
       "county": "Lincoln",
@@ -4279,18 +4324,18 @@
     },
     {
       "county": "Lincoln",
-      "document_number": "581128",
-      "recorded_date": "2026-05-11",
+      "document_number": "581701",
+      "recorded_date": "2026-06-10",
       "document_type": "Trustee's deed",
       "conveyance_type": "Sale",
-      "municipality": "Pine River, Town of",
+      "municipality": "Harrison, Town of",
       "property_type": "Land and buildings/improvements",
-      "property_use": "Commercial",
-      "address": "N1784 S Pine Ridge Ave",
-      "grantor": "WILLIAM L. AND PATRICIA L. GATTERMAN REVOCABLE TRUST DATED DECEMBER 5, 2008",
-      "grantee": "GEISS, INC., A WISCONSIN CORPORATION",
-      "sale_price": 431300,
-      "acres": 13.7
+      "property_use": "Single family",
+      "address": "N8865 Star Trail",
+      "grantor": "GARY W. STARZINSKI TRUST DATED AUGUST 12, 2019",
+      "grantee": "KARNOSKY, DANIEL B.",
+      "sale_price": 372000,
+      "acres": 0.0
     },
     {
       "county": "Lincoln",
@@ -4396,6 +4441,21 @@
       "grantee": "STAHMER@GMAIL.COM",
       "sale_price": 210000,
       "acres": 1.0
+    },
+    {
+      "county": "Lincoln",
+      "document_number": "581670",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Scott, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "W6721 Joe Snow Road",
+      "grantor": "JAMES M. PHILLIPPI SR. IRREVOCABLE TRUST, DATED AUGUST 12, 2021",
+      "grantee": "HESS, JAMIN",
+      "sale_price": 175000,
+      "acres": 6.8
     },
     {
       "county": "Lincoln",
@@ -4579,6 +4639,21 @@
     },
     {
       "county": "Lincoln",
+      "document_number": "581693",
+      "recorded_date": "2026-06-10",
+      "document_type": "Trustee's deed",
+      "conveyance_type": "Sale",
+      "municipality": "Bradley, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "N11882 Nokomis Drive",
+      "grantor": "ERIC AND ANNE FISHER REVOCABLE LIVING TRUST",
+      "grantee": "WENISCH, THOMAS AND SHANNON",
+      "sale_price": 2250000,
+      "acres": 0.1
+    },
+    {
+      "county": "Lincoln",
       "document_number": "581341",
       "recorded_date": "2026-05-22",
       "document_type": "Warranty deed",
@@ -4681,21 +4756,6 @@
       "grantee": "OHM, CHRISTOPHER",
       "sale_price": 182500,
       "acres": 1.53
-    },
-    {
-      "county": "Lincoln",
-      "document_number": "581116",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Corning, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "N1121 State Road 64 And 107",
-      "grantor": "HASS, NANCY L.",
-      "grantee": "BEAN, WENDY L. & GUY W.",
-      "sale_price": 153750,
-      "acres": 10.0
     },
     {
       "county": "Lincoln",
@@ -4848,19 +4908,19 @@
       "acres": 5.0
     },
     {
-      "county": "Lincoln",
-      "document_number": "581129",
-      "recorded_date": "2026-05-11",
+      "county": "Langlade",
+      "document_number": "481039",
+      "recorded_date": "2026-06-09",
       "document_type": "Warranty deed",
       "conveyance_type": "Sale",
-      "municipality": "Pine River, Town of",
+      "municipality": "Wolf River, Town of",
       "property_type": "Land and buildings/improvements",
-      "property_use": "Commercial",
-      "address": "N1784 S Pine Ridge Ave",
-      "grantor": "WESELOH, CHRISTINE A.",
-      "grantee": "GEISS, INC., A WISCONSIN CORPORATION",
-      "sale_price": 143700,
-      "acres": 13.7
+      "property_use": "Single family",
+      "address": "W2597 E Hollister Rd",
+      "grantor": "IMMEKUS, IRMA",
+      "grantee": "DONCARLOS, JOHN W",
+      "sale_price": 70000,
+      "acres": 1.0
     },
     {
       "county": "Langlade",
@@ -4921,6 +4981,21 @@
       "grantee": "CASAREZ PAGEL, ETHAN S.",
       "sale_price": 70000,
       "acres": 0.13
+    },
+    {
+      "county": "Langlade",
+      "document_number": "481059",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Antigo, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "836 Willard Ave",
+      "grantor": "JANSEN, ANTHONY",
+      "grantee": "ZUPON, SAMANTHA",
+      "sale_price": 140000,
+      "acres": 0.29
     },
     {
       "county": "Langlade",
@@ -5194,6 +5269,36 @@
     },
     {
       "county": "Langlade",
+      "document_number": "481037",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Antigo, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "1628 10Th Ave",
+      "grantor": "ZIMMERMAN, BRIAN",
+      "grantee": "KIELCHESKI, JANE E",
+      "sale_price": 225000,
+      "acres": 0.3
+    },
+    {
+      "county": "Langlade",
+      "document_number": "481043",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Summit, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "W14424 2Nd Ave.",
+      "grantor": "HOUDEK, LARRY",
+      "grantee": "HOECHST AND HOUDEK LIVING TRUST DATED JUNE 28, 2011",
+      "sale_price": 43000,
+      "acres": 40.0
+    },
+    {
+      "county": "Langlade",
       "document_number": "480914",
       "recorded_date": "2026-05-29",
       "document_type": "Warranty deed",
@@ -5464,6 +5569,21 @@
     },
     {
       "county": "Langlade",
+      "document_number": "481040",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Upham, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "N9681 N Summit Ln",
+      "grantor": "KIELCHESKI, JANE E",
+      "grantee": "KRAMER, M PETER",
+      "sale_price": 425000,
+      "acres": 1.1
+    },
+    {
+      "county": "Langlade",
       "document_number": "480972",
       "recorded_date": "2026-06-04",
       "document_type": "Warranty deed",
@@ -5476,6 +5596,21 @@
       "grantee": "THORSON, THOMAS",
       "sale_price": 14000,
       "acres": 3.07
+    },
+    {
+      "county": "Langlade",
+      "document_number": "481053",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Antigo, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "2124 Clermont Street, Antigo, Wi 5409",
+      "grantor": "CEMA PROPERTY GROUP LLC",
+      "grantee": "DISTINCT FIVE LLC",
+      "sale_price": 595000,
+      "acres": 1.0
     },
     {
       "county": "Langlade",
@@ -5584,21 +5719,6 @@
     },
     {
       "county": "Langlade",
-      "document_number": "480680",
-      "recorded_date": "2026-05-11",
-      "document_type": "Quit claim deed",
-      "conveyance_type": "Sale",
-      "municipality": "Langlade, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "N7518 Highway 52",
-      "grantor": "BOTHUM, DOLLY JO",
-      "grantee": "NIEMUTH, TROY",
-      "sale_price": 11500,
-      "acres": 2.0
-    },
-    {
-      "county": "Langlade",
       "document_number": "480908",
       "recorded_date": "2026-05-29",
       "document_type": "Warranty deed",
@@ -5656,6 +5776,21 @@
       "grantee": "BROCKWAY, LAURA",
       "sale_price": 259000,
       "acres": 1.5
+    },
+    {
+      "county": "Langlade",
+      "document_number": "481070",
+      "recorded_date": "2026-06-10",
+      "document_type": "Trustee's deed",
+      "conveyance_type": "Sale",
+      "municipality": "Antigo, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "1209 Edison St",
+      "grantor": "TRUST AGREEMENT DATED SEPTEMBER 17, 2012",
+      "grantee": "KRUEGER, LORI A.",
+      "sale_price": 136206,
+      "acres": 0.16
     },
     {
       "county": "Langlade",
@@ -5749,21 +5884,6 @@
     },
     {
       "county": "Taylor",
-      "document_number": "398095",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Rib Lake, Town of",
-      "property_type": "Land only",
-      "property_use": "Single family",
-      "address": "Vacant Land On County Road C",
-      "grantor": "ZONDLO, SCOTT A.",
-      "grantee": "MILLER, HARVEY C.",
-      "sale_price": 80000,
-      "acres": 42.74
-    },
-    {
-      "county": "Taylor",
       "document_number": "398377",
       "recorded_date": "2026-06-02",
       "document_type": "Warranty deed",
@@ -5839,21 +5959,6 @@
     },
     {
       "county": "Taylor",
-      "document_number": "398113",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Medford, City of",
-      "property_type": "Land only",
-      "property_use": "Single family",
-      "address": "704 Joann'S Circle And 690 Pep'S Drive",
-      "grantor": "HALOPKA, CYNTHIA  A.",
-      "grantee": "HARRISON CAPITAL LLC",
-      "sale_price": 19000,
-      "acres": 0.3
-    },
-    {
-      "county": "Taylor",
       "document_number": "398334",
       "recorded_date": "2026-06-01",
       "document_type": "Warranty deed",
@@ -5896,21 +6001,6 @@
       "grantee": "LEHMAN, CADE A.",
       "sale_price": 150000,
       "acres": 0.31
-    },
-    {
-      "county": "Taylor",
-      "document_number": "398104",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Westboro, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "N7292 Apple Tree Lane",
-      "grantor": "LUSIAN, CYNTHIA A.",
-      "grantee": "ERDAHL, ROBERT J.",
-      "sale_price": 225000,
-      "acres": 5.9
     },
     {
       "county": "Taylor",
@@ -6019,21 +6109,6 @@
     },
     {
       "county": "Taylor",
-      "document_number": "398114",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Molitor, Town of",
-      "property_type": "Land only",
-      "property_use": "Single family",
-      "address": "Vacant Land Near South Shore Lane",
-      "grantor": "BDAD TRUST DATED AUGUST 27, 2015",
-      "grantee": "THUMS, JAMES A.",
-      "sale_price": 12500,
-      "acres": 0.64
-    },
-    {
-      "county": "Taylor",
       "document_number": "398217",
       "recorded_date": "2026-05-19",
       "document_type": "Warranty deed",
@@ -6109,18 +6184,18 @@
     },
     {
       "county": "Taylor",
-      "document_number": "398110",
-      "recorded_date": "2026-05-11",
+      "document_number": "398475",
+      "recorded_date": "2026-06-10",
       "document_type": "Warranty deed",
       "conveyance_type": "Sale",
-      "municipality": "Medford, City of",
+      "municipality": "Westboro, Town of",
       "property_type": "Land and buildings/improvements",
       "property_use": "Single family",
-      "address": "340 North Main Street",
-      "grantor": "ZULEGER, CHRISTOPHER R.",
-      "grantee": "MUELLER, JASON",
-      "sale_price": 254000,
-      "acres": 0.34
+      "address": "W5342 Fawn Avenue",
+      "grantor": "PHILLIPS, BRETT B.",
+      "grantee": "ROBERTS, RONALD D.",
+      "sale_price": 265000,
+      "acres": 5.9
     },
     {
       "county": "Taylor",
@@ -6181,21 +6256,6 @@
       "grantee": "TIBBETTS, COLTON JESSE",
       "sale_price": 90000,
       "acres": 0.74
-    },
-    {
-      "county": "Taylor",
-      "document_number": "398097",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Little Black, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "W5460 Stetson Avenue",
-      "grantor": "PECHER, DUANE D.",
-      "grantee": "GOWEY, CONNOR",
-      "sale_price": 140000,
-      "acres": 2.48
     },
     {
       "county": "Taylor",
@@ -6304,6 +6364,21 @@
     },
     {
       "county": "Taylor",
+      "document_number": "398464",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Stetsonville, Village of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "124 North Lincoln Street",
+      "grantor": "SCHOLL, RICHARD",
+      "grantee": "LOWRY, RUSSELL J.",
+      "sale_price": 158500,
+      "acres": 0.17
+    },
+    {
+      "county": "Taylor",
       "document_number": "398319",
       "recorded_date": "2026-05-28",
       "document_type": "Warranty deed",
@@ -6394,6 +6469,21 @@
     },
     {
       "county": "Taylor",
+      "document_number": "398462",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Cleveland, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "N5553 Lake Dr",
+      "grantor": "ZAWACKI, MATTHEW B.",
+      "grantee": "ZIMMERMAN, SCOTT N.",
+      "sale_price": 333000,
+      "acres": 0.0
+    },
+    {
+      "county": "Taylor",
       "document_number": "398369",
       "recorded_date": "2026-06-01",
       "document_type": "Warranty deed",
@@ -6406,21 +6496,6 @@
       "grantee": "NEUBAUER, GAGE",
       "sale_price": 300000,
       "acres": 6.0
-    },
-    {
-      "county": "Taylor",
-      "document_number": "398112",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Medford, City of",
-      "property_type": "Land only",
-      "property_use": "Single family",
-      "address": "706 Joann'S Circle",
-      "grantor": "HALOPKA, CYNTHIA A.",
-      "grantee": "JENSEN, DONALD D.",
-      "sale_price": 19000,
-      "acres": 0.3
     },
     {
       "county": "Taylor",
@@ -6574,21 +6649,6 @@
     },
     {
       "county": "Shawano",
-      "document_number": "797334",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Red Springs, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "W11368 W Town Hall Rd",
-      "grantor": "VICKERS, ROBERT",
-      "grantee": "ELERTSON, CHERYL J.",
-      "sale_price": 60000,
-      "acres": 1.1
-    },
-    {
-      "county": "Shawano",
       "document_number": "797553",
       "recorded_date": "2026-05-20",
       "document_type": "Warranty deed",
@@ -6604,21 +6664,6 @@
     },
     {
       "county": "Shawano",
-      "document_number": "797335",
-      "recorded_date": "2026-05-11",
-      "document_type": "Personal representative's deed",
-      "conveyance_type": "Sale",
-      "municipality": "Red Springs, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "W11368 W Town Hall Rd",
-      "grantor": "RHONDA RAE BOWMAN",
-      "grantee": "ELERTSON, CHERYL J.",
-      "sale_price": 60000,
-      "acres": 1.1
-    },
-    {
-      "county": "Shawano",
       "document_number": "797585",
       "recorded_date": "2026-05-21",
       "document_type": "Warranty deed",
@@ -6631,6 +6676,21 @@
       "grantee": "WILHARM, QUINCY L.",
       "sale_price": 225000,
       "acres": 0.1
+    },
+    {
+      "county": "Shawano",
+      "document_number": "797942",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Cecil, Village of",
+      "property_type": "Land only",
+      "property_use": "Undeveloped land",
+      "address": "Vacant Land",
+      "grantor": "GT RANCH LLC",
+      "grantee": "SAPP, JOSEPH",
+      "sale_price": 40000,
+      "acres": 1.5
     },
     {
       "county": "Shawano",
@@ -6676,36 +6736,6 @@
       "grantee": "RUSSELL, CASSIE",
       "sale_price": 1000,
       "acres": 0.1
-    },
-    {
-      "county": "Shawano",
-      "document_number": "797289",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Germania, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "N3353 Comet Rd",
-      "grantor": "GAIN 1031 EXCHANGE COMPANY, LLC AS QUALIFIED INTERMEDIARY CUDDEBACK FAMILY REVOCABLE TRUST",
-      "grantee": "BRETT AND JODEE RECHEK REVOCABLE TRUST",
-      "sale_price": 1125000,
-      "acres": 0.0
-    },
-    {
-      "county": "Shawano",
-      "document_number": "797357",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Shawano, City of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "908 S Lutz St",
-      "grantor": "GAMROTH, RICHARD",
-      "grantee": "CARROLL, LINSEY",
-      "sale_price": 160000,
-      "acres": 0.0
     },
     {
       "county": "Shawano",
@@ -6814,21 +6844,6 @@
     },
     {
       "county": "Shawano",
-      "document_number": "797355",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Wescott, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "W5851 Lake Dr",
-      "grantor": "DOLORES A. MALITZ FAMILY TRUST DATED SEPTEMBER 1, 2023, AND ANY AMENDMENTS THERETO",
-      "grantee": "ROPER, THOMAS M.",
-      "sale_price": 160000,
-      "acres": 0.14
-    },
-    {
-      "county": "Shawano",
       "document_number": "797453",
       "recorded_date": "2026-05-18",
       "document_type": "Quit claim deed",
@@ -6859,18 +6874,18 @@
     },
     {
       "county": "Shawano",
-      "document_number": "797306",
-      "recorded_date": "2026-05-11",
+      "document_number": "797953",
+      "recorded_date": "2026-06-09",
       "document_type": "Warranty deed",
       "conveyance_type": "Sale",
-      "municipality": "Grant, Town of",
+      "municipality": "Pella, Town of",
       "property_type": "Land only",
-      "property_use": "Single family",
-      "address": "Vacant Land Near Maple Lane",
-      "grantor": "ARMOUR, CRAIG R.",
-      "grantee": "TAGLIAPIETRA, ANTHONY",
-      "sale_price": 147000,
-      "acres": 9.75
+      "property_use": "Other",
+      "address": "Vacant",
+      "grantor": "BORNTRAGER, BENNIE N. AND SOVILLA M.",
+      "grantee": "TLJJM SWAMP, LLC",
+      "sale_price": 190000,
+      "acres": 40.0
     },
     {
       "county": "Shawano",
@@ -6916,6 +6931,21 @@
       "grantee": "VAN OFFEREN, ROBERT A.",
       "sale_price": 1946664,
       "acres": 40.0
+    },
+    {
+      "county": "Shawano",
+      "document_number": "797954",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Herman, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "N4915 State Street",
+      "grantor": "GILLING, CHRISTOPHER",
+      "grantee": "ASCHENBRENNER, NICHOLAS",
+      "sale_price": 190000,
+      "acres": 0.58
     },
     {
       "county": "Shawano",
@@ -7174,6 +7204,21 @@
     },
     {
       "county": "Shawano",
+      "document_number": "797973",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Belle Plaine, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "W8224 Belle Plaine Ave",
+      "grantor": "PAHLOW, RICHARD D. AND JUDYANN",
+      "grantee": "RETZLAFF, MARK T. AND REBECCA R.",
+      "sale_price": 380000,
+      "acres": 20.0
+    },
+    {
+      "county": "Shawano",
       "document_number": "797531",
       "recorded_date": "2026-05-19",
       "document_type": "Warranty deed",
@@ -7294,21 +7339,6 @@
     },
     {
       "county": "Shawano",
-      "document_number": "797307",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Green Valley, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "N5445 St 32 Hwy",
-      "grantor": "CHARLES, CHRISTOPHER",
-      "grantee": "ZALAR, DENNIS",
-      "sale_price": 365000,
-      "acres": 2.5
-    },
-    {
-      "county": "Shawano",
       "document_number": "797534",
       "recorded_date": "2026-05-19",
       "document_type": "Warranty deed",
@@ -7384,21 +7414,6 @@
     },
     {
       "county": "Shawano",
-      "document_number": "797327",
-      "recorded_date": "2026-05-11",
-      "document_type": "Land contract",
-      "conveyance_type": "Sale",
-      "municipality": "Aniwa, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "N11017 Sugar Bush Road",
-      "grantor": "LARSON, JEAN",
-      "grantee": "FUEYO, MICHAEL",
-      "sale_price": 200000,
-      "acres": 1.1
-    },
-    {
-      "county": "Shawano",
       "document_number": "797535",
       "recorded_date": "2026-05-19",
       "document_type": "Warranty deed",
@@ -7426,6 +7441,21 @@
       "grantee": "JENSEN, ADAM THAD",
       "sale_price": 206000,
       "acres": 0.1
+    },
+    {
+      "county": "Shawano",
+      "document_number": "797965",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Birnamwood, Village of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "415 Wausau St",
+      "grantor": "HANNAWELL, SIERRA MARGARET",
+      "grantee": "PISTEUO PROPERTIES, LLC",
+      "sale_price": 80000,
+      "acres": 26.0
     },
     {
       "county": "Shawano",
@@ -7684,18 +7714,18 @@
     },
     {
       "county": "Shawano",
-      "document_number": "797319",
-      "recorded_date": "2026-05-11",
-      "document_type": "Land contract",
+      "document_number": "797940",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
       "conveyance_type": "Sale",
-      "municipality": "Eland, Village of",
+      "municipality": "Waukechon, Town of",
       "property_type": "Land and buildings/improvements",
       "property_use": "Single family",
-      "address": "W18908 Larson Lane",
-      "grantor": "LESLIE L. LARSON LEGACY TRUST",
-      "grantee": "RICHTER, RYAN",
-      "sale_price": 140000,
-      "acres": 3.6
+      "address": "N4193 County Road K",
+      "grantor": "WIRKUS, KEITH",
+      "grantee": "DELZER, JACE D.",
+      "sale_price": 258000,
+      "acres": 5.1
     },
     {
       "county": "Shawano",
@@ -7726,21 +7756,6 @@
       "grantee": "KARCZ, SCOTT",
       "sale_price": 393500,
       "acres": 1.9
-    },
-    {
-      "county": "Shawano",
-      "document_number": "797284",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Shawano, City of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "517 Prospect Circle",
-      "grantor": "TAGGE, SHELLEY",
-      "grantee": "VAN DICK, DANIEL",
-      "sale_price": 242500,
-      "acres": 0.11
     },
     {
       "county": "Shawano",
@@ -7969,21 +7984,6 @@
     },
     {
       "county": "Portage",
-      "document_number": "922647",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Amherst, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "5390 County Road Q",
-      "grantor": "KINDLER, CHRIS J.",
-      "grantee": "HAYDEN, COLE",
-      "sale_price": 349900,
-      "acres": 3.0
-    },
-    {
-      "county": "Portage",
       "document_number": "923071",
       "recorded_date": "2026-05-26",
       "document_type": "Warranty deed",
@@ -8074,6 +8074,21 @@
     },
     {
       "county": "Portage",
+      "document_number": "923494",
+      "recorded_date": "2026-06-10",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Stevens Point, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Multi-family",
+      "address": "1650 Clark Street",
+      "grantor": "JDH STEVENS HOUSE, LLC",
+      "grantee": "1650 CLARK ST LLC",
+      "sale_price": 1287500,
+      "acres": 0.0
+    },
+    {
+      "county": "Portage",
       "document_number": "922840",
       "recorded_date": "2026-05-18",
       "document_type": "Warranty deed",
@@ -8131,21 +8146,6 @@
       "grantee": "PIBBLE HOLDINGS LLC",
       "sale_price": 3045000,
       "acres": 0.7
-    },
-    {
-      "county": "Portage",
-      "document_number": "922626",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Grant, Town of",
-      "property_type": "Land only",
-      "property_use": "Single family",
-      "address": "1170 90Th Street North",
-      "grantor": "SKYLINE INCOME TRUST DATED APRIL 5, 2024",
-      "grantee": "CARLSON, SHILOH B.",
-      "sale_price": 420000,
-      "acres": 40.33
     },
     {
       "county": "Portage",
@@ -8254,6 +8254,21 @@
     },
     {
       "county": "Portage",
+      "document_number": "923492",
+      "recorded_date": "2026-06-10",
+      "document_type": "Trustee's deed",
+      "conveyance_type": "Sale",
+      "municipality": "Stevens Point, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "3241 Parkwood Drive",
+      "grantor": "LYNN A. PETERSEN AND DEBRA L. PETERSEN REVOCABLE TRUST DATED APRIL 7, 1997",
+      "grantee": "VENZKE TRUST DATED NOVEMBER 06, 2023",
+      "sale_price": 487500,
+      "acres": 0.47
+    },
+    {
+      "county": "Portage",
       "document_number": "922776",
       "recorded_date": "2026-05-14",
       "document_type": "WDOT - Quit claim deed - state grantor",
@@ -8299,18 +8314,18 @@
     },
     {
       "county": "Portage",
-      "document_number": "922654",
-      "recorded_date": "2026-05-11",
+      "document_number": "923496",
+      "recorded_date": "2026-06-10",
       "document_type": "Warranty deed",
       "conveyance_type": "Sale",
-      "municipality": "Plover, Village of",
-      "property_type": "Land and buildings/improvements",
+      "municipality": "Eau Pleine, Town of",
+      "property_type": "Land only",
       "property_use": "Single family",
-      "address": "1011 Melody Lane",
-      "grantor": "KROPIDLOWSKI, LANCE R.",
-      "grantee": "KINDLER, CHRISTOPHER J.",
-      "sale_price": 449900,
-      "acres": 0.43
+      "address": "Vacant Land Off Sandy Ln",
+      "grantor": "ALBERT, PETER",
+      "grantee": "HELMUTH, MICHAEL",
+      "sale_price": 15000,
+      "acres": 0.5
     },
     {
       "county": "Portage",
@@ -8584,21 +8599,6 @@
     },
     {
       "county": "Portage",
-      "document_number": "922632",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Sharon, Town of",
-      "property_type": "Land only",
-      "property_use": "Single family",
-      "address": "7820 King Ln",
-      "grantor": "JOHN R. RAYKOWSKI AND PATRICIA R. RAYKOWSKI, AS TRUSTEES OF THE TRUST AGREEMENT OF JOHN AND PATRICIA RAYKOWSKI",
-      "grantee": "NEW HOPE LAND INVESTMENTS LLC",
-      "sale_price": 312000,
-      "acres": 40.0
-    },
-    {
-      "county": "Portage",
       "document_number": "923164",
       "recorded_date": "2026-05-29",
       "document_type": "Warranty deed",
@@ -8626,6 +8626,21 @@
       "grantee": "ELMHORST, JOSHUA J",
       "sale_price": 75000,
       "acres": 2.87
+    },
+    {
+      "county": "Portage",
+      "document_number": "923476",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Stevens Point, City of",
+      "property_type": "Buildings/improvements only",
+      "property_use": "Single family",
+      "address": "3701 Lorraine Street",
+      "grantor": "ILTEN, KAREN E.",
+      "grantee": "KOCH, KATHRYN L.",
+      "sale_price": 355000,
+      "acres": 0.0
     },
     {
       "county": "Portage",
@@ -8704,21 +8719,6 @@
     },
     {
       "county": "Portage",
-      "document_number": "922612",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Amherst, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "10174 Yellow Brick Road",
-      "grantor": "IMPULLITTI, GIOVANNI A.",
-      "grantee": "KORBOL, JASON C.",
-      "sale_price": 535000,
-      "acres": 4.04
-    },
-    {
-      "county": "Portage",
       "document_number": "922766",
       "recorded_date": "2026-05-14",
       "document_type": "Warranty deed",
@@ -8794,21 +8794,6 @@
     },
     {
       "county": "Portage",
-      "document_number": "922649",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Sharon, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Commercial",
-      "address": "1705 County Road J North",
-      "grantor": "WJ FILTZ PROPERTIES LLC",
-      "grantee": "YACH, COLE",
-      "sale_price": 1000000,
-      "acres": 4.69
-    },
-    {
-      "county": "Portage",
       "document_number": "923162",
       "recorded_date": "2026-05-28",
       "document_type": "Warranty deed",
@@ -8851,6 +8836,21 @@
       "grantee": "GUYETTE, ADAM",
       "sale_price": 75000,
       "acres": 0.2
+    },
+    {
+      "county": "Portage",
+      "document_number": "923488",
+      "recorded_date": "2026-06-10",
+      "document_type": "WDOT - Award of damages by state of Wisconsin",
+      "conveyance_type": "Sale",
+      "municipality": "Stevens Point, City of",
+      "property_type": "Land only",
+      "property_use": "Other",
+      "address": "709 Division St Stevens",
+      "grantor": "FROSTY PINE PROPERTIES, LLC",
+      "grantee": "CITY OF STEVENS POINT",
+      "sale_price": 51200,
+      "acres": 0.17
     },
     {
       "county": "Portage",
@@ -9019,21 +9019,6 @@
     },
     {
       "county": "Portage",
-      "document_number": "922641",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Sharon, Town of",
-      "property_type": "Land only",
-      "property_use": "Single family",
-      "address": "7820 King Ln",
-      "grantor": "NEW HOPE LAND INVESTMENTS LLC",
-      "grantee": "BRIAN D. RIECK AND CARRIE A. RIECK FAMILY REVOCABLE TRUST DATED MARCH 1, 2022",
-      "sale_price": 425000,
-      "acres": 40.0
-    },
-    {
-      "county": "Portage",
       "document_number": "922848",
       "recorded_date": "2026-05-18",
       "document_type": "Trustee's deed",
@@ -9061,21 +9046,6 @@
       "grantee": "HASTINGS DIVISION LLC, A WISCONSIN LIMITED LIABILITY COMPANY",
       "sale_price": 6000000,
       "acres": 4.2
-    },
-    {
-      "county": "Portage",
-      "document_number": "922613",
-      "recorded_date": "2026-05-11",
-      "document_type": "Land contract",
-      "conveyance_type": "Sale",
-      "municipality": "Sharon, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Commercial",
-      "address": "7432 County Road Z",
-      "grantor": "MAKINGBARSGREATAGAIN, LLC",
-      "grantee": "DANIELSEN, JACOB",
-      "sale_price": 165000,
-      "acres": 0.61
     },
     {
       "county": "Portage",
@@ -9124,6 +9094,21 @@
     },
     {
       "county": "Portage",
+      "document_number": "923459",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Plover, Village of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "3920 Nassau Blvd",
+      "grantor": "SCHNEIDER, JAMES J.",
+      "grantee": "TROWBRIDGE, CODY C.",
+      "sale_price": 315500,
+      "acres": 1.17
+    },
+    {
+      "county": "Portage",
       "document_number": "923297",
       "recorded_date": "2026-06-03",
       "document_type": "Warranty deed",
@@ -9151,6 +9136,21 @@
       "grantee": "CAMERON, BLADE R.",
       "sale_price": 302000,
       "acres": 0.1
+    },
+    {
+      "county": "Portage",
+      "document_number": "923489",
+      "recorded_date": "2026-06-10",
+      "document_type": "Trustee's deed",
+      "conveyance_type": "Sale",
+      "municipality": "Stevens Point, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "4314 Second Street",
+      "grantor": "EMZ INCOME TRUST DATED MARCH 25, 2026",
+      "grantee": "LOR, MAI V",
+      "sale_price": 275000,
+      "acres": 0.3
     },
     {
       "county": "Portage",
@@ -9229,6 +9229,21 @@
     },
     {
       "county": "Portage",
+      "document_number": "923482",
+      "recorded_date": "2026-06-10",
+      "document_type": "Quit claim deed",
+      "conveyance_type": "Sale",
+      "municipality": "Stevens Point, City of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "2040 Jefferson Street",
+      "grantor": "PORTAGE COUNTY",
+      "grantee": "ARNOLD, PATRICIA",
+      "sale_price": 218500,
+      "acres": 0.35
+    },
+    {
+      "county": "Portage",
       "document_number": "923153",
       "recorded_date": "2026-05-28",
       "document_type": "Warranty deed",
@@ -9301,6 +9316,21 @@
       "grantee": "PARAMOUNT LAND, LLC",
       "sale_price": 593261,
       "acres": 40.0
+    },
+    {
+      "county": "Portage",
+      "document_number": "923473",
+      "recorded_date": "2026-06-09",
+      "document_type": "Warranty deed",
+      "conveyance_type": "Sale",
+      "municipality": "Lanark, Town of",
+      "property_type": "Land and buildings/improvements",
+      "property_use": "Single family",
+      "address": "9090 County Road N",
+      "grantor": "SKIERA, JASON R.",
+      "grantee": "COPE, BRANDON J.",
+      "sale_price": 245000,
+      "acres": 3.9
     },
     {
       "county": "Portage",
@@ -9454,21 +9484,6 @@
     },
     {
       "county": "Portage",
-      "document_number": "922644",
-      "recorded_date": "2026-05-11",
-      "document_type": "Warranty deed",
-      "conveyance_type": "Sale",
-      "municipality": "Stevens Point, City of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "5464 Windy Drive",
-      "grantor": "CORCORAN, THOMAS M.",
-      "grantee": "KRENZ, DAVID M.",
-      "sale_price": 320000,
-      "acres": 1.0
-    },
-    {
-      "county": "Portage",
       "document_number": "922935",
       "recorded_date": "2026-05-20",
       "document_type": "Warranty deed",
@@ -9526,21 +9541,6 @@
       "grantee": "CROW, JON-ROSS",
       "sale_price": 830000,
       "acres": 1.7
-    },
-    {
-      "county": "Portage",
-      "document_number": "922657",
-      "recorded_date": "2026-05-11",
-      "document_type": "Trustee's deed",
-      "conveyance_type": "Sale",
-      "municipality": "Grant, Town of",
-      "property_type": "Land and buildings/improvements",
-      "property_use": "Single family",
-      "address": "12320 Prairie Drive",
-      "grantor": "RICHARD T. KINGSTON FAMILY REVOCABLE TRUST DATED JANUARY 26, 2009",
-      "grantee": "KIELISZEWSKI, THOMAS J.",
-      "sale_price": 475000,
-      "acres": 39.9
     },
     {
       "county": "Portage",
