@@ -9,6 +9,7 @@ import PriceCharts from "./components/PriceCharts.jsx";
 import PriceHistoryChart from "./components/PriceHistoryChart.jsx";
 import MarketBreakdown from "./components/MarketBreakdown.jsx";
 import ShareCard from "./components/ShareCard.jsx";
+import BookmarkButton from "./components/BookmarkButton.jsx";
 import { weekStartISO, weekLabel } from "./lib/format.js";
 import { matchesUse, historyGroup } from "./lib/use.js";
 
@@ -170,7 +171,10 @@ export default function App() {
       <main className="page">
         <SponsorBanner />
         <header className="masthead">
-          <h1>Property Transactions</h1>
+          <div className="masthead-top">
+            <h1>Property Transactions</h1>
+            <BookmarkButton />
+          </div>
           <p className="dek">
             Real estate sales recorded across Marathon, Lincoln, Langlade, Taylor,
             Shawano, and Portage counties, Wisconsin over the past month — property

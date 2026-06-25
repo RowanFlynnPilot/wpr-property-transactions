@@ -82,6 +82,61 @@
   margin: 0 0 0.25rem;
   letter-spacing: -0.01em;
 }
+/* Title row: heading left, bookmark button pinned top-right (heading text wraps
+   under it on narrow screens; the button stays put). */
+.masthead-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.masthead-top h1 {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* --- Bookmark button + instruction popover ------------------------------- */
+.bookmark {
+  position: relative;
+  flex: none;
+  margin-top: 0.4rem;
+}
+.bookmark-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #fff;
+  border: 1px solid var(--wpr-rule);
+  color: var(--wpr-ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.bookmark-btn:hover {
+  background: var(--wpr-teal);
+  color: #fff;
+  border-color: var(--wpr-teal);
+}
+.bookmark-pop {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 20;
+  width: min(244px, 80vw);
+  background: var(--wpr-ink);
+  color: #fff;
+  padding: 0.7rem 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  border-radius: 6px;
+  box-shadow: var(--shadow-lg);
+}
 .dek {
   margin: 0;
   max-width: 60ch;
