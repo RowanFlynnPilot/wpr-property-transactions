@@ -1123,7 +1123,6 @@ h2 {
   padding: 1.1rem 1.25rem;
   background: #fff;
   border: 1px solid var(--wpr-rule);
-  border-left: 4px solid var(--wpr-gold);
   box-shadow: var(--shadow);
   text-decoration: none;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -1150,7 +1149,9 @@ h2 {
   white-space: nowrap;
 }
 .sb-logo {
-  height: 56px;
+  /* Taller than the old wide wordmark — this is a square, 4-line stacked
+     lockup, so it needs more height to keep the service-line text legible. */
+  height: 96px;
   width: auto;
   display: block;
 }
@@ -1219,7 +1220,7 @@ h2 {
   color: #888;
 }
 .sponsor-tag-logo {
-  height: 30px;
+  height: 52px;
   width: auto;
 }
 .sponsor-tag:hover .sponsor-tag-logo {
