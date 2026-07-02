@@ -51,7 +51,20 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git commit -m "data: refresh property transactions feed"
-            git push
+            # The monthly history job or a manual push can advance main during this
+            # run, so a plain push loses the race ("fetch first"). Rebase this
+            # single-file commit onto the latest main and retry; the concurrent
+            # pushes touch other files, so the rebase applies cleanly.
+            pushed=false
+            for attempt in 1 2 3 4 5; do
+              if git push; then pushed=true; break; fi
+              echo "push rejected (attempt $attempt) — rebasing onto origin/main"
+              git pull --rebase origin main
+              sleep 3
+            done
+            if [ "$pushed" != true ]; then
+              echo "::error::could not push feed after 5 attempts"; exit 1
+            fi
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
