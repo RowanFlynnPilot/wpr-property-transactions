@@ -36,6 +36,15 @@ HISTORY_MONTHS = 12
 HISTORY_REFRESH_MONTHS = 2
 HISTORY_OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "price_history.json"
 
+# --- Per-municipality medians (single-family, trailing 12 months) ----------
+# Built by scraper/history.py from the SAME monthly pulls as the price history
+# (no extra TAP traffic). Record-level sale prices are stored per
+# (county|municipality, month) — prices only, no addresses or names — because a
+# trailing-window median must be computed from raw prices; monthly medians
+# cannot be recombined. Consumers (e.g. wpr-finance-tools) apply their own
+# sample-size threshold; every row carries its count.
+MUNI_MEDIANS_OUTPUT_PATH = Path(__file__).resolve().parent.parent / "data" / "muni_medians.json"
+
 # --- Browser --------------------------------------------------------------
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "

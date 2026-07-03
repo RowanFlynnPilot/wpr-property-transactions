@@ -201,10 +201,14 @@ wpr-property-transactions/
 │   ├── parse.py              # DOR CSV rows -> Transaction objects (incl. property_use)
 │   ├── policy.py             # editorial publish policy: filter + clean -> PublishedRecord
 │   ├── scrape.py             # orchestration entry point; writes data/transactions.json
-│   └── history.py            # rolling 12-mo median by use group -> data/price_history.json
+│   └── history.py            # rolling 12-mo aggregates from monthly pulls (both files below)
 ├── data/
 │   ├── transactions.json     # static 30-day feed, committed, read by frontend
-│   └── price_history.json    # 12-mo medians+counts (All/Residential/Commercial x county)
+│   ├── price_history.json    # 12-mo medians+counts (All/Residential/Commercial x county)
+│   └── muni_medians.json     # per-municipality single-family 12-mo medians + counts
+│                             #   (+ per-month price lists — prices only — so trailing
+│                             #   medians recompute from raw prices; consumed by
+│                             #   wpr-finance-tools, which applies a sample-size threshold)
 ├── tools/
 │   └── fetch_centroids.py    # one-off: Census municipal centroids -> frontend lib
 ├── tests/                    # pytest: parse + policy (browser-free); run in CI
