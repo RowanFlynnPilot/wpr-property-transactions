@@ -27,6 +27,29 @@ export function prettyDate(iso) {
   });
 }
 
+// Month-key ("2026-06") formatters, one per label density.
+export function monthName(key) {
+  const [y, m] = key.split("-").map(Number);
+  return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "short" });
+}
+
+export function monthShort(key) {
+  const [y, m] = key.split("-").map(Number);
+  return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "short", year: "2-digit" });
+}
+
+export function monthLong(key) {
+  const [y, m] = key.split("-").map(Number);
+  return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" });
+}
+
+// +$12,300 / −$4,100 (real minus sign), null -> "—".
+export function signedMoney(n) {
+  if (n == null) return "—";
+  const sign = n > 0 ? "+" : n < 0 ? "−" : "";
+  return sign + money(Math.abs(n));
+}
+
 // Fractional change cur/prev (e.g. 0.032 for +3.2%); null if not computable.
 export function pctChange(cur, prev) {
   if (cur == null || prev == null || prev === 0) return null;

@@ -9,31 +9,8 @@ import {
   CartesianGrid,
   Legend,
 } from "recharts";
-import { money } from "../lib/format.js";
-
-const TEAL = "#3a867c";
-const AMBER = "#c8922e";
-
-function moneyAxis(n) {
-  if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`;
-  return `$${Math.round(n / 1000)}k`;
-}
-
-function shortMonth(key) {
-  const [y, m] = key.split("-").map(Number);
-  return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "short", year: "2-digit" });
-}
-
-function fullMonth(key) {
-  const [y, m] = key.split("-").map(Number);
-  return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" });
-}
-
-function signed(n) {
-  if (n == null) return "—";
-  const sign = n > 0 ? "+" : n < 0 ? "−" : "";
-  return sign + money(Math.abs(n));
-}
+import { money, moneyCompact, monthShort, monthLong, signedMoney } from "../lib/format.js";
+import { TEAL, AMBER, GRID, AXIS } from "../lib/palette.js";
 
 function HistoryTooltip({ active, payload, label, countyName }) {
   if (!active || !payload?.length) return null;
@@ -84,7 +61,7 @@ export default function PriceHistoryChart({ history, useGroup = "All", use = "Ov
     const c = history.counts[useGroup] ?? {};
     return history.months.map((mo, i) => ({
       key: mo,
-      month: shortMonth(mo),
+      month: monthShort(mo),
       Overall: s.Region?.[i] ?? null,
       [county]: s[county]?.[i] ?? null,
       count: c[county]?.[i] ?? 0,
@@ -106,7 +83,7 @@ export default function PriceHistoryChart({ history, useGroup = "All", use = "Ov
     () =>
       data.map((d, idx) => ({
         key: d.key,
-        label: fullMonth(d.key),
+        label: monthLong(d.key),
         partial: idx === data.length - 1, // newest (last) row = current, still-accruing month
         overall: d.Overall,
         county: d[county],
@@ -146,13 +123,13 @@ export default function PriceHistoryChart({ history, useGroup = "All", use = "Ov
                 <stop offset="100%" stopColor={AMBER} stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid stroke="#e6e0d2" vertical={false} />
-            <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke="#b8b2a4" tickMargin={8} />
+            <CartesianGrid stroke={GRID} vertical={false} />
+            <XAxis dataKey="month" tick={{ fontSize: 11 }} stroke={AXIS} tickMargin={8} />
             <YAxis
               domain={domain}
-              tickFormatter={moneyAxis}
+              tickFormatter={moneyCompact}
               tick={{ fontSize: 11 }}
-              stroke="#b8b2a4"
+              stroke={AXIS}
               width={52}
             />
             <Tooltip content={<HistoryTooltip countyName={county} />} cursor={{ fill: "rgba(58,134,124,0.06)" }} />
@@ -205,7 +182,7 @@ export default function PriceHistoryChart({ history, useGroup = "All", use = "Ov
                 <td className="num mono">{r.overall == null ? "—" : money(r.overall)}</td>
                 <td className="num mono">{r.county == null ? "—" : money(r.county)}</td>
                 <td className={`num mono diff ${r.diff == null ? "" : r.diff >= 0 ? "pos" : "neg"}`}>
-                  {signed(r.diff)}
+                  {signedMoney(r.diff)}
                 </td>
               </tr>
             ))}

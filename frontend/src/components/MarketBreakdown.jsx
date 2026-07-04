@@ -1,14 +1,8 @@
 import { useMemo, useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import { median, money, moneyCompact, pctChange, fmtPct } from "../lib/format.js";
+import { median, money, moneyCompact, monthShort, pctChange, fmtPct, signedMoney } from "../lib/format.js";
+import { DONUT_COLORS } from "../lib/palette.js";
 
-// Palette long enough for the DOR category breakdown (Single family, Commercial,
-// Manufacturing, Agricultural, Undeveloped land, …), not just the 3-4 structure
-// types. Cycles if a feed ever carries more slices.
-const COLORS = [
-  "#3a867c", "#c8922e", "#4aaba7", "#32373c", "#9ab8b1",
-  "#a8643c", "#6b8f3a", "#7a6f9b", "#cfae6a", "#5b8c9e",
-];
 const TYPE_LABEL = {
   "Land and buildings/improvements": "Land & buildings",
   "Buildings/improvements only": "Buildings only",
@@ -17,17 +11,6 @@ const TYPE_LABEL = {
 };
 const typeLabel = (t) => TYPE_LABEL[t] || t;
 const useLabel = (u) => u || "Unclassified";
-
-function monthShort(key) {
-  const [y, m] = key.split("-").map(Number);
-  return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "short", year: "2-digit" });
-}
-
-function signedMoney(n) {
-  if (n == null) return "—";
-  const sign = n > 0 ? "+" : n < 0 ? "−" : "";
-  return sign + money(Math.abs(n));
-}
 
 function DonutTooltip({ active, payload, mode, total }) {
   if (!active || !payload?.length) return null;
@@ -77,7 +60,7 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
     }));
     items.sort((a, b) => b.count - a.count);
     items.forEach((it, i) => {
-      it.color = COLORS[i % COLORS.length];
+      it.color = DONUT_COLORS[i % DONUT_COLORS.length];
     });
     return items;
   }, [records, dim]);

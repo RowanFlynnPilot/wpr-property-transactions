@@ -3,12 +3,8 @@ import { toPng } from "html-to-image";
 import Sparkline from "./Sparkline.jsx";
 import { WPR_LOGO, WPR_MARK } from "../lib/wpr-logo.js";
 import { SPONSOR } from "../lib/sponsor.js";
-import { money, fmtPct, pctChange } from "../lib/format.js";
-
-function monthLong(key) {
-  const [y, m] = key.split("-").map(Number);
-  return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" });
-}
+import { money, fmtPct, monthLong, pctChange } from "../lib/format.js";
+import { TEAL } from "../lib/palette.js";
 
 // A co-branded, downloadable headline card — the "share image". Built from the
 // same history data; carries the WPR wordmark and the sponsor slot, so every share
@@ -85,7 +81,7 @@ export default function ShareCard({ history, selectedCounty, useGroup = "All", u
           <span className={data.yoy >= 0 ? "up" : "down"}>{fmtPct(data.yoy)} year over year</span>
         </div>
         <div className="share-spark">
-          <Sparkline values={data.med} color="#3a867c" width={420} height={60} />
+          <Sparkline values={data.med} color={TEAL} width={420} height={60} />
         </div>
         <div className="share-foot">
           <span>wausaupilotandreview.com</span>

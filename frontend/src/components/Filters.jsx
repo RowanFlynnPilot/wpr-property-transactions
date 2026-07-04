@@ -3,7 +3,7 @@ import { USE_OPTIONS } from "../lib/use.js";
 
 // Controlled filter bar. Owns no state itself — App holds the filter object and
 // the derived option lists, so the table, charts, and map all react together.
-export default function Filters({ options, filters, onChange, resultCount, totalCount }) {
+export default function Filters({ options, filters, onChange, onReset, resultCount, totalCount }) {
   const set = (patch) => onChange({ ...filters, ...patch });
 
   return (
@@ -118,13 +118,7 @@ export default function Filters({ options, filters, onChange, resultCount, total
         <span className="filter-count">
           {resultCount.toLocaleString()} of {totalCount.toLocaleString()}
         </span>
-        <button
-          type="button"
-          className="filter-reset"
-          onClick={() =>
-            onChange({ use: "Overall", week: "", county: "", municipality: "", propertyType: "", minPrice: 0, query: "" })
-          }
-        >
+        <button type="button" className="filter-reset" onClick={onReset}>
           Reset
         </button>
       </div>

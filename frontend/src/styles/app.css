@@ -1,8 +1,23 @@
-/* WPR Property Transactions — newspaper aesthetic on the cream/teal token base.
-   Layout + component styling. Tokens live in tokens.css. */
+/* WPR Property Transactions — newspaper aesthetic on the paper's white/teal
+   token base (Oswald heads, Merriweather prose, matching the site). Layout +
+   component styling. Tokens live in tokens.css. */
 
 * {
   box-sizing: border-box;
+}
+
+/* Compact UI text gets the site's Oswald; the Merriweather body is reserved
+   for prose (dek, footnotes, colophon). Tooltips read as data cards. */
+.filter-field label,
+.kpi-label,
+.kpi-sub,
+.history-table th,
+.county-table th,
+.share-month,
+.donut-total-label,
+.chart-tip,
+.history-tip {
+  font-family: var(--font-ui);
 }
 
 .page {
@@ -42,7 +57,7 @@
   object-fit: contain;
 }
 .wpr-tagline {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 10px;
   letter-spacing: 0.28em;
   text-transform: uppercase;
@@ -50,7 +65,7 @@
   margin-top: 8px;
 }
 .wpr-dateline {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 10.5px;
   letter-spacing: 0.04em;
   color: #6b6b6b;
@@ -76,9 +91,9 @@
 }
 .masthead h1 {
   font-family: var(--font-display);
-  font-weight: 900;
+  font-weight: 700; /* Oswald tops out at 700; the site's heads are 700 */
   font-size: clamp(2rem, 5vw, 3rem);
-  color: var(--wpr-teal);
+  color: var(--wpr-ink); /* site headlines are ink, not teal */
   margin: 0 0 0.25rem;
   letter-spacing: -0.01em;
 }
@@ -108,7 +123,7 @@
   background: #fff;
   border: 1px solid var(--wpr-rule);
   color: var(--wpr-ink);
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-weight: 700;
   font-size: 0.78rem;
   padding: 0.45rem 0.8rem;
@@ -131,7 +146,7 @@
   background: var(--wpr-ink);
   color: #fff;
   padding: 0.7rem 0.85rem;
-  font-family: var(--font-body);
+  font-family: var(--font-body); /* instruction sentence — prose, not a label */
   font-size: 0.8rem;
   line-height: 1.45;
   border-radius: 6px;
@@ -153,37 +168,6 @@ h2 {
   margin: 2.5rem 0 1rem;
 }
 
-/* --- Summary stats ------------------------------------------------------- */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--wpr-rule);
-  border: 1px solid var(--wpr-rule);
-}
-.stat {
-  background: #fff;
-  padding: 1rem 1.1rem;
-}
-.stat-value {
-  font-family: var(--font-data);
-  font-weight: 600;
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
-  color: var(--wpr-teal);
-}
-.stat-label {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #666;
-  margin-top: 0.2rem;
-}
-.stats-window {
-  font-size: 0.82rem;
-  color: #666;
-  margin: 0.6rem 0 0;
-}
-
 /* --- Charts -------------------------------------------------------------- */
 .charts {
   display: grid;
@@ -203,7 +187,7 @@ h2 {
   min-height: 380px;
 }
 .chart figcaption {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-weight: 600;
   font-size: 0.85rem;
   color: var(--wpr-ink);
@@ -290,7 +274,7 @@ h2 {
   color: #666;
 }
 .history-pick select {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.9rem;
   text-transform: none;
   letter-spacing: 0;
@@ -447,7 +431,7 @@ h2 {
 }
 .filter-field select,
 .filter-field input {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.9rem;
   padding: 0.4rem 0.5rem;
   border: 1px solid var(--wpr-rule);
@@ -472,7 +456,7 @@ h2 {
   color: #555;
 }
 .filter-reset {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.82rem;
   background: none;
   border: 1px solid var(--wpr-rule);
@@ -497,13 +481,13 @@ h2 {
 }
 .txn-table th {
   text-align: left;
-  background: var(--wpr-cream);
+  background: var(--wpr-tint);
   border-bottom: 2px solid var(--wpr-ink);
   position: sticky;
   top: 0;
 }
 .txn-table th button {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-weight: 700;
   font-size: 0.72rem;
   text-transform: uppercase;
@@ -529,7 +513,7 @@ h2 {
   overflow-wrap: anywhere;
 }
 .txn-table tbody tr:nth-child(even) td {
-  background: #fbf9f3;
+  background: var(--wpr-tint);
 }
 /* Hover row highlight — pale teal tint; declared last so it wins over the zebra
    stripe at equal specificity. */
@@ -598,7 +582,7 @@ h2 {
   .txn-table td::before {
     content: attr(data-label);
     flex: none;
-    font-family: var(--font-body);
+    font-family: var(--font-ui);
     font-weight: 700;
     font-size: 0.68rem;
     text-transform: uppercase;
@@ -662,7 +646,7 @@ h2 {
   margin-bottom: 0.9rem;
 }
 .kpi-scope {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-weight: 700;
   font-size: 0.68rem;
   text-transform: uppercase;
@@ -672,7 +656,7 @@ h2 {
   padding: 0.28rem 0.6rem;
 }
 .kpi-use {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-weight: 700;
   font-size: 0.66rem;
   text-transform: uppercase;
@@ -685,7 +669,7 @@ h2 {
 /* Use badges (Residential / Commercial / Other) */
 .use-badge {
   display: inline-block;
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.62rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -713,7 +697,7 @@ h2 {
 }
 .kpi-trend {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-body); /* editorial sentence — serif italic (Oswald has no italic) */
   font-style: italic;
   font-size: clamp(1rem, 2.4vw, 1.25rem);
   color: var(--wpr-ink);
@@ -756,12 +740,6 @@ h2 {
   color: var(--wpr-teal);
   margin-top: 0.3rem;
 }
-.kpi-change.up {
-  color: var(--wpr-up);
-}
-.kpi-change.down {
-  color: var(--wpr-down);
-}
 .kpi-meta {
   margin-top: 0.35rem;
   display: flex;
@@ -772,9 +750,6 @@ h2 {
 .kpi-sub {
   font-size: 0.74rem;
   color: #888;
-}
-.kpi-topsale {
-  line-height: 1.3;
 }
 .kpi-spark {
   margin-top: auto;
@@ -862,7 +837,7 @@ h2 {
 }
 .kpi-minibar-track {
   height: 7px;
-  background: #eee7d8;
+  background: #ececea;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -961,7 +936,7 @@ h2 {
   padding: 1rem 1.1rem 1rem;
 }
 .breakdown-card figcaption {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-weight: 600;
   font-size: 0.85rem;
   color: var(--wpr-ink);
@@ -984,7 +959,7 @@ h2 {
   border: 1px solid var(--wpr-rule);
 }
 .donut-toggle button {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-weight: 600;
   font-size: 0.72rem;
   padding: 0.28rem 0.6rem;
@@ -1050,51 +1025,6 @@ h2 {
   font-family: var(--font-data);
   color: #555;
 }
-.movers {
-  list-style: none;
-  margin: 0.4rem 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-.movers li {
-  display: grid;
-  grid-template-columns: 84px 1fr 62px;
-  align-items: center;
-  gap: 0.65rem;
-  font-size: 0.85rem;
-}
-.mover-name {
-  color: var(--wpr-ink);
-}
-.mover-track {
-  height: 10px;
-  background: #f0ece1;
-  overflow: hidden;
-}
-.mover-fill {
-  display: block;
-  height: 100%;
-  min-width: 2px;
-}
-.mover-fill.up {
-  background: var(--wpr-up);
-}
-.mover-fill.down {
-  background: var(--wpr-down);
-}
-.mover-val {
-  text-align: right;
-  font-family: var(--font-data);
-  font-weight: 600;
-}
-.mover-val.up {
-  color: var(--wpr-up);
-}
-.mover-val.down {
-  color: var(--wpr-down);
-}
 .movers-foot {
   margin: 0.85rem 0 0;
   font-size: 0.76rem;
@@ -1128,9 +1058,6 @@ h2 {
 }
 @media (max-width: 760px) {
   .charts {
-    grid-template-columns: 1fr;
-  }
-  .breakdown {
     grid-template-columns: 1fr;
   }
   .filter-meta {
@@ -1195,7 +1122,7 @@ h2 {
   gap: 1.15rem;
 }
 .sb-eyebrow {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1220,7 +1147,7 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-weight: 600;
   font-size: 0.9rem;
   color: #fff;
@@ -1267,7 +1194,7 @@ h2 {
   padding-bottom: 0.2rem;
 }
 .sponsor-tag-label {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.66rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1455,7 +1382,7 @@ h2 {
   padding: 0;
 }
 .share-btn {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-weight: 600;
   font-size: 0.85rem;
   background: var(--wpr-teal);
@@ -1506,7 +1433,7 @@ h2 {
   object-fit: contain;
 }
 .share-tag {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-weight: 700;
   font-size: 0.62rem;
   letter-spacing: 0.18em;

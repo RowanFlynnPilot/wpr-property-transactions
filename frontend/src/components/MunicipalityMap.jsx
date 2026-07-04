@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { median, money, muniLabel } from "../lib/format.js";
 import { MUNI_CENTROIDS, REGION_CENTER, REGION_ZOOM } from "../lib/municipalities.js";
+import { TEAL, TEAL_BRIGHT, TEAL_DARK } from "../lib/palette.js";
 
 // Case-insensitive centroid index: DOR and Census disagree on some capitalization
 // (e.g. DOR "Mcmillan" vs Census "McMillan"), so match on lowercased keys.
@@ -67,8 +68,8 @@ export default function MunicipalityMap({ records, selectedKey, onSelect }) {
                 radius={radiusFor(p.count, maxCount)}
                 eventHandlers={onSelect ? { click: () => onSelect(p.county, p.muni) } : undefined}
                 pathOptions={{
-                  color: isSelected ? "#2f6f66" : "#3a867c",
-                  fillColor: isSelected ? "#2f6f66" : "#4aaba7",
+                  color: isSelected ? TEAL_DARK : TEAL,
+                  fillColor: isSelected ? TEAL_DARK : TEAL_BRIGHT,
                   fillOpacity: isSelected ? 0.85 : 0.55,
                   weight: isSelected ? 3 : 1.5,
                 }}

@@ -11,26 +11,10 @@ import {
   LabelList,
 } from "recharts";
 import { median, money, moneyCompact, shortMuni } from "../lib/format.js";
+import { TEAL, TEAL_BRIGHT, AMBER, GRID, AXIS, LABEL } from "../lib/palette.js";
+import { BUCKETS, bucketLabel } from "../lib/buckets.js";
 
-const TEAL = "#3a867c";
-const TEAL_BRIGHT = "#4aaba7";
-const HIGHLIGHT = "#c8922e"; // amber — marks the selected county/community against the teal bars
-const LABEL = "#5a564d"; // value-label text
-
-// Price-distribution buckets (whole dollars). Open-ended top bucket.
-const BUCKETS = [
-  [0, 100_000],
-  [100_000, 200_000],
-  [200_000, 300_000],
-  [300_000, 500_000],
-  [500_000, 1_000_000],
-  [1_000_000, Infinity],
-];
-
-function bucketLabel([lo, hi]) {
-  if (hi === Infinity) return `${moneyCompact(lo)}+`;
-  return `${moneyCompact(lo)}–${moneyCompact(hi)}`;
-}
+const HIGHLIGHT = AMBER; // marks the selected county/community against the teal bars
 
 // Styled tooltip for the median charts (county + community).
 function MedianTooltip({ active, payload }) {
@@ -141,9 +125,9 @@ export default function PriceCharts({
         <div className="chart-body">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={byCounty} margin={{ left: 8, right: 16, top: 22 }}>
-            <CartesianGrid vertical={false} stroke="#e6e0d2" />
-            <XAxis dataKey="county" tick={{ fontSize: 11 }} stroke="#b8b2a4" interval={0} tickMargin={6} />
-            <YAxis tickFormatter={moneyCompact} tick={{ fontSize: 11 }} stroke="#b8b2a4" />
+            <CartesianGrid vertical={false} stroke={GRID} />
+            <XAxis dataKey="county" tick={{ fontSize: 11 }} stroke={AXIS} interval={0} tickMargin={6} />
+            <YAxis tickFormatter={moneyCompact} tick={{ fontSize: 11 }} stroke={AXIS} />
             <Tooltip content={<MedianTooltip />} cursor={TIP_CURSOR} />
             <Bar
               dataKey="medianPrice"
@@ -171,9 +155,9 @@ export default function PriceCharts({
         <div className="chart-body">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={byMuni} layout="vertical" margin={{ left: 8, right: 52 }}>
-            <CartesianGrid horizontal={false} stroke="#e6e0d2" />
-            <XAxis type="number" tickFormatter={moneyCompact} tick={{ fontSize: 11 }} stroke="#b8b2a4" />
-            <YAxis type="category" dataKey="muni" width={96} tick={{ fontSize: 11 }} stroke="#b8b2a4" />
+            <CartesianGrid horizontal={false} stroke={GRID} />
+            <XAxis type="number" tickFormatter={moneyCompact} tick={{ fontSize: 11 }} stroke={AXIS} />
+            <YAxis type="category" dataKey="muni" width={96} tick={{ fontSize: 11 }} stroke={AXIS} />
             <Tooltip content={<MedianTooltip />} cursor={TIP_CURSOR} />
             <Bar dataKey="medianPrice" radius={[0, 3, 3, 0]} isAnimationActive={false}>
               {byMuni.map((d) => (
@@ -201,9 +185,9 @@ export default function PriceCharts({
         <div className="chart-body">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={distribution} margin={{ left: 8, right: 16 }}>
-            <CartesianGrid vertical={false} stroke="#e6e0d2" />
-            <XAxis dataKey="label" tick={{ fontSize: 10 }} stroke="#b8b2a4" interval={0} />
-            <YAxis allowDecimals={false} tick={{ fontSize: 11 }} stroke="#b8b2a4" />
+            <CartesianGrid vertical={false} stroke={GRID} />
+            <XAxis dataKey="label" tick={{ fontSize: 10 }} stroke={AXIS} interval={0} />
+            <YAxis allowDecimals={false} tick={{ fontSize: 11 }} stroke={AXIS} />
             <Tooltip content={<CountTooltip />} cursor={TIP_CURSOR} />
             <Bar dataKey="count" radius={[3, 3, 0, 0]} isAnimationActive={false}>
               {distribution.map((_, i) => (

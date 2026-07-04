@@ -1,28 +1,36 @@
 :root {
-  /* WPR palette — teal accents on a cream/black newspaper base */
+  /* WPR palette — matched to wausaupilotandreview.com (white newspaper base,
+     Oswald heads, Merriweather body). Teal stays the shared WPR-widget DATA
+     accent (charts, KPIs, buttons); the paper's red is reserved for small
+     editorial accents so the data viz never reads alarmist. */
   --wpr-teal: #3a867c;
   --wpr-teal-bright: #4aaba7;
-  --wpr-cream: #f7f4ec;
-  --wpr-ink: #1a1a1a;
-  --wpr-rule: #d8d2c4; /* hairline rules / table borders */
-  --wpr-slate: #32373c; /* WPR masthead text/rule color */
+  --wpr-teal-dark: #2f6f66; /* hover / selected */
+  --wpr-paper: #ffffff; /* page ground — the site is pure white */
+  --wpr-tint: #f7f7f5; /* table headers / zebra tint on the white ground */
+  --wpr-ink: #111111; /* site body/headline color (rgb 17,17,17) */
+  --wpr-rule: #dcdcda; /* hairline rules / table borders */
+  --wpr-slate: #32373c; /* masthead text/rule color */
+  --wpr-red: #dd3333; /* the paper's accent red (typewriter roundel) */
   --wpr-gold: #c8922e; /* premium accent */
   --wpr-up: #2f8f5f; /* positive delta */
   --wpr-down: #c0492f; /* negative delta */
 
   /* Elevation */
-  --shadow: 0 1px 2px rgba(26, 26, 26, 0.05), 0 1px 3px rgba(26, 26, 26, 0.06);
-  --shadow-lg: 0 8px 28px rgba(26, 26, 26, 0.1);
+  --shadow: 0 1px 2px rgba(17, 17, 17, 0.05), 0 1px 3px rgba(17, 17, 17, 0.06);
+  --shadow-lg: 0 8px 28px rgba(17, 17, 17, 0.1);
 
-  /* Type */
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "Source Sans 3", system-ui, sans-serif;
+  /* Type — the site's stack: Oswald for headlines AND compact UI labels,
+     Merriweather for running prose, JetBrains Mono for data. */
+  --font-display: "Oswald", Helvetica, Arial, sans-serif;
+  --font-ui: "Oswald", Helvetica, Arial, sans-serif;
+  --font-body: "Merriweather", Georgia, serif;
   --font-data: "JetBrains Mono", ui-monospace, monospace; /* prices, parcel IDs */
 }
 
 body {
   margin: 0;
-  background: var(--wpr-cream);
+  background: var(--wpr-paper);
   color: var(--wpr-ink);
   font-family: var(--font-body);
 }

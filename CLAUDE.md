@@ -247,11 +247,21 @@ only.
 
 ## WPR design system (frontend)
 
-- **Colors:** teal `#3A867C` / `#4aaba7`; cream + black newspaper aesthetic.
-- **Type:** Playfair Display (headlines), Source Sans 3 (body), JetBrains Mono (data /
-  prices / parcel IDs).
-- **Logo:** embed as base64 to avoid hotlink failures.
-- Chart-led and map-led (Leaflet), consistent with `wpr-trails` / `wpr-river-conditions`.
+Matched to wausaupilotandreview.com (2026-07-04 brand pass):
+
+- **Base:** white ground, ink `#111` (the site's exact body color), neutral
+  hairline rules — the paper's newspaper aesthetic.
+- **Type:** Oswald (headlines AND compact UI labels — the site's head/nav face),
+  Merriweather (prose), JetBrains Mono (data / prices / parcel IDs). Tokens:
+  `--font-display` / `--font-ui` / `--font-body` / `--font-data`.
+- **Accents:** teal `#3A867C` / `#4aaba7` stays the shared WPR-widget DATA accent
+  (charts, KPIs, buttons — consistent with `wpr-trails` / `wpr-river-conditions`);
+  the paper's red `#dd3333` (typewriter roundel) is reserved for small editorial
+  accents so data viz never reads alarmist. JS-side chart colors live in ONE
+  place: `frontend/src/lib/palette.js`; CSS colors in `styles/tokens.css`.
+- **Logo:** wordmark + typewriter roundel embedded as base64 (`lib/wpr-logo.js`)
+  to avoid hotlink failures; both render in the shared Masthead and ShareCard.
+- Chart-led and map-led (Leaflet).
 
 ## Dev environment
 

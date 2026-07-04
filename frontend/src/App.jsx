@@ -235,6 +235,7 @@ export default function App() {
         options={{ ...options, municipalities }}
         filters={filters}
         onChange={setFilters}
+        onReset={() => setFilters(EMPTY_FILTERS)}
         resultCount={filtered.length}
         totalCount={all.length}
       />

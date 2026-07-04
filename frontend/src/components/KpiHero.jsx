@@ -13,36 +13,11 @@ import {
   LabelList,
 } from "recharts";
 import Sparkline from "./Sparkline.jsx";
-import { money, moneyCompact, pctChange, fmtPct, muniLabel, shortMuni } from "../lib/format.js";
+import { money, moneyCompact, monthLong, monthName, pctChange, fmtPct, muniLabel, shortMuni } from "../lib/format.js";
 import { matchesUse } from "../lib/use.js";
 import { useCountUp } from "../lib/useCountUp.js";
-
-const TEAL = "#3a867c";
-const TEAL_BRIGHT = "#4aaba7";
-const AMBER = "#c8922e";
-const LABEL = "#5a564d";
-
-// Price-distribution buckets (whole dollars), open-ended top bucket. Mirrors the
-// histogram in PriceCharts so the "typical price range" card reads consistently.
-const BUCKETS = [
-  [0, 100_000],
-  [100_000, 200_000],
-  [200_000, 300_000],
-  [300_000, 500_000],
-  [500_000, 1_000_000],
-  [1_000_000, Infinity],
-];
-const bucketLabel = ([lo, hi]) =>
-  hi === Infinity ? `${moneyCompact(lo)}+` : `${moneyCompact(lo)}–${moneyCompact(hi)}`;
-
-function monthLong(key) {
-  const [y, m] = key.split("-").map(Number);
-  return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "long", year: "numeric" });
-}
-function monthAxis(key) {
-  const [y, m] = key.split("-").map(Number);
-  return new Date(y, m - 1, 1).toLocaleDateString("en-US", { month: "short" });
-}
+import { TEAL, TEAL_BRIGHT, AMBER, GRID, AXIS, LABEL } from "../lib/palette.js";
+import { BUCKETS, bucketLabel } from "../lib/buckets.js";
 
 function Delta({ value }) {
   if (value == null) return null;
@@ -226,7 +201,7 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
     () =>
       stats
         ? stats.months.map((mk, i) => ({
-            month: monthAxis(mk),
+            month: monthName(mk),
             monthFull: monthLong(mk),
             median: stats.med[i],
             sales: stats.cnt[i],
@@ -249,9 +224,9 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
                   <stop offset="100%" stopColor={TEAL} stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid stroke="#e6e0d2" vertical={false} />
-              <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="#b8b2a4" tickMargin={8} />
-              <YAxis tickFormatter={moneyCompact} tick={{ fontSize: 12 }} stroke="#b8b2a4" width={56} domain={["auto", "auto"]} />
+              <CartesianGrid stroke={GRID} vertical={false} />
+              <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke={AXIS} tickMargin={8} />
+              <YAxis tickFormatter={moneyCompact} tick={{ fontSize: 12 }} stroke={AXIS} width={56} domain={["auto", "auto"]} />
               <Tooltip content={<SeriesTip kind="median" />} cursor={{ fill: "rgba(58,134,124,0.06)" }} />
               <Area
                 type="monotone"
@@ -275,9 +250,9 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
         node: (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={monthsData} margin={{ left: 8, right: 16, top: 18 }}>
-              <CartesianGrid stroke="#e6e0d2" vertical={false} />
-              <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="#b8b2a4" tickMargin={8} />
-              <YAxis allowDecimals={false} tick={{ fontSize: 12 }} stroke="#b8b2a4" width={40} />
+              <CartesianGrid stroke={GRID} vertical={false} />
+              <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke={AXIS} tickMargin={8} />
+              <YAxis allowDecimals={false} tick={{ fontSize: 12 }} stroke={AXIS} width={40} />
               <Tooltip content={<SeriesTip kind="sales" />} cursor={{ fill: "rgba(200,146,46,0.10)" }} />
               <Bar dataKey="sales" fill={AMBER} radius={[3, 3, 0, 0]} isAnimationActive={false}>
                 <LabelList dataKey="sales" position="top" style={{ fontSize: 11, fill: LABEL }} />
@@ -294,9 +269,9 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
         node: (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={rows} layout="vertical" margin={{ left: 8, right: 36, top: 4 }}>
-              <CartesianGrid horizontal={false} stroke="#e6e0d2" />
-              <XAxis type="number" allowDecimals={false} tick={{ fontSize: 12 }} stroke="#b8b2a4" />
-              <YAxis type="category" dataKey="short" width={112} tick={{ fontSize: 11 }} stroke="#b8b2a4" />
+              <CartesianGrid horizontal={false} stroke={GRID} />
+              <XAxis type="number" allowDecimals={false} tick={{ fontSize: 12 }} stroke={AXIS} />
+              <YAxis type="category" dataKey="short" width={112} tick={{ fontSize: 11 }} stroke={AXIS} />
               <Tooltip content={<CommunityTip />} cursor={{ fill: "rgba(58,134,124,0.08)" }} />
               <Bar dataKey="count" fill={TEAL} radius={[0, 3, 3, 0]} isAnimationActive={false}>
                 <LabelList dataKey="count" position="right" style={{ fontSize: 11, fill: LABEL }} />
@@ -312,9 +287,9 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
         node: (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={priceStats.bins} margin={{ left: 8, right: 16, top: 18 }}>
-              <CartesianGrid stroke="#e6e0d2" vertical={false} />
-              <XAxis dataKey="label" tick={{ fontSize: 11 }} stroke="#b8b2a4" interval={0} />
-              <YAxis allowDecimals={false} tick={{ fontSize: 12 }} stroke="#b8b2a4" width={40} />
+              <CartesianGrid stroke={GRID} vertical={false} />
+              <XAxis dataKey="label" tick={{ fontSize: 11 }} stroke={AXIS} interval={0} />
+              <YAxis allowDecimals={false} tick={{ fontSize: 12 }} stroke={AXIS} width={40} />
               <Tooltip content={<RangeTip />} cursor={{ fill: "rgba(58,134,124,0.08)" }} />
               <Bar dataKey="count" radius={[3, 3, 0, 0]} isAnimationActive={false}>
                 {priceStats.bins.map((_, i) => (

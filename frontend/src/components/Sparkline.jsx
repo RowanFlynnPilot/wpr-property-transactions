@@ -1,8 +1,9 @@
 import { useId } from "react";
+import { TEAL } from "../lib/palette.js";
 
 // Lightweight hand-rolled SVG sparkline — reliable at any size (no recharts
 // container measuring). Draws a soft gradient area + line + end dot.
-export default function Sparkline({ values, color = "#3a867c", width = 132, height = 36 }) {
+export default function Sparkline({ values, color = TEAL, width = 132, height = 36 }) {
   const id = useId();
   const vals = values?.filter((v) => v != null) ?? [];
   if (vals.length < 2) return null;
