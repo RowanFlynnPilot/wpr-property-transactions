@@ -27,7 +27,6 @@ import calendar
 import json
 import statistics
 import tempfile
-import time
 from datetime import date
 from pathlib import Path
 
@@ -44,9 +43,6 @@ RESIDENTIAL_USES = {"Single family"}
 COMMERCIAL_USES = {"Commercial", "Manufacturing", "Multi-family"}
 USE_GROUPS = ["All", "Residential", "Commercial"]
 
-_PULL_ATTEMPTS = 3
-
-
 def _in_group(use: str, group: str) -> bool:
     if group == "All":
         return True
@@ -55,17 +51,6 @@ def _in_group(use: str, group: str) -> bool:
     if group == "Commercial":
         return use in COMMERCIAL_USES
     return False
-
-
-def _download(county: str, d_from: date, d_to: date, tmp_dir: Path) -> Path:
-    for attempt in range(1, _PULL_ATTEMPTS + 1):
-        try:
-            return download_report(county, d_from, d_to, tmp_dir)
-        except Exception as exc:
-            if attempt == _PULL_ATTEMPTS:
-                raise
-            print(f"    {county} {d_from:%Y-%m} attempt {attempt} failed ({exc}); retrying")
-            time.sleep(5)
 
 
 def _month_keys(today: date, n: int) -> list[str]:
@@ -150,7 +135,7 @@ def _pull_month(key: str, today: date, tmp_dir: Path) -> tuple[dict, dict]:
     by_county = {}
     muni_prices: dict[str, list[int]] = {}
     for county in config.COUNTIES:
-        published = apply_policy(parse_csv(_download(county, d_from, d_to, tmp_dir)))
+        published = apply_policy(parse_csv(download_report(county, d_from, d_to, tmp_dir)))
         by_county[county] = [(p.property_use, p.sale_price) for p in published]
         muni_prices.update(muni_price_lists(published, county))
 

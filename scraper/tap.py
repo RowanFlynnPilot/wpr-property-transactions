@@ -9,6 +9,7 @@ survive re-renders. Any missing control raises loudly.
 """
 
 import os
+import time
 from datetime import date
 from pathlib import Path
 
@@ -72,7 +73,30 @@ def _date_inputs(page: Page):
 
 
 def download_report(county: str, date_from: date, date_to: date, dest_dir: Path) -> Path:
-    """Run the search for one county/window and download the CSV report."""
+    """Run the search for one county/window and download the CSV report.
+
+    Retries the whole browser session on failure. The DOR TAP portal is a
+    third-party government endpoint that intermittently stalls (the initial
+    navigation or a later step times out); a fresh session almost always
+    succeeds. Fails loudly only after config.DOWNLOAD_ATTEMPTS are exhausted, so
+    both the weekly scrape and the monthly history pull survive a transient blip.
+    """
+    last_exc: Exception | None = None
+    for attempt in range(1, config.DOWNLOAD_ATTEMPTS + 1):
+        try:
+            return _download_once(county, date_from, date_to, dest_dir)
+        except Exception as exc:
+            last_exc = exc
+            if attempt < config.DOWNLOAD_ATTEMPTS:
+                print(f"  {county} attempt {attempt}/{config.DOWNLOAD_ATTEMPTS} failed "
+                      f"({type(exc).__name__}: {exc}); retrying in "
+                      f"{config.DOWNLOAD_RETRY_SLEEP_S}s")
+                time.sleep(config.DOWNLOAD_RETRY_SLEEP_S)
+    raise last_exc
+
+
+def _download_once(county: str, date_from: date, date_to: date, dest_dir: Path) -> Path:
+    """A single browser session: search one county/window and download the CSV."""
     d_from = date_from.strftime("%m/%d/%Y")
     d_to = date_to.strftime("%m/%d/%Y")
 

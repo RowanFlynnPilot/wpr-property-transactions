@@ -53,6 +53,14 @@ USER_AGENT = (
 HEADLESS = True
 NAV_TIMEOUT_MS = 45_000
 
+# The DOR TAP portal is a third-party government endpoint that intermittently
+# stalls — the initial navigation or a later step can time out for one run and
+# succeed on the next. download_report (tap.py) retries the WHOLE browser session
+# this many times, sleeping between attempts, before failing loudly. Applies to
+# both the weekly scrape and the monthly history pull (both go through tap.py).
+DOWNLOAD_ATTEMPTS = 3
+DOWNLOAD_RETRY_SLEEP_S = 5
+
 # --- TAP flow (confirmed in spike) ----------------------------------------
 # Stable GenTax control selectors.
 SEL_DISCLAIMER_AGREE = "#Dc-b"
