@@ -14,7 +14,7 @@ permissions:
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 30   # 6 counties scrape sequentially (each a fresh <15-min TAP session).
+    timeout-minutes: 45   # 6 counties scrape sequentially; headroom for one whole-run retry.
     steps:
       - uses: actions/checkout@v6
 
@@ -30,7 +30,18 @@ jobs:
       - name: Scrape
         env:
           RETR_TRACE_DIR: ${{ runner.temp }}/pw-trace   # capture trace + screenshot on failure
-        run: python -m scraper.scrape
+        run: |
+          # Two layers of retry against the flaky DOR TAP endpoint:
+          #   - tap.py retries each county's download 3x within a run (transient stalls);
+          #   - this loop re-runs the whole scrape once after a pause, in case the
+          #     endpoint is down for a stretch and a fresh run minutes later succeeds.
+          # Fails loudly only if both whole-run attempts fail.
+          for attempt in 1 2; do
+            if python -m scraper.scrape; then exit 0; fi
+            echo "scrape attempt $attempt failed"
+            [ "$attempt" -lt 2 ] && { echo "waiting 90s for the endpoint to recover"; sleep 90; }
+          done
+          echo "::error::scrape failed after 2 whole-run attempts"; exit 1
 
       - name: Upload Playwright trace on failure
         if: failure()
