@@ -13,7 +13,12 @@ permissions:
 
 jobs:
   scrape:
-    runs-on: ubuntu-latest
+    # Self-hosted runner on a residential IP: the WI DOR TAP firewall tarpits
+    # GitHub's datacenter IP ranges (every navigation hangs the full timeout),
+    # so the scrape must run from a non-blocked network. Only THIS job is
+    # self-hosted — test.yml (which runs on pull requests) stays on GitHub-hosted
+    # runners so untrusted PR code never touches the self-hosted machine.
+    runs-on: [self-hosted, windows]
     timeout-minutes: 45   # 6 counties scrape sequentially; headroom for one whole-run retry.
     steps:
       - uses: actions/checkout@v6
@@ -23,11 +28,14 @@ jobs:
           python-version: "3.14"
 
       - name: Install dependencies
+        shell: bash
         run: |
           pip install -r requirements.txt
-          python -m playwright install --with-deps chromium
+          # No --with-deps on Windows (that flag installs Linux apt packages).
+          python -m playwright install chromium
 
       - name: Scrape
+        shell: bash
         env:
           RETR_TRACE_DIR: ${{ runner.temp }}/pw-trace   # capture trace + screenshot on failure
         run: |
@@ -54,6 +62,7 @@ jobs:
 
       - name: Commit feed if changed
         id: commit
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -81,9 +90,18 @@ jobs:
 
       # A commit made with GITHUB_TOKEN does NOT trigger other workflows (GitHub's
       # anti-recursion rule), so the feed push won't auto-deploy. Dispatch the
-      # deploy explicitly when the feed actually changed.
+      # deploy explicitly when the feed actually changed. Uses the REST API via
+      # curl (Git Bash ships it) rather than `gh`, which isn't guaranteed on a
+      # self-hosted machine.
       - name: Deploy the refreshed feed
         if: steps.commit.outputs.changed == 'true'
+        shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run deploy.yml
+        run: |
+          curl -sS --fail-with-body -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/deploy.yml/dispatches" \
+            -d '{"ref":"main"}'
