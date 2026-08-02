@@ -24,7 +24,8 @@ def run() -> None:
         tmp_dir = Path(tmp)
         for county in config.COUNTIES:
             csv_path = download_report(county, start, today, tmp_dir)
-            rows = parse_csv(csv_path)
+            # None = the search matched no returns (valid, e.g. a very short window).
+            rows = parse_csv(csv_path) if csv_path else []
             print(f"{county}: {len(rows)} returns scraped")
             raw.extend(rows)
 

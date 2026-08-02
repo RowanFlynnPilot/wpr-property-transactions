@@ -135,7 +135,10 @@ def _pull_month(key: str, today: date, tmp_dir: Path) -> tuple[dict, dict]:
     by_county = {}
     muni_prices: dict[str, list[int]] = {}
     for county in config.COUNTIES:
-        published = apply_policy(parse_csv(download_report(county, d_from, d_to, tmp_dir)))
+        csv_path = download_report(county, d_from, d_to, tmp_dir)
+        # None = the search matched no returns (e.g. the current month pulled on
+        # the 2nd when the 1st-2nd was a weekend). Zero rows, not a failure.
+        published = apply_policy(parse_csv(csv_path)) if csv_path else []
         by_county[county] = [(p.property_use, p.sale_price) for p in published]
         muni_prices.update(muni_price_lists(published, county))
 
