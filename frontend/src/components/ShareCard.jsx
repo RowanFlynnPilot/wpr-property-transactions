@@ -5,6 +5,7 @@ import { WPR_LOGO, WPR_MARK } from "../lib/wpr-logo.js";
 import { SPONSOR } from "../lib/sponsor.js";
 import { money, fmtPct, monthLong, pctChange } from "../lib/format.js";
 import { TEAL } from "../lib/palette.js";
+import { latestIndexWithData } from "../lib/history.js";
 
 // A co-branded, downloadable headline card — the "share image". Built from the
 // same history data; carries the WPR wordmark and the sponsor slot, so every share
@@ -17,8 +18,10 @@ export default function ShareCard({ history, selectedCounty, useGroup = "All", u
     if (!history) return null;
     const geoKey = selectedCounty || "Region";
     const med = history.series[useGroup]?.[geoKey] ?? [];
-    if (!med.length) return null;
-    const last = med.length - 1;
+    // Latest month WITH data — the newest month can legitimately be empty, and a
+    // share image reading "$0" would be worse than showing last month's figure.
+    const last = latestIndexWithData(med);
+    if (last < 0) return null;
     return {
       scopeName: selectedCounty ? `${selectedCounty} County` : "6-County Region",
       useWord: use === "Overall" ? "" : `${use.toLowerCase()} `,

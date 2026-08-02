@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { median, money, moneyCompact, monthShort, pctChange, fmtPct, signedMoney } from "../lib/format.js";
 import { DONUT_COLORS } from "../lib/palette.js";
+import { latestIndexWithData } from "../lib/history.js";
 
 const TYPE_LABEL = {
   "Land and buildings/improvements": "Land & buildings",
@@ -78,7 +79,10 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
 
   const { rows, curMonth } = useMemo(() => {
     if (!history) return { rows: [], curMonth: "" };
-    const last = history.months.length - 1;
+    // Report the latest month with data region-wide, so the column isn't a wall
+    // of "—" when the newest month hasn't accrued any recordings yet.
+    const last = latestIndexWithData(history.series[useGroup]?.Region ?? []);
+    if (last < 0) return { rows: [], curMonth: "" };
     const rows = (history.counties ?? [])
       .map((c) => {
         const s = history.series[useGroup]?.[c] ?? [];

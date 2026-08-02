@@ -18,6 +18,7 @@ import { matchesUse } from "../lib/use.js";
 import { useCountUp } from "../lib/useCountUp.js";
 import { TEAL, TEAL_BRIGHT, AMBER, GRID, AXIS, LABEL } from "../lib/palette.js";
 import { BUCKETS, bucketLabel } from "../lib/buckets.js";
+import { latestIndexWithData } from "../lib/history.js";
 
 function Delta({ value }) {
   if (value == null) return null;
@@ -156,7 +157,9 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
     const months = history.months;
     const med = history.series[useGroup]?.[geoKey] ?? [];
     const cnt = history.counts[useGroup]?.[geoKey] ?? [];
-    const last = months.length - 1;
+    // Not months.length - 1: the newest month can legitimately have no sales yet.
+    const last = latestIndexWithData(med);
+    if (last < 0) return null;
     return {
       months,
       med,
