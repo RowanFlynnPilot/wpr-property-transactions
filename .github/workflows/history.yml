@@ -4,9 +4,14 @@ name: price-history
 # Runs on the 2nd of each month (prior month has closed) and on demand. The first
 # run backfills all 12 months (~72 small pulls); later runs re-pull only the
 # trailing months, so they're light.
+#
+# Deliberately 2h before the scrape's 11:00 UTC slot: on ~7 of every 24 months the
+# 2nd falls on a Thursday or Saturday, and firing both jobs in the same minute
+# doubles the concurrent load on TAP from GitHub's IP ranges — back-to-back runs
+# have been refused (every navigation timing out) where a single run succeeds.
 on:
   schedule:
-    - cron: "0 11 2 * *"   # 11:00 UTC on the 2nd (~6am CT)
+    - cron: "0 9 2 * *"   # 09:00 UTC on the 2nd (~4am CT), off-peak
   workflow_dispatch: {}
 
 permissions:
