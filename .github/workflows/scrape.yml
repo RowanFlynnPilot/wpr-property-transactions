@@ -1,10 +1,14 @@
 name: scrape-transactions
 
-# Weekly, Thursday mornings (matches the local-paper "Thursday transactions" cadence).
-# RETR reflects recorded transfers, so timing need not be precise.
+# Thursday mornings (matches the local-paper "Thursday transactions" cadence),
+# plus a Saturday run so a Thursday lost to a TAP outage self-heals without
+# waiting a full week. RETR reflects recorded transfers, so timing need not be
+# precise, and the feed is a rolling 30-day window — re-running is idempotent
+# (it overwrites the feed, and the commit step is a no-op when nothing changed).
 on:
   schedule:
     - cron: "0 11 * * 4"   # 11:00 UTC Thursday (~6am CT)
+    - cron: "0 11 * * 6"   # 11:00 UTC Saturday — safety net
   workflow_dispatch: {}
 
 permissions:
@@ -13,12 +17,14 @@ permissions:
 
 jobs:
   scrape:
-    # Self-hosted runner on a residential IP: the WI DOR TAP firewall tarpits
-    # GitHub's datacenter IP ranges (every navigation hangs the full timeout),
-    # so the scrape must run from a non-blocked network. Only THIS job is
-    # self-hosted — test.yml (which runs on pull requests) stays on GitHub-hosted
-    # runners so untrusted PR code never touches the self-hosted machine.
-    runs-on: [self-hosted, windows]
+    # GitHub-hosted. A brief spell of DOR TAP refusing GitHub's IP ranges (late
+    # July 2026) prompted a move to a self-hosted runner, but that was transient —
+    # hosted runs reach TAP again — and pinning to self-hosted is the LESS reliable
+    # option: with no runner registered the scheduled job simply queues until
+    # GitHub cancels it (that is exactly how the 2026-07-30 run was lost). A hosted
+    # runner is always available; the retries below cover transient stalls, and the
+    # second weekly cron covers a short outage.
+    runs-on: ubuntu-latest
     timeout-minutes: 45   # 6 counties scrape sequentially; headroom for one whole-run retry.
     steps:
       - uses: actions/checkout@v6
@@ -31,8 +37,7 @@ jobs:
         shell: bash
         run: |
           pip install -r requirements.txt
-          # No --with-deps on Windows (that flag installs Linux apt packages).
-          python -m playwright install chromium
+          python -m playwright install --with-deps chromium
 
       - name: Scrape
         shell: bash
@@ -91,8 +96,7 @@ jobs:
       # A commit made with GITHUB_TOKEN does NOT trigger other workflows (GitHub's
       # anti-recursion rule), so the feed push won't auto-deploy. Dispatch the
       # deploy explicitly when the feed actually changed. Uses the REST API via
-      # curl (Git Bash ships it) rather than `gh`, which isn't guaranteed on a
-      # self-hosted machine.
+      # curl rather than `gh` so the step works on any runner.
       - name: Deploy the refreshed feed
         if: steps.commit.outputs.changed == 'true'
         shell: bash
