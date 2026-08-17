@@ -24,6 +24,37 @@ python -m scraper.scrape
 cd frontend ; npm install ; npm run dev
 ```
 
+## WordPress embed
+
+Paste this into the page as **Custom HTML** (not a bare `<iframe>`). The tool is far
+taller than any fixed height — roughly 10,000px — so it reports its own height to the
+host page; the listener below applies it. **Without the listener the iframe keeps
+whatever height is hardcoded and, because `scrolling="no"`, everything past that point
+is silently cut off** — which is how the transactions table went missing on the live
+page (a fixed `height:1600px` showed only as far as the biggest-deals cards).
+
+```html
+<iframe
+  id="wpr-property-transactions"
+  src="https://rowanflynnpilot.github.io/wpr-property-transactions/"
+  title="Property Transactions — Wausau Pilot &amp; Review"
+  scrolling="no"
+  style="width:100%;height:1600px;border:0;display:block"
+></iframe>
+<script>
+  window.addEventListener("message", function (e) {
+    var d = e.data;
+    if (!d || d.type !== "wpr-embed-height") return;
+    var f = document.getElementById(d.id);
+    if (f) f.style.height = d.height + "px";
+  });
+</script>
+```
+
+The `id` must stay `wpr-property-transactions` — the tool sends it back in the message
+so a page can host more than one embed. The starting `height` is only a placeholder
+before the first message arrives. Sender: `frontend/src/lib/embed.js`.
+
 ## Status
 
 Feasibility, spike, and scraper complete. The Playwright scraper drives the DOR Advanced
