@@ -43,10 +43,15 @@ page (a fixed `height:1600px` showed only as far as the biggest-deals cards).
 ></iframe>
 <script>
   window.addEventListener("message", function (e) {
+    // The host page runs many third-party iframes (ad networks); only accept a
+    // resize from the tool's own origin, and ignore implausible heights.
+    if (e.origin !== "https://rowanflynnpilot.github.io") return;
     var d = e.data;
     if (!d || d.type !== "wpr-embed-height") return;
+    var h = parseInt(d.height, 10);
+    if (!(h > 200 && h < 60000)) return;
     var f = document.getElementById(d.id);
-    if (f) f.style.height = d.height + "px";
+    if (f) f.style.height = h + "px";
   });
 </script>
 ```

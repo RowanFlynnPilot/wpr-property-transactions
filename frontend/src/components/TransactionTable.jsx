@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { money, prettyDate, muniLabel } from "../lib/format.js";
 import { useGroupOf } from "../lib/use.js";
+import { typeLabel } from "../lib/propertyType.js";
 
 // Sortable table of the filtered records. Sort state lives in App so the header
 // arrows stay in sync. Prices are mono-figure per the WPR data type convention.
@@ -61,14 +62,14 @@ export default function TransactionTable({ records, sort, onSort }) {
         <tbody>
           {shown.map((r) => (
             <tr key={r.document_number}>
-              <td data-label="Recorded">{prettyDate(r.recorded_date)}</td>
+              <td className="nowrap" data-label="Recorded">{prettyDate(r.recorded_date)}</td>
               <td data-label="Community">{muniLabel(r.municipality)}</td>
-              <td data-label="County">{r.county}</td>
+              <td className="nowrap" data-label="County">{r.county}</td>
               <td data-label="Use / type">
                 <span className={`use-badge use-${useGroupOf(r.property_use).toLowerCase()}`}>
                   {r.property_use}
                 </span>{" "}
-                <span className="cell-sub">{r.property_type}</span>
+                <span className="cell-sub">{typeLabel(r.property_type)}</span>
               </td>
               <td data-label="Address">{r.address || "—"}</td>
               <td className="party" data-label="Seller">{r.grantor}</td>

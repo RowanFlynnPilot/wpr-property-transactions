@@ -508,9 +508,15 @@ h2 {
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--wpr-rule);
   vertical-align: top;
-  /* Let long addresses and ALL-CAPS company names break instead of forcing the
-     table wider than its container in the mid-width (scrollable) zone. */
-  overflow-wrap: anywhere;
+  /* break-word, NOT anywhere: `anywhere` splits inside words when a column is
+     tight, which turned "Marathon" into "Marat hon" and "STEVENS" into
+     "STEVEN S". This still breaks a word that genuinely cannot fit, but only
+     after trying the space between words first. */
+  overflow-wrap: break-word;
+}
+/* Short, predictable values — never worth wrapping. */
+.txn-table td.nowrap {
+  white-space: nowrap;
 }
 .txn-table tbody tr:nth-child(even) td {
   background: var(--wpr-tint);
@@ -525,8 +531,18 @@ h2 {
   font-weight: 600;
   white-space: nowrap;
 }
+/* Party names are the longest free text in the row ("STEVENS POINT HOLDCO 5625,
+   LLC"). Claim a floor so the auto table layout stops starving them in favour of
+   the wider fixed-ish columns; the cap keeps one long name from dominating. */
 .txn-table .party {
-  max-width: 22ch;
+  min-width: 15ch;
+  max-width: 26ch;
+}
+/* The use/type cell is secondary information — let it stay narrow so the space
+   goes to the parties instead. */
+.txn-table td .cell-sub {
+  display: inline-block;
+  max-width: 15ch;
 }
 
 /* Narrow screens (phones, slim embeds): the 8-column grid can't fit, so each

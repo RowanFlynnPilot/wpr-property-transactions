@@ -3,15 +3,8 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { median, money, moneyCompact, monthShort, pctChange, fmtPct, signedMoney } from "../lib/format.js";
 import { DONUT_COLORS } from "../lib/palette.js";
 import { latestIndexWithData } from "../lib/history.js";
+import { typeLabel, useLabel } from "../lib/propertyType.js";
 
-const TYPE_LABEL = {
-  "Land and buildings/improvements": "Land & buildings",
-  "Buildings/improvements only": "Buildings only",
-  "Land only": "Land only",
-  Condominium: "Condominium",
-};
-const typeLabel = (t) => TYPE_LABEL[t] || t;
-const useLabel = (u) => u || "Unclassified";
 
 function DonutTooltip({ active, payload, mode, total }) {
   if (!active || !payload?.length) return null;
