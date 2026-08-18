@@ -22,3 +22,6 @@ spike/dump_*
 .DS_Store
 .idea/
 .vscode/
+
+# Local scheduled-run transcripts (scripts/refresh.ps1)
+logs/

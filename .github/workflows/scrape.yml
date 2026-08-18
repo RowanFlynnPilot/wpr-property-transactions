@@ -1,14 +1,13 @@
 name: scrape-transactions
 
-# Thursday mornings (matches the local-paper "Thursday transactions" cadence),
-# plus a Saturday run so a Thursday lost to a TAP outage self-heals without
-# waiting a full week. RETR reflects recorded transfers, so timing need not be
-# precise, and the feed is a rolling 30-day window — re-running is idempotent
-# (it overwrites the feed, and the commit step is a no-op when nothing changed).
+# NOT scheduled. DOR TAP refuses GitHub's hosted runners for days at a time —
+# every navigation times out — in recurring multi-day clusters (2026-07-23..26,
+# 2026-08-13..15). A cluster swallows both weekly slots, so the scheduled runs
+# failed silently and the published feed fell nine days behind. The scrape now
+# runs from a residential IP via scripts/refresh.ps1 on Windows Task Scheduler
+# (see README). This workflow is kept for manual dispatch: when TAP is answering
+# hosted runners it still works, which is handy if the local machine is away.
 on:
-  schedule:
-    - cron: "0 11 * * 4"   # 11:00 UTC Thursday (~6am CT)
-    - cron: "0 11 * * 6"   # 11:00 UTC Saturday — safety net
   workflow_dispatch: {}
 
 permissions:

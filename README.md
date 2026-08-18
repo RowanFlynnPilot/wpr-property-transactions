@@ -24,6 +24,44 @@ python -m scraper.scrape
 cd frontend ; npm install ; npm run dev
 ```
 
+## Refreshing the data (runs locally, not in CI)
+
+The Wisconsin DOR TAP portal refuses GitHub's hosted runners for days at a time —
+every page navigation times out — in recurring multi-day clusters (2026-07-23..26,
+2026-08-13..15). A cluster swallows both weekly slots, so the scheduled runs failed
+and the published feed silently fell nine days behind. It answers a residential IP
+reliably, so the scrape runs from a local machine on Windows Task Scheduler:
+
+```powershell
+.\scripts\refresh.ps1              # feed + 12-month history, commit, push
+.\scripts\refresh.ps1 -FeedOnly    # skip the history rebuild (~10 min faster)
+.\scripts\refresh.ps1 -NoPush      # dry run: scrape, stage, don't commit
+```
+
+Pushing `data/*.json` to `main` triggers the Pages deploy automatically, so a
+successful run publishes on its own. Every run writes a transcript to `logs/`
+(gitignored) so an unattended failure can be diagnosed afterwards.
+
+### Task Scheduler entry
+
+Create a task (Task Scheduler → Create Task, *not* "Basic Task"):
+
+- **General** → "Run whether user is logged on or not", "Run with highest privileges" off.
+- **Triggers** → Weekly, Thursday 06:00, and add a second Weekly trigger for Saturday
+  06:00 as a safety net.
+- **Actions** → Start a program:
+  - Program: `powershell.exe`
+  - Arguments: `-NoProfile -ExecutionPolicy Bypass -File "C:\Users\rpfly\Projects\wpr-property-transactions\scripts\refresh.ps1"`
+  - Start in: `C:\Users\rpfly\Projects\wpr-property-transactions`
+- **Settings** → tick "Run task as soon as possible after a scheduled start is missed"
+  so a run lost to the machine being asleep still happens.
+
+`.github/workflows/scrape.yml` and `history.yml` are kept for **manual dispatch**
+only — useful when TAP is answering hosted runners and the local machine is away.
+
+If a refresh stops happening for any reason, the page says so: the header shows
+"Sales recorded through <date>", and past 12 days it turns into a visible warning.
+
 ## WordPress embed
 
 Paste this into the page as **Custom HTML** (not a bare `<iframe>`). The tool is far
