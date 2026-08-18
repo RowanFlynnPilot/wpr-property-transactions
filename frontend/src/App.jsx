@@ -10,7 +10,7 @@ import PriceHistoryChart from "./components/PriceHistoryChart.jsx";
 import MarketBreakdown from "./components/MarketBreakdown.jsx";
 import ShareCard from "./components/ShareCard.jsx";
 import BookmarkButton from "./components/BookmarkButton.jsx";
-import { weekStartISO, weekLabel } from "./lib/format.js";
+import { weekStartISO, weekLabel, prettyDate } from "./lib/format.js";
 import { matchesUse, historyGroup } from "./lib/use.js";
 
 // The Leaflet map is the heaviest dependency and sits below the fold, so it's
@@ -52,6 +52,20 @@ export default function App() {
   }, []);
 
   const all = feed?.transactions ?? [];
+
+  // Newest recorded sale in the feed, and whether the feed has fallen behind.
+  // DOR posts with a days-to-weeks lag, so a few days back is normal; past
+  // STALE_AFTER_DAYS means a scheduled scrape has been failing.
+  const STALE_AFTER_DAYS = 12;
+  const latestRecorded = useMemo(
+    () => all.reduce((mx, r) => (r.recorded_date > mx ? r.recorded_date : mx), ""),
+    [all]
+  );
+  const stale = useMemo(() => {
+    if (!latestRecorded) return false;
+    const [y, m, d] = latestRecorded.split("-").map(Number);
+    return (Date.now() - new Date(y, m - 1, d)) / 86400000 > STALE_AFTER_DAYS;
+  }, [latestRecorded]);
 
   const options = useMemo(
     () => ({
@@ -182,6 +196,15 @@ export default function App() {
             Revenue Real Estate Transfer Returns. Use the filters to focus on a county,
             community, or week.
           </p>
+          {/* Surface how current the feed is. Without this a failed scrape is
+              invisible — the page keeps serving the last good data and looks fine. */}
+          {latestRecorded && (
+            <p className={`data-asof${stale ? " stale" : ""}`}>
+              Sales recorded through <strong>{prettyDate(latestRecorded)}</strong>
+              {feed.generated_on && <> · updated {prettyDate(feed.generated_on)}</>}
+              {stale && <> · this feed is behind — a refresh may have failed</>}
+            </p>
+          )}
         </header>
 
       <KpiHero

@@ -158,6 +158,22 @@
   color: #444;
   font-size: 0.95rem;
 }
+/* How current the data is — makes a failed refresh visible instead of silent. */
+.data-asof {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: #666;
+}
+.data-asof strong {
+  color: var(--wpr-ink);
+}
+.data-asof.stale {
+  color: #8a5a12;
+  background: #fdf3e0;
+  border-left: 3px solid var(--wpr-gold);
+  padding: 0.4rem 0.6rem;
+}
 
 h2 {
   font-family: var(--font-display);
