@@ -44,17 +44,32 @@ successful run publishes on its own. Every run writes a transcript to `logs/`
 
 ### Task Scheduler entry
 
-Create a task (Task Scheduler → Create Task, *not* "Basic Task"):
+Registered as **"WPR Property Transactions refresh"** — weekly, **Sunday 06:00**, so a
+fresh week of sales is up before Monday. It runs under the logged-in user (git needs
+that account's credentials to push), with "start when available" so a run lost to the
+machine being asleep happens at the next opportunity rather than being skipped.
 
-- **General** → "Run whether user is logged on or not", "Run with highest privileges" off.
-- **Triggers** → Weekly, Thursday 06:00, and add a second Weekly trigger for Saturday
-  06:00 as a safety net.
-- **Actions** → Start a program:
-  - Program: `powershell.exe`
-  - Arguments: `-NoProfile -ExecutionPolicy Bypass -File "C:\Users\rpfly\Projects\wpr-property-transactions\scripts\refresh.ps1"`
-  - Start in: `C:\Users\rpfly\Projects\wpr-property-transactions`
-- **Settings** → tick "Run task as soon as possible after a scheduled start is missed"
-  so a run lost to the machine being asleep still happens.
+To recreate it from scratch:
+
+```powershell
+$root = "C:\Users\rpfly\Projects\wpr-property-transactions"
+$action = New-ScheduledTaskAction -Execute "powershell.exe" `
+  -Argument ('-NoProfile -ExecutionPolicy Bypass -File "' + $root + '\scripts\refresh.ps1"') `
+  -WorkingDirectory $root
+$trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At 6:00am
+$settings = New-ScheduledTaskSettingsSet -StartWhenAvailable `
+  -ExecutionTimeLimit (New-TimeSpan -Hours 2) -MultipleInstances IgnoreNew
+Register-ScheduledTask -TaskName "WPR Property Transactions refresh" `
+  -Action $action -Trigger $trigger -Settings $settings -Force
+```
+
+Useful checks:
+
+```powershell
+Get-ScheduledTaskInfo -TaskName "WPR Property Transactions refresh"   # last/next run, result
+Start-ScheduledTask   -TaskName "WPR Property Transactions refresh"   # run it now
+Unregister-ScheduledTask -TaskName "WPR Property Transactions refresh"  # remove it
+```
 
 `.github/workflows/scrape.yml` and `history.yml` are kept for **manual dispatch**
 only — useful when TAP is answering hosted runners and the local machine is away.

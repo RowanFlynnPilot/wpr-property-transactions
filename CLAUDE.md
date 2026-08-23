@@ -65,10 +65,14 @@ portal:
 
 Therefore the scraper is **Python + Playwright (headless Chromium)**.
 
-**IP note:** unlike GasBuddy, this is a government endpoint. It returned a clean `HTTP 200`
-to a datacenter IP with no Cloudflare challenge, and the full headless flow ran from a
-cloud container. Expect GitHub Actions runners to reach it **without** the Webshare proxy
-workaround. Do not add proxy plumbing unless a run proves it is actually blocked.
+**IP note (REVISED 2026-08-17 — runs have now proven the original assumption wrong):**
+TAP served a datacenter IP cleanly during the spike, so this ran on GitHub-hosted
+runners for weeks. It then began refusing them in **recurring multi-day clusters**
+(2026-07-23..26, 2026-08-13..15): `Page.goto` times out on every attempt, from a first
+navigation that never returns, while the same code from a residential IP succeeds in
+seconds. Retries cannot beat it — a block outlasts any in-run backoff. **The scrape
+therefore runs locally** (see Architecture). Do not "fix" a stalled hosted run by adding
+retries or moving crons around; the only cures are a non-blocked IP or waiting it out.
 
 ### Confirmed extraction path (spike-verified — see spike/tap_spike.py)
 
@@ -109,12 +113,22 @@ accepted; an XML export exists for full party lists, but we use one path — CSV
 ## Architecture (the one pipeline)
 
 ```
-Playwright scraper  ->  GitHub Actions cron (weekly)  ->  data/transactions.json (static)
+Playwright scraper  ->  LOCAL weekly run (Task Scheduler)  ->  data/transactions.json (static)
         ->  React/Vite frontend  ->  GitHub Pages  ->  WordPress iframe
 ```
 
 Matches the established WPR widget pipeline. No server, no database. The committed
 `data/transactions.json` is the single source of truth the frontend reads.
+
+**The scrape does NOT run in CI.** DOR TAP refuses GitHub's hosted runners for days at
+a time — every navigation times out — in recurring multi-day clusters (2026-07-23..26,
+2026-08-13..15), and a cluster swallows a whole week of scheduled runs while the
+published feed silently goes stale. It answers a residential IP reliably, so
+`scripts/refresh.ps1` runs the scrape + history from a local machine (Windows Task
+Scheduler, Sunday 06:00), commits, and pushes; the push triggers the Pages deploy.
+`scrape.yml`/`history.yml` are kept for **manual dispatch only** — no cron. Same
+lesson applies to any future automation here: do not put the TAP scrape back on a
+hosted runner. See "Refreshing the data" in README.md.
 
 ## Editorial publish policy (SIGNED OFF 2026-06-07, AMENDED 2026-06-08)
 
@@ -122,7 +136,7 @@ The published `data/transactions.json` is world-readable on GitHub Pages, so the
 applied **in-pipeline** (`scraper/policy.py`) before the feed is written — NOT in the
 frontend, which would leak raw addresses in the public JSON. The raw CSV is transient
 (temp dir, never committed), so the feed is the only artifact and already reflects these
-choices. **Changing policy = re-run the scrape** (the weekly cron makes that trivial).
+choices. **Changing policy = re-run the scrape** (`scripts/refresh.ps1` makes that trivial).
 
 Editor's decisions, and how each is enforced:
 
@@ -229,8 +243,8 @@ wpr-property-transactions/
 │       │                     #   municipalities.js (generated), useCountUp.js, embed.js
 │       └── styles/           # tokens.css (design tokens) + app.css
 └── .github/workflows/
-    ├── scrape.yml            # weekly cron -> commit feed -> dispatch deploy
-    ├── history.yml           # monthly cron -> rebuild price_history.json -> dispatch deploy
+    ├── scrape.yml            # MANUAL dispatch only (no cron; DOR blocks hosted runners)
+    ├── history.yml           # MANUAL dispatch only (no cron; same reason)
     ├── test.yml              # pytest on push
     └── deploy.yml            # build + publish to GitHub Pages
 ```
@@ -303,9 +317,13 @@ npm run build                            # -> dist/, deployed to GitHub Pages
       `data/transactions.json` (verified: 224 published sales for a live 30-day Marathon window).
 - [x] Editorial policy signed off (2026-06-07) and enforced in scraper/policy.py:
       sales only, ~$1,000 floor, street/block addresses, no parcel ID, community-level map.
-- [x] GitHub Actions weekly cron: verified green on the runner (2026-06-08,
-      workflow_dispatch). `scrape.yml` has `timeout-minutes: 15` and, on failure,
-      uploads a Playwright trace + screenshot (tap.py honours `RETR_TRACE_DIR`).
+- [x] Scheduled refresh — **now local, not CI** (2026-08-17). Ran on GitHub Actions
+      from 2026-06-08 until TAP began refusing hosted runners in multi-day clusters;
+      `scripts/refresh.ps1` + Windows Task Scheduler (Sunday 06:00) replaced it. The
+      workflows remain for manual dispatch and still upload a Playwright trace +
+      screenshot on failure (tap.py honours `RETR_TRACE_DIR`).
+- [x] Staleness is visible: the header shows "Sales recorded through <date>" and warns
+      after 12 days, so a refresh that silently stops can't go unnoticed again.
 - [x] Unit tests (`tests/`, pytest): address-redaction edge cases + price/date
       parsers; run on every push via `.github/workflows/test.yml`.
 - [x] Frontend built (filterable/sortable table + price charts + community Leaflet
