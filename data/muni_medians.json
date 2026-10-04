@@ -1,8 +1,7 @@
 {
-  "generated_on": "2026-09-27",
+  "generated_on": "2026-10-04",
   "use_group": "Single family",
   "months": [
-    "2025-10",
     "2025-11",
     "2025-12",
     "2026-01",
@@ -13,51 +12,52 @@
     "2026-06",
     "2026-07",
     "2026-08",
-    "2026-09"
+    "2026-09",
+    "2026-10"
   ],
   "note": "Per-municipality single-family sale prices by month (prices only) and trailing-window medians. Counts are published with every median; consumers apply their own sample-size threshold. The final month is in progress until it closes.",
   "municipalities": [
     {
       "county": "Langlade",
       "municipality": "Ackley, Town of",
-      "median": 174500,
-      "count": 10
+      "median": 145000,
+      "count": 9
     },
     {
       "county": "Langlade",
       "municipality": "Ainsworth, Town of",
-      "median": 235000,
-      "count": 17
+      "median": 242500,
+      "count": 16
     },
     {
       "county": "Langlade",
       "municipality": "Antigo, City of",
       "median": 150000,
-      "count": 136
+      "count": 129
     },
     {
       "county": "Langlade",
       "municipality": "Antigo, Town of",
       "median": 227500,
-      "count": 28
+      "count": 26
     },
     {
       "county": "Langlade",
       "municipality": "Elcho, Town of",
-      "median": 217500,
+      "median": 225000,
       "count": 44
     },
     {
       "county": "Langlade",
       "municipality": "Evergreen, Town of",
-      "median": 168000,
-      "count": 8
+      "median": 200000,
+      "count": 7
     },
     {
       "county": "Langlade",
       "municipality": "Langlade, Town of",
-      "median": 156400,
-      "count": 27
+      "median": 162200,
+      "count": 24
     },
     {
       "county": "Langlade",
@@ -68,38 +68,38 @@
     {
       "county": "Langlade",
       "municipality": "Norwood, Town of",
-      "median": 215000,
-      "count": 18
+      "median": 225000,
+      "count": 17
     },
     {
       "county": "Langlade",
       "municipality": "Parrish, Town of",
-      "median": 376600,
-      "count": 4
+      "median": 363200,
+      "count": 3
     },
     {
       "county": "Langlade",
       "municipality": "Peck, Town of",
-      "median": 234450,
-      "count": 11
+      "median": 232225,
+      "count": 10
     },
     {
       "county": "Langlade",
       "municipality": "Polar, Town of",
-      "median": 70000,
-      "count": 9
+      "median": 150000,
+      "count": 8
     },
     {
       "county": "Langlade",
       "municipality": "Price, Town of",
-      "median": 70000,
-      "count": 5
+      "median": 145000,
+      "count": 4
     },
     {
       "county": "Langlade",
       "municipality": "Rolling, Town of",
-      "median": 232000,
-      "count": 20
+      "median": 215000,
+      "count": 17
     },
     {
       "county": "Langlade",
@@ -110,134 +110,134 @@
     {
       "county": "Langlade",
       "municipality": "Upham, Town of",
-      "median": 250000,
-      "count": 31
+      "median": 207000,
+      "count": 29
     },
     {
       "county": "Langlade",
       "municipality": "Vilas, Town of",
-      "median": 300000,
-      "count": 7
+      "median": 236900,
+      "count": 5
     },
     {
       "county": "Langlade",
       "municipality": "White Lake, Village of",
-      "median": 95000,
-      "count": 10
+      "median": 90000,
+      "count": 9
     },
     {
       "county": "Langlade",
       "municipality": "Wolf River, Town of",
-      "median": 173149,
-      "count": 47
+      "median": 169074,
+      "count": 42
     },
     {
       "county": "Lincoln",
       "municipality": "Birch, Town of",
-      "median": 152000,
-      "count": 7
+      "median": 143000,
+      "count": 6
     },
     {
       "county": "Lincoln",
       "municipality": "Bradley, Town of",
-      "median": 256000,
-      "count": 84
+      "median": 251000,
+      "count": 78
     },
     {
       "county": "Lincoln",
       "municipality": "Corning, Town of",
-      "median": 180000,
-      "count": 25
+      "median": 212500,
+      "count": 24
     },
     {
       "county": "Lincoln",
       "municipality": "Harding, Town of",
-      "median": 85000,
-      "count": 7
+      "median": 74500,
+      "count": 8
     },
     {
       "county": "Lincoln",
       "municipality": "Harrison, Town of",
       "median": 350000,
-      "count": 45
+      "count": 41
     },
     {
       "county": "Lincoln",
       "municipality": "King, Town of",
       "median": 329900,
-      "count": 33
+      "count": 31
     },
     {
       "county": "Lincoln",
       "municipality": "Merrill, City of",
-      "median": 157250,
-      "count": 174
+      "median": 160000,
+      "count": 173
     },
     {
       "county": "Lincoln",
       "municipality": "Merrill, Town of",
-      "median": 240000,
-      "count": 47
+      "median": 237500,
+      "count": 42
     },
     {
       "county": "Lincoln",
       "municipality": "Pine River, Town of",
-      "median": 314500,
-      "count": 34
+      "median": 310000,
+      "count": 31
     },
     {
       "county": "Lincoln",
       "municipality": "Rock Falls, Town of",
-      "median": 305000,
-      "count": 17
-    },
-    {
-      "county": "Lincoln",
-      "municipality": "Russell, Town of",
-      "median": 159000,
+      "median": 311000,
       "count": 14
     },
     {
       "county": "Lincoln",
-      "municipality": "Schley, Town of",
-      "median": 118400,
-      "count": 18
-    },
-    {
-      "county": "Lincoln",
-      "municipality": "Scott, Town of",
-      "median": 175000,
+      "municipality": "Russell, Town of",
+      "median": 153000,
       "count": 15
     },
     {
       "county": "Lincoln",
-      "municipality": "Skanawan, Town of",
-      "median": 133500,
+      "municipality": "Schley, Town of",
+      "median": 125000,
+      "count": 16
+    },
+    {
+      "county": "Lincoln",
+      "municipality": "Scott, Town of",
+      "median": 240000,
       "count": 12
     },
     {
       "county": "Lincoln",
-      "municipality": "Somo, Town of",
-      "median": 140000,
+      "municipality": "Skanawan, Town of",
+      "median": 210000,
       "count": 10
     },
     {
       "county": "Lincoln",
+      "municipality": "Somo, Town of",
+      "median": 117000,
+      "count": 8
+    },
+    {
+      "county": "Lincoln",
       "municipality": "Tomahawk, City of",
-      "median": 200000,
-      "count": 74
+      "median": 205000,
+      "count": 70
     },
     {
       "county": "Lincoln",
       "municipality": "Tomahawk, Town of",
-      "median": 157250,
-      "count": 20
+      "median": 150000,
+      "count": 19
     },
     {
       "county": "Lincoln",
       "municipality": "Wilson, Town of",
       "median": 188250,
-      "count": 22
+      "count": 20
     },
     {
       "county": "Marathon",
@@ -249,24 +249,24 @@
       "county": "Marathon",
       "municipality": "Athens, Village of",
       "median": 175000,
-      "count": 29
+      "count": 27
     },
     {
       "county": "Marathon",
       "municipality": "Bergen, Town of",
-      "median": 270000,
-      "count": 14
+      "median": 263500,
+      "count": 12
     },
     {
       "county": "Marathon",
       "municipality": "Berlin, Town of",
-      "median": 300000,
-      "count": 26
+      "median": 325000,
+      "count": 23
     },
     {
       "county": "Marathon",
       "municipality": "Bern, Town of",
-      "median": 277500,
+      "median": 280000,
       "count": 17
     },
     {
@@ -290,14 +290,14 @@
     {
       "county": "Marathon",
       "municipality": "Cleveland, Town of",
-      "median": 220000,
-      "count": 33
+      "median": 248250,
+      "count": 30
     },
     {
       "county": "Marathon",
       "municipality": "Colby, City of",
-      "median": 165000,
-      "count": 6
+      "median": 170000,
+      "count": 5
     },
     {
       "county": "Marathon",
@@ -308,20 +308,20 @@
     {
       "county": "Marathon",
       "municipality": "Easton, Town of",
-      "median": 231750,
-      "count": 20
+      "median": 220000,
+      "count": 21
     },
     {
       "county": "Marathon",
       "municipality": "Eau Pleine, Town of",
-      "median": 235000,
-      "count": 14
+      "median": 260000,
+      "count": 11
     },
     {
       "county": "Marathon",
       "municipality": "Edgar, Village of",
       "median": 220000,
-      "count": 19
+      "count": 13
     },
     {
       "county": "Marathon",
@@ -332,26 +332,26 @@
     {
       "county": "Marathon",
       "municipality": "Elderon, Village of",
-      "median": 190000,
-      "count": 3
+      "median": 181500,
+      "count": 4
     },
     {
       "county": "Marathon",
       "municipality": "Emmet, Town of",
       "median": 150000,
-      "count": 17
+      "count": 15
     },
     {
       "county": "Marathon",
       "municipality": "Fenwood, Village of",
-      "median": 108000,
-      "count": 7
+      "median": 103000,
+      "count": 6
     },
     {
       "county": "Marathon",
       "municipality": "Frankfort, Town of",
-      "median": 345000,
-      "count": 7
+      "median": 335000,
+      "count": 6
     },
     {
       "county": "Marathon",
@@ -368,20 +368,20 @@
     {
       "county": "Marathon",
       "municipality": "Guenther, Town of",
-      "median": 138000,
-      "count": 3
+      "median": 153500,
+      "count": 4
     },
     {
       "county": "Marathon",
       "municipality": "Halsey, Town of",
-      "median": 200000,
-      "count": 17
+      "median": 225000,
+      "count": 18
     },
     {
       "county": "Marathon",
       "municipality": "Hamburg, Town of",
-      "median": 150000,
-      "count": 13
+      "median": 167500,
+      "count": 14
     },
     {
       "county": "Marathon",
@@ -392,26 +392,26 @@
     {
       "county": "Marathon",
       "municipality": "Hatley, Village of",
-      "median": 197500,
-      "count": 12
+      "median": 230000,
+      "count": 11
     },
     {
       "county": "Marathon",
       "municipality": "Hewitt, Town of",
-      "median": 264000,
-      "count": 13
+      "median": 257000,
+      "count": 12
     },
     {
       "county": "Marathon",
       "municipality": "Holton, Town of",
-      "median": 207500,
-      "count": 12
+      "median": 225000,
+      "count": 11
     },
     {
       "county": "Marathon",
       "municipality": "Hull, Town of",
-      "median": 279500,
-      "count": 12
+      "median": 280000,
+      "count": 13
     },
     {
       "county": "Marathon",
@@ -422,62 +422,62 @@
     {
       "county": "Marathon",
       "municipality": "Knowlton, Town of",
-      "median": 405000,
-      "count": 38
+      "median": 410000,
+      "count": 33
     },
     {
       "county": "Marathon",
       "municipality": "Kronenwetter, Village of",
-      "median": 327000,
-      "count": 111
+      "median": 329000,
+      "count": 103
     },
     {
       "county": "Marathon",
       "municipality": "Maine, Village of",
-      "median": 190000,
-      "count": 55
+      "median": 235000,
+      "count": 50
     },
     {
       "county": "Marathon",
       "municipality": "Marathon City, Village of",
-      "median": 237000,
-      "count": 30
+      "median": 225000,
+      "count": 27
     },
     {
       "county": "Marathon",
       "municipality": "Marathon, Town of",
-      "median": 290000,
-      "count": 9
+      "median": 276000,
+      "count": 8
     },
     {
       "county": "Marathon",
       "municipality": "Marshfield, City of",
-      "median": 245000,
-      "count": 12
+      "median": 238000,
+      "count": 11
     },
     {
       "county": "Marathon",
       "municipality": "Mcmillan, Town of",
-      "median": 384500,
-      "count": 28
+      "median": 360000,
+      "count": 25
     },
     {
       "county": "Marathon",
       "municipality": "Mosinee, City of",
-      "median": 229000,
-      "count": 83
+      "median": 225000,
+      "count": 71
     },
     {
       "county": "Marathon",
       "municipality": "Mosinee, Town of",
-      "median": 218500,
-      "count": 30
+      "median": 225000,
+      "count": 29
     },
     {
       "county": "Marathon",
       "municipality": "Norrie, Town of",
       "median": 280250,
-      "count": 17
+      "count": 15
     },
     {
       "county": "Marathon",
@@ -488,8 +488,8 @@
     {
       "county": "Marathon",
       "municipality": "Reid, Town of",
-      "median": 205000,
-      "count": 20
+      "median": 185000,
+      "count": 17
     },
     {
       "county": "Marathon",
@@ -500,8 +500,8 @@
     {
       "county": "Marathon",
       "municipality": "Rib Mountain, Village of",
-      "median": 320000,
-      "count": 99
+      "median": 314900,
+      "count": 85
     },
     {
       "county": "Marathon",
@@ -512,50 +512,50 @@
     {
       "county": "Marathon",
       "municipality": "Ringle, Town of",
-      "median": 291900,
-      "count": 22
+      "median": 290000,
+      "count": 21
     },
     {
       "county": "Marathon",
       "municipality": "Rothschild, Village of",
-      "median": 250000,
-      "count": 87
+      "median": 260000,
+      "count": 83
     },
     {
       "county": "Marathon",
       "municipality": "Schofield, City of",
-      "median": 185000,
-      "count": 45
+      "median": 192450,
+      "count": 42
     },
     {
       "county": "Marathon",
       "municipality": "Spencer, Town of",
-      "median": 155750,
-      "count": 30
+      "median": 179750,
+      "count": 28
     },
     {
       "county": "Marathon",
       "municipality": "Spencer, Village of",
-      "median": 190000,
-      "count": 45
+      "median": 194000,
+      "count": 44
     },
     {
       "county": "Marathon",
       "municipality": "Stettin, Town of",
-      "median": 507567,
-      "count": 31
+      "median": 509900,
+      "count": 27
     },
     {
       "county": "Marathon",
       "municipality": "Stratford, Village of",
-      "median": 244900,
-      "count": 19
+      "median": 222000,
+      "count": 17
     },
     {
       "county": "Marathon",
       "municipality": "Texas, Town of",
-      "median": 250500,
-      "count": 24
+      "median": 276260,
+      "count": 19
     },
     {
       "county": "Marathon",
@@ -566,14 +566,14 @@
     {
       "county": "Marathon",
       "municipality": "Wausau, City of",
-      "median": 196000,
-      "count": 621
+      "median": 200000,
+      "count": 574
     },
     {
       "county": "Marathon",
       "municipality": "Wausau, Town of",
-      "median": 275000,
-      "count": 27
+      "median": 287000,
+      "count": 24
     },
     {
       "county": "Marathon",
@@ -585,19 +585,19 @@
       "county": "Marathon",
       "municipality": "Weston, Village of",
       "median": 320000,
-      "count": 208
+      "count": 197
     },
     {
       "county": "Marathon",
       "municipality": "Wien, Town of",
-      "median": 257500,
-      "count": 10
+      "median": 270000,
+      "count": 9
     },
     {
       "county": "Portage",
       "municipality": "Alban, Town of",
-      "median": 232450,
-      "count": 16
+      "median": 209900,
+      "count": 15
     },
     {
       "county": "Portage",
@@ -608,8 +608,8 @@
     {
       "county": "Portage",
       "municipality": "Almond, Village of",
-      "median": 86000,
-      "count": 10
+      "median": 82000,
+      "count": 9
     },
     {
       "county": "Portage",
@@ -620,32 +620,32 @@
     {
       "county": "Portage",
       "municipality": "Amherst, Town of",
-      "median": 385000,
-      "count": 21
+      "median": 396250,
+      "count": 20
     },
     {
       "county": "Portage",
       "municipality": "Amherst, Village of",
       "median": 247800,
-      "count": 22
+      "count": 20
     },
     {
       "county": "Portage",
       "municipality": "Belmont, Town of",
-      "median": 150000,
-      "count": 11
-    },
-    {
-      "county": "Portage",
-      "municipality": "Buena Vista, Town of",
-      "median": 237500,
+      "median": 260000,
       "count": 10
     },
     {
       "county": "Portage",
+      "municipality": "Buena Vista, Town of",
+      "median": 235000,
+      "count": 9
+    },
+    {
+      "county": "Portage",
       "municipality": "Carson, Town of",
-      "median": 230000,
-      "count": 21
+      "median": 205000,
+      "count": 17
     },
     {
       "county": "Portage",
@@ -657,7 +657,7 @@
       "county": "Portage",
       "municipality": "Eau Pleine, Town of",
       "median": 165000,
-      "count": 17
+      "count": 15
     },
     {
       "county": "Portage",
@@ -669,25 +669,25 @@
       "county": "Portage",
       "municipality": "Hull, Town of",
       "median": 348500,
-      "count": 58
+      "count": 54
     },
     {
       "county": "Portage",
       "municipality": "Junction City, Village of",
-      "median": 240000,
-      "count": 3
+      "median": 262500,
+      "count": 2
     },
     {
       "county": "Portage",
       "municipality": "Lanark, Town of",
-      "median": 179117,
-      "count": 40
+      "median": 168234,
+      "count": 37
     },
     {
       "county": "Portage",
       "municipality": "Linwood, Town of",
-      "median": 250000,
-      "count": 20
+      "median": 190000,
+      "count": 14
     },
     {
       "county": "Portage",
@@ -698,32 +698,32 @@
     {
       "county": "Portage",
       "municipality": "New Hope, Town of",
-      "median": 255000,
-      "count": 15
+      "median": 275000,
+      "count": 13
     },
     {
       "county": "Portage",
       "municipality": "Park Ridge, Village of",
-      "median": 302500,
-      "count": 16
+      "median": 300000,
+      "count": 13
     },
     {
       "county": "Portage",
       "municipality": "Pine Grove, Town of",
-      "median": 160000,
-      "count": 17
+      "median": 140000,
+      "count": 15
     },
     {
       "county": "Portage",
       "municipality": "Plover, Town of",
-      "median": 285000,
-      "count": 13
+      "median": 281250,
+      "count": 12
     },
     {
       "county": "Portage",
       "municipality": "Plover, Village of",
       "median": 330000,
-      "count": 206
+      "count": 183
     },
     {
       "county": "Portage",
@@ -734,43 +734,43 @@
     {
       "county": "Portage",
       "municipality": "Sharon, Town of",
-      "median": 331000,
+      "median": 318500,
       "count": 28
     },
     {
       "county": "Portage",
       "municipality": "Stevens Point, City of",
-      "median": 241000,
-      "count": 316
+      "median": 246000,
+      "count": 304
     },
     {
       "county": "Portage",
       "municipality": "Stockton, Town of",
-      "median": 321000,
-      "count": 30
+      "median": 310000,
+      "count": 26
     },
     {
       "county": "Portage",
       "municipality": "Whiting, Village of",
-      "median": 255425,
+      "median": 264325,
       "count": 26
     },
     {
       "county": "Shawano",
       "municipality": "Almon, Town of",
-      "median": 160085,
-      "count": 8
+      "median": 165170,
+      "count": 5
     },
     {
       "county": "Shawano",
       "municipality": "Angelica, Town of",
-      "median": 247500,
+      "median": 273450,
       "count": 34
     },
     {
       "county": "Shawano",
       "municipality": "Aniwa, Town of",
-      "median": 230000,
+      "median": 299000,
       "count": 9
     },
     {
@@ -782,44 +782,44 @@
     {
       "county": "Shawano",
       "municipality": "Bartelme, Town of",
-      "median": 170829,
-      "count": 5
+      "median": 174164,
+      "count": 4
     },
     {
       "county": "Shawano",
       "municipality": "Belle Plaine, Town of",
-      "median": 290000,
-      "count": 25
+      "median": 302500,
+      "count": 22
     },
     {
       "county": "Shawano",
       "municipality": "Birnamwood, Town of",
-      "median": 165000,
+      "median": 331500,
       "count": 9
     },
     {
       "county": "Shawano",
       "municipality": "Birnamwood, Village of",
-      "median": 189900,
-      "count": 17
+      "median": 189950,
+      "count": 16
     },
     {
       "county": "Shawano",
       "municipality": "Bonduel, Village of",
-      "median": 270500,
-      "count": 26
+      "median": 276000,
+      "count": 23
     },
     {
       "county": "Shawano",
       "municipality": "Bowler, Village of",
-      "median": 152500,
-      "count": 6
+      "median": 155000,
+      "count": 5
     },
     {
       "county": "Shawano",
       "municipality": "Cecil, Village of",
-      "median": 255000,
-      "count": 18
+      "median": 292500,
+      "count": 16
     },
     {
       "county": "Shawano",
@@ -842,25 +842,25 @@
     {
       "county": "Shawano",
       "municipality": "Grant, Town of",
-      "median": 200000,
-      "count": 13
+      "median": 185000,
+      "count": 14
     },
     {
       "county": "Shawano",
       "municipality": "Green Valley, Town of",
       "median": 315000,
-      "count": 14
+      "count": 15
     },
     {
       "county": "Shawano",
       "municipality": "Gresham, Village of",
-      "median": 192500,
-      "count": 16
+      "median": 202500,
+      "count": 12
     },
     {
       "county": "Shawano",
       "municipality": "Hartland, Town of",
-      "median": 290000,
+      "median": 315000,
       "count": 14
     },
     {
@@ -872,8 +872,8 @@
     {
       "county": "Shawano",
       "municipality": "Hutchins, Town of",
-      "median": 312450,
-      "count": 6
+      "median": 257450,
+      "count": 4
     },
     {
       "county": "Shawano",
@@ -908,14 +908,14 @@
     {
       "county": "Shawano",
       "municipality": "Navarino, Town of",
-      "median": 338200,
+      "median": 375750,
       "count": 10
     },
     {
       "county": "Shawano",
       "municipality": "Pella, Town of",
-      "median": 256500,
-      "count": 14
+      "median": 250000,
+      "count": 13
     },
     {
       "county": "Shawano",
@@ -926,14 +926,14 @@
     {
       "county": "Shawano",
       "municipality": "Red Springs, Town of",
-      "median": 60000,
-      "count": 17
+      "median": 137500,
+      "count": 12
     },
     {
       "county": "Shawano",
       "municipality": "Richmond, Town of",
-      "median": 290000,
-      "count": 28
+      "median": 280000,
+      "count": 25
     },
     {
       "county": "Shawano",
@@ -944,20 +944,20 @@
     {
       "county": "Shawano",
       "municipality": "Shawano, City of",
-      "median": 205000,
-      "count": 189
+      "median": 205825,
+      "count": 177
     },
     {
       "county": "Shawano",
       "municipality": "Tigerton, Village of",
-      "median": 77500,
-      "count": 6
+      "median": 65000,
+      "count": 5
     },
     {
       "county": "Shawano",
       "municipality": "Washington, Town of",
       "median": 160000,
-      "count": 45
+      "count": 44
     },
     {
       "county": "Shawano",
@@ -968,26 +968,26 @@
     {
       "county": "Shawano",
       "municipality": "Wescott, Town of",
-      "median": 215000,
-      "count": 95
+      "median": 221200,
+      "count": 88
     },
     {
       "county": "Shawano",
       "municipality": "Wittenberg, Town of",
-      "median": 50994,
-      "count": 14
+      "median": 66987,
+      "count": 11
     },
     {
       "county": "Shawano",
       "municipality": "Wittenberg, Village of",
-      "median": 132500,
-      "count": 14
+      "median": 130000,
+      "count": 13
     },
     {
       "county": "Taylor",
       "municipality": "Aurora, Town of",
-      "median": 165000,
-      "count": 14
+      "median": 162500,
+      "count": 12
     },
     {
       "county": "Taylor",
@@ -998,7 +998,7 @@
     {
       "county": "Taylor",
       "municipality": "Chelsea, Town of",
-      "median": 99000,
+      "median": 125000,
       "count": 17
     },
     {
@@ -1016,32 +1016,32 @@
     {
       "county": "Taylor",
       "municipality": "Ford, Town of",
-      "median": 232000,
-      "count": 7
+      "median": 248500,
+      "count": 8
     },
     {
       "county": "Taylor",
       "municipality": "Gilman, Village of",
-      "median": 147500,
+      "median": 155000,
       "count": 14
     },
     {
       "county": "Taylor",
       "municipality": "Goodrich, Town of",
-      "median": 85206,
-      "count": 5
+      "median": 117603,
+      "count": 4
     },
     {
       "county": "Taylor",
       "municipality": "Greenwood, Town of",
-      "median": 140000,
-      "count": 19
+      "median": 145000,
+      "count": 18
     },
     {
       "county": "Taylor",
       "municipality": "Grover, Town of",
-      "median": 205000,
-      "count": 6
+      "median": 210000,
+      "count": 5
     },
     {
       "county": "Taylor",
@@ -1052,8 +1052,8 @@
     {
       "county": "Taylor",
       "municipality": "Holway, Town of",
-      "median": 124750,
-      "count": 12
+      "median": 109750,
+      "count": 10
     },
     {
       "county": "Taylor",
@@ -1064,44 +1064,44 @@
     {
       "county": "Taylor",
       "municipality": "Little Black, Town of",
-      "median": 203000,
-      "count": 18
+      "median": 220460,
+      "count": 16
     },
     {
       "county": "Taylor",
       "municipality": "Lublin, Village of",
       "median": 35000,
-      "count": 8
+      "count": 6
     },
     {
       "county": "Taylor",
       "municipality": "Maplehurst, Town of",
-      "median": 147500,
-      "count": 8
+      "median": 200000,
+      "count": 7
     },
     {
       "county": "Taylor",
       "municipality": "Mckinley, Town of",
       "median": 70000,
-      "count": 13
+      "count": 11
     },
     {
       "county": "Taylor",
       "municipality": "Medford, City of",
       "median": 189000,
-      "count": 65
+      "count": 63
     },
     {
       "county": "Taylor",
       "municipality": "Medford, Town of",
-      "median": 181750,
-      "count": 38
+      "median": 210000,
+      "count": 33
     },
     {
       "county": "Taylor",
       "municipality": "Molitor, Town of",
-      "median": 140000,
-      "count": 11
+      "median": 125000,
+      "count": 10
     },
     {
       "county": "Taylor",
@@ -1113,7 +1113,7 @@
       "county": "Taylor",
       "municipality": "Rib Lake, Town of",
       "median": 247450,
-      "count": 22
+      "count": 18
     },
     {
       "county": "Taylor",
@@ -1124,848 +1124,29 @@
     {
       "county": "Taylor",
       "municipality": "Roosevelt, Town of",
-      "median": 269000,
-      "count": 14
+      "median": 322500,
+      "count": 12
     },
     {
       "county": "Taylor",
       "municipality": "Stetsonville, Village of",
-      "median": 199500,
-      "count": 10
+      "median": 224000,
+      "count": 11
     },
     {
       "county": "Taylor",
       "municipality": "Taft, Town of",
-      "median": 242500,
-      "count": 6
+      "median": 118000,
+      "count": 4
     },
     {
       "county": "Taylor",
       "municipality": "Westboro, Town of",
-      "median": 95000,
-      "count": 13
+      "median": 127500,
+      "count": 12
     }
   ],
   "monthly_prices": {
-    "2025-10": {
-      "Marathon|Abbotsford, City of": [
-        199900
-      ],
-      "Marathon|Athens, Village of": [
-        100000,
-        195000
-      ],
-      "Marathon|Bergen, Town of": [
-        240000,
-        350000
-      ],
-      "Marathon|Berlin, Town of": [
-        37500,
-        65000,
-        300000
-      ],
-      "Marathon|Bern, Town of": [
-        97600
-      ],
-      "Marathon|Cleveland, Town of": [
-        23000,
-        28000,
-        39000
-      ],
-      "Marathon|Colby, City of": [
-        14000,
-        485000
-      ],
-      "Marathon|Eau Pleine, Town of": [
-        30000,
-        215000,
-        220000
-      ],
-      "Marathon|Edgar, Village of": [
-        95000,
-        120000,
-        210000,
-        238000,
-        263000,
-        265000
-      ],
-      "Marathon|Emmet, Town of": [
-        25500,
-        204900
-      ],
-      "Marathon|Fenwood, Village of": [
-        157000
-      ],
-      "Marathon|Frankfort, Town of": [
-        625000
-      ],
-      "Marathon|Green Valley, Town of": [
-        232000
-      ],
-      "Marathon|Hatley, Village of": [
-        50000
-      ],
-      "Marathon|Hewitt, Town of": [
-        272900
-      ],
-      "Marathon|Holton, Town of": [
-        160000
-      ],
-      "Marathon|Knowlton, Town of": [
-        128000,
-        217500,
-        265000,
-        360000,
-        795000
-      ],
-      "Marathon|Kronenwetter, Village of": [
-        3000,
-        105400,
-        160000,
-        235000,
-        275000,
-        301000,
-        315000,
-        350000,
-        399900,
-        399900,
-        407011,
-        435200,
-        549300,
-        675000
-      ],
-      "Marathon|Maine, Village of": [
-        3500,
-        40000,
-        53000,
-        70000,
-        140000,
-        200000
-      ],
-      "Marathon|Marathon City, Village of": [
-        175000,
-        265000,
-        351000,
-        419900,
-        438000
-      ],
-      "Marathon|Marathon, Town of": [
-        550000
-      ],
-      "Marathon|Marshfield, City of": [
-        415000
-      ],
-      "Marathon|Mcmillan, Town of": [
-        303500,
-        365000,
-        394000,
-        525000,
-        579900
-      ],
-      "Marathon|Mosinee, City of": [
-        12500,
-        86400,
-        171000,
-        175000,
-        220000,
-        250000,
-        286000,
-        299900,
-        310000,
-        310000,
-        330000,
-        366000,
-        370000,
-        455000
-      ],
-      "Marathon|Mosinee, Town of": [
-        212000,
-        405000
-      ],
-      "Marathon|Norrie, Town of": [
-        74900,
-        493000
-      ],
-      "Marathon|Reid, Town of": [
-        210000,
-        237000,
-        342000
-      ],
-      "Marathon|Rib Mountain, Village of": [
-        130000,
-        210000,
-        260000,
-        280000,
-        285000,
-        333000,
-        363000,
-        420000,
-        435000,
-        465000,
-        517632,
-        575000,
-        674900,
-        1080000
-      ],
-      "Marathon|Ringle, Town of": [
-        525000
-      ],
-      "Marathon|Rothschild, Village of": [
-        105000,
-        150000,
-        184900,
-        185000,
-        220000,
-        401500
-      ],
-      "Marathon|Schofield, City of": [
-        56000,
-        110000,
-        130000,
-        235000,
-        532500
-      ],
-      "Marathon|Spencer, Town of": [
-        75000,
-        106932,
-        262500,
-        285000
-      ],
-      "Marathon|Spencer, Village of": [
-        26000,
-        115000,
-        190000,
-        211000
-      ],
-      "Marathon|Stettin, Town of": [
-        255000,
-        470000,
-        504900,
-        635000
-      ],
-      "Marathon|Stratford, Village of": [
-        274900,
-        425000
-      ],
-      "Marathon|Texas, Town of": [
-        115000,
-        122000,
-        155000,
-        174900,
-        311000
-      ],
-      "Marathon|Wausau, City of": [
-        25000,
-        60000,
-        66000,
-        89900,
-        90000,
-        90000,
-        90000,
-        96500,
-        98050,
-        102500,
-        109900,
-        117500,
-        124950,
-        125000,
-        125000,
-        125000,
-        125000,
-        128700,
-        129900,
-        130000,
-        133000,
-        135000,
-        139000,
-        140000,
-        144900,
-        145000,
-        149900,
-        152000,
-        153700,
-        162900,
-        169700,
-        180500,
-        184000,
-        185000,
-        189000,
-        190000,
-        192000,
-        195000,
-        195500,
-        199900,
-        200000,
-        200000,
-        202000,
-        210000,
-        210000,
-        215000,
-        225000,
-        234900,
-        235000,
-        249900,
-        250000,
-        250000,
-        252500,
-        256000,
-        257500,
-        275000,
-        280000,
-        296000,
-        310000,
-        315000,
-        318000,
-        365000,
-        375000,
-        375000,
-        403000,
-        517650,
-        575000,
-        755000,
-        800000
-      ],
-      "Marathon|Wausau, Town of": [
-        160000,
-        210000,
-        400000,
-        574000
-      ],
-      "Marathon|Weston, Village of": [
-        48000,
-        71000,
-        210000,
-        215000,
-        231000,
-        232000,
-        270000,
-        279900,
-        290000,
-        290000,
-        292000,
-        324000,
-        331200,
-        390000,
-        401597,
-        415000,
-        424000,
-        485173,
-        499500
-      ],
-      "Marathon|Wien, Town of": [
-        130000
-      ],
-      "Lincoln|Birch, Town of": [
-        184000
-      ],
-      "Lincoln|Bradley, Town of": [
-        75000,
-        150000,
-        201000,
-        333500,
-        355000,
-        375000,
-        495000,
-        605000,
-        630000,
-        947000
-      ],
-      "Lincoln|Corning, Town of": [
-        147000
-      ],
-      "Lincoln|Harrison, Town of": [
-        50800,
-        348500,
-        420000,
-        550000
-      ],
-      "Lincoln|King, Town of": [
-        50000,
-        410000
-      ],
-      "Lincoln|Merrill, City of": [
-        4000,
-        45000,
-        62000,
-        93000,
-        112410,
-        115000,
-        117000,
-        135000,
-        194000,
-        251900,
-        255000,
-        265900,
-        298500
-      ],
-      "Lincoln|Merrill, Town of": [
-        50000,
-        80000,
-        120000,
-        200000,
-        330000,
-        445000,
-        620000
-      ],
-      "Lincoln|Pine River, Town of": [
-        45000,
-        80000,
-        345000,
-        390000,
-        405000
-      ],
-      "Lincoln|Rock Falls, Town of": [
-        106133,
-        227000,
-        730000
-      ],
-      "Lincoln|Schley, Town of": [
-        90000,
-        90000,
-        121800
-      ],
-      "Lincoln|Scott, Town of": [
-        23900,
-        158000,
-        340000,
-        362000
-      ],
-      "Lincoln|Skanawan, Town of": [
-        6000,
-        49900
-      ],
-      "Lincoln|Somo, Town of": [
-        120000,
-        171000
-      ],
-      "Lincoln|Tomahawk, City of": [
-        30000,
-        35000,
-        107500,
-        165000,
-        170000,
-        242500,
-        400000,
-        550000
-      ],
-      "Lincoln|Tomahawk, Town of": [
-        164500
-      ],
-      "Lincoln|Wilson, Town of": [
-        115000,
-        574900
-      ],
-      "Langlade|Ackley, Town of": [
-        400000
-      ],
-      "Langlade|Ainsworth, Town of": [
-        235000
-      ],
-      "Langlade|Antigo, City of": [
-        32000,
-        40000,
-        45000,
-        110000,
-        110000,
-        160000,
-        175000,
-        175000,
-        220000,
-        235000,
-        400000
-      ],
-      "Langlade|Antigo, Town of": [
-        200000,
-        545000
-      ],
-      "Langlade|Elcho, Town of": [
-        100000,
-        174900,
-        191000,
-        377900,
-        425000,
-        487500
-      ],
-      "Langlade|Evergreen, Town of": [
-        50000
-      ],
-      "Langlade|Langlade, Town of": [
-        4501,
-        11000,
-        190000
-      ],
-      "Langlade|Norwood, Town of": [
-        205000
-      ],
-      "Langlade|Parrish, Town of": [
-        400000
-      ],
-      "Langlade|Peck, Town of": [
-        250000
-      ],
-      "Langlade|Polar, Town of": [
-        35000,
-        49500
-      ],
-      "Langlade|Price, Town of": [
-        50000
-      ],
-      "Langlade|Rolling, Town of": [
-        229000,
-        330000,
-        359900,
-        365000
-      ],
-      "Langlade|Upham, Town of": [
-        60000,
-        340000,
-        400000,
-        523940
-      ],
-      "Langlade|Vilas, Town of": [
-        300000,
-        675000
-      ],
-      "Langlade|White Lake, Village of": [
-        301000
-      ],
-      "Langlade|Wolf River, Town of": [
-        50000,
-        89000,
-        207000,
-        368000,
-        415000,
-        511000
-      ],
-      "Taylor|Aurora, Town of": [
-        50000,
-        300000,
-        425000
-      ],
-      "Taylor|Chelsea, Town of": [
-        28000
-      ],
-      "Taylor|Gilman, Village of": [
-        124900
-      ],
-      "Taylor|Goodrich, Town of": [
-        75000
-      ],
-      "Taylor|Greenwood, Town of": [
-        100000,
-        125000
-      ],
-      "Taylor|Grover, Town of": [
-        80000,
-        200000
-      ],
-      "Taylor|Holway, Town of": [
-        125000,
-        145000
-      ],
-      "Taylor|Little Black, Town of": [
-        20000,
-        169000
-      ],
-      "Taylor|Lublin, Village of": [
-        5000,
-        192000
-      ],
-      "Taylor|Maplehurst, Town of": [
-        90000
-      ],
-      "Taylor|Mckinley, Town of": [
-        2500,
-        83475
-      ],
-      "Taylor|Medford, City of": [
-        30000,
-        35000,
-        129900,
-        205000,
-        224900
-      ],
-      "Taylor|Medford, Town of": [
-        12000,
-        18000,
-        32500,
-        82500,
-        279900
-      ],
-      "Taylor|Molitor, Town of": [
-        260000
-      ],
-      "Taylor|Rib Lake, Town of": [
-        53000,
-        218000,
-        525000,
-        750000
-      ],
-      "Taylor|Roosevelt, Town of": [
-        85000,
-        240000
-      ],
-      "Taylor|Taft, Town of": [
-        277000,
-        375000
-      ],
-      "Taylor|Westboro, Town of": [
-        55000,
-        188000
-      ],
-      "Shawano|Almon, Town of": [
-        60000,
-        155000,
-        535000
-      ],
-      "Shawano|Angelica, Town of": [
-        180000,
-        185000
-      ],
-      "Shawano|Aniwa, Town of": [
-        219000
-      ],
-      "Shawano|Bartelme, Town of": [
-        165000
-      ],
-      "Shawano|Belle Plaine, Town of": [
-        95000,
-        230000,
-        502000
-      ],
-      "Shawano|Birnamwood, Town of": [
-        80000
-      ],
-      "Shawano|Birnamwood, Village of": [
-        100000
-      ],
-      "Shawano|Bonduel, Village of": [
-        16000,
-        266000,
-        275000,
-        350000
-      ],
-      "Shawano|Bowler, Village of": [
-        85000
-      ],
-      "Shawano|Cecil, Village of": [
-        17000,
-        31000
-      ],
-      "Shawano|Grant, Town of": [
-        300000
-      ],
-      "Shawano|Gresham, Village of": [
-        9000,
-        87700,
-        210000,
-        215000
-      ],
-      "Shawano|Hartland, Town of": [
-        270000
-      ],
-      "Shawano|Hutchins, Town of": [
-        374900,
-        725000
-      ],
-      "Shawano|Navarino, Town of": [
-        170000
-      ],
-      "Shawano|Pella, Town of": [
-        365000
-      ],
-      "Shawano|Red Springs, Town of": [
-        4000,
-        4000,
-        8000,
-        10000,
-        12000
-      ],
-      "Shawano|Richmond, Town of": [
-        170000,
-        390000,
-        765000
-      ],
-      "Shawano|Shawano, City of": [
-        115000,
-        115000,
-        155000,
-        170000,
-        190000,
-        195000,
-        195000,
-        205000,
-        207500,
-        215000,
-        217000,
-        250000,
-        270000,
-        345000,
-        425000
-      ],
-      "Shawano|Tigerton, Village of": [
-        90000
-      ],
-      "Shawano|Washington, Town of": [
-        400000,
-        771950
-      ],
-      "Shawano|Wescott, Town of": [
-        35000,
-        65000,
-        153000,
-        165000,
-        185000,
-        435000,
-        600000,
-        660512,
-        1000000
-      ],
-      "Shawano|Wittenberg, Town of": [
-        8000,
-        25000,
-        365000
-      ],
-      "Shawano|Wittenberg, Village of": [
-        220000
-      ],
-      "Portage|Alban, Town of": [
-        255000
-      ],
-      "Portage|Almond, Village of": [
-        107000
-      ],
-      "Portage|Amherst, Town of": [
-        129825
-      ],
-      "Portage|Amherst, Village of": [
-        41000,
-        360000
-      ],
-      "Portage|Belmont, Town of": [
-        75000
-      ],
-      "Portage|Buena Vista, Town of": [
-        240000
-      ],
-      "Portage|Carson, Town of": [
-        40180,
-        299900,
-        535000,
-        610000
-      ],
-      "Portage|Eau Pleine, Town of": [
-        5000,
-        815000
-      ],
-      "Portage|Grant, Town of": [
-        264500
-      ],
-      "Portage|Hull, Town of": [
-        57500,
-        275000,
-        325000,
-        325000,
-        419900,
-        426500
-      ],
-      "Portage|Junction City, Village of": [
-        123700
-      ],
-      "Portage|Lanark, Town of": [
-        80000,
-        190000,
-        235000
-      ],
-      "Portage|Linwood, Town of": [
-        180000,
-        210000,
-        305000,
-        310000,
-        350000,
-        482750
-      ],
-      "Portage|New Hope, Town of": [
-        205000,
-        205500
-      ],
-      "Portage|Park Ridge, Village of": [
-        183000,
-        305000,
-        426000
-      ],
-      "Portage|Pine Grove, Town of": [
-        160000,
-        180000
-      ],
-      "Portage|Plover, Town of": [
-        500000
-      ],
-      "Portage|Plover, Village of": [
-        174840,
-        210000,
-        220000,
-        265900,
-        270000,
-        270500,
-        288000,
-        289900,
-        305000,
-        309900,
-        310000,
-        316400,
-        325000,
-        347000,
-        350000,
-        355000,
-        355000,
-        365000,
-        374402,
-        419000,
-        448000,
-        462000,
-        465000,
-        487900,
-        514659
-      ],
-      "Portage|Sharon, Town of": [
-        510000
-      ],
-      "Portage|Stevens Point, City of": [
-        30000,
-        70000,
-        142500,
-        154500,
-        154900,
-        187900,
-        189000,
-        192500,
-        194700,
-        195000,
-        200000,
-        200000,
-        215000,
-        220000,
-        230000,
-        240000,
-        249900,
-        253000,
-        315000,
-        350455,
-        395685,
-        402000
-      ],
-      "Portage|Stockton, Town of": [
-        80000,
-        502000,
-        655000,
-        685000
-      ],
-      "Portage|Whiting, Village of": [
-        90000,
-        194000
-      ]
-    },
     "2025-11": {
       "Marathon|Athens, Village of": [
         19000,
@@ -8895,7 +8076,8 @@
     },
     "2026-09": {
       "Marathon|Abbotsford, City of": [
-        100000
+        100000,
+        210000
       ],
       "Marathon|Athens, Village of": [
         180000,
@@ -8911,6 +8093,7 @@
         950000
       ],
       "Marathon|Bern, Town of": [
+        385000,
         440000
       ],
       "Marathon|Bevent, Town of": [
@@ -8922,6 +8105,9 @@
       ],
       "Marathon|Cleveland, Town of": [
         750000
+      ],
+      "Marathon|Colby, City of": [
+        225000
       ],
       "Marathon|Day, Town of": [
         169900
@@ -8935,14 +8121,21 @@
         20000,
         250000
       ],
+      "Marathon|Elderon, Village of": [
+        140000
+      ],
       "Marathon|Fenwood, Village of": [
         8000
       ],
       "Marathon|Green Valley, Town of": [
         140000
       ],
+      "Marathon|Guenther, Town of": [
+        169000
+      ],
       "Marathon|Halsey, Town of": [
-        160000
+        160000,
+        650000
       ],
       "Marathon|Hamburg, Town of": [
         185000
@@ -8959,6 +8152,7 @@
         750000
       ],
       "Marathon|Hull, Town of": [
+        332500,
         370000
       ],
       "Marathon|Johnson, Town of": [
@@ -8971,6 +8165,8 @@
       "Marathon|Kronenwetter, Village of": [
         165000,
         250000,
+        250000,
+        255000,
         289000,
         292000,
         295000,
@@ -8979,9 +8175,12 @@
         320000,
         337900,
         340000,
+        349800,
         353000,
         355000,
         365000,
+        383500,
+        510000,
         524000
       ],
       "Marathon|Maine, Village of": [
@@ -8989,7 +8188,8 @@
         70000,
         120000,
         135000,
-        260000
+        260000,
+        309000
       ],
       "Marathon|Marathon City, Village of": [
         155000,
@@ -9002,7 +8202,9 @@
         439900
       ],
       "Marathon|Mcmillan, Town of": [
-        284800
+        284800,
+        328500,
+        343400
       ],
       "Marathon|Mosinee, City of": [
         37500,
@@ -9010,6 +8212,7 @@
         172500,
         185000,
         262000,
+        268000,
         299000,
         328900,
         348000,
@@ -9018,7 +8221,8 @@
       ],
       "Marathon|Mosinee, Town of": [
         60000,
-        70000
+        70000,
+        350000
       ],
       "Marathon|Norrie, Town of": [
         15000,
@@ -9036,6 +8240,7 @@
       ],
       "Marathon|Rothschild, Village of": [
         55684,
+        165000,
         240000,
         260000,
         337788,
@@ -9048,11 +8253,14 @@
         295000
       ],
       "Marathon|Spencer, Town of": [
-        10000
+        10000,
+        240000,
+        430900
       ],
       "Marathon|Spencer, Village of": [
         132500,
-        175000
+        175000,
+        267500
       ],
       "Marathon|Stettin, Town of": [
         448300,
@@ -9065,9 +8273,14 @@
         415000
       ],
       "Marathon|Wausau, City of": [
+        15298,
+        25000,
         39900,
         67260,
+        70000,
+        79000,
         80000,
+        145000,
         145000,
         150000,
         150000,
@@ -9077,21 +8290,28 @@
         164900,
         165000,
         165000,
+        165000,
         165500,
         165500,
+        170000,
         170000,
         175000,
         175000,
         179900,
+        180000,
         194000,
         194900,
         206000,
+        210000,
+        220000,
         223100,
         224000,
+        226000,
         231000,
         235000,
         236000,
         245000,
+        250000,
         250000,
         250000,
         255000,
@@ -9102,7 +8322,10 @@
         285000,
         285000,
         290000,
+        299900,
         300000,
+        305000,
+        320000,
         337900,
         339900,
         369000,
@@ -9118,15 +8341,21 @@
       "Marathon|Wausau, Town of": [
         215000,
         299000,
-        470000
+        470000,
+        849900
       ],
       "Marathon|Weston, Village of": [
+        140000,
+        220000,
         235000,
         241000,
         269000,
         280000,
+        285000,
+        300000,
         316000,
         320000,
+        326500,
         330000,
         340455,
         345000,
@@ -9135,29 +8364,34 @@
         401000,
         450000,
         477000,
-        520000
+        520000,
+        555000
       ],
       "Lincoln|Birch, Town of": [
         90000,
         99000
       ],
       "Lincoln|Bradley, Town of": [
+        25000,
         48000,
         156000,
         180000,
         215000,
         250000,
         435530,
+        475000,
         599000,
         625000,
         669900,
-        799000
+        799000,
+        800000
       ],
       "Lincoln|Corning, Town of": [
         42500,
         172000
       ],
       "Lincoln|Harding, Town of": [
+        28000,
         130000
       ],
       "Lincoln|Harrison, Town of": [
@@ -9178,6 +8412,8 @@
         853500
       ],
       "Lincoln|Merrill, City of": [
+        7100,
+        112000,
         120000,
         135000,
         140000,
@@ -9185,22 +8421,29 @@
         155000,
         169900,
         176000,
+        190500,
         264900,
         313900,
         325000,
+        339000,
+        365900,
         368900
       ],
       "Lincoln|Merrill, Town of": [
+        22000,
         25000,
         25000,
         112450,
-        112450
+        112450,
+        128000
       ],
       "Lincoln|Pine River, Town of": [
         195000,
+        215000,
         319000
       ],
       "Lincoln|Schley, Town of": [
+        68000,
         197112
       ],
       "Lincoln|Tomahawk, City of": [
@@ -9224,9 +8467,11 @@
       "Langlade|Antigo, City of": [
         63000,
         70000,
+        80000,
         90000,
         134000,
         162000,
+        163000,
         195000,
         204500,
         252900
@@ -9238,8 +8483,13 @@
         290000
       ],
       "Langlade|Elcho, Town of": [
+        50000,
+        102000,
         165000,
-        205000
+        205000,
+        220000,
+        270000,
+        280000
       ],
       "Langlade|Langlade, Town of": [
         110000
@@ -9261,6 +8511,7 @@
         420000
       ],
       "Langlade|Rolling, Town of": [
+        245000,
         430000
       ],
       "Langlade|Upham, Town of": [
@@ -9269,18 +8520,21 @@
         150000,
         181400,
         250000,
-        285000
+        285000,
+        330000
       ],
       "Langlade|White Lake, Village of": [
         89000,
         90000
       ],
       "Langlade|Wolf River, Town of": [
-        225000
+        225000,
+        440000
       ],
       "Taylor|Aurora, Town of": [
         10000,
         140000,
+        150000,
         290000,
         340000,
         540000
@@ -9292,6 +8546,9 @@
       "Taylor|Cleveland, Town of": [
         250000
       ],
+      "Taylor|Ford, Town of": [
+        650000
+      ],
       "Taylor|Gilman, Village of": [
         25500,
         185000
@@ -9302,6 +8559,9 @@
       ],
       "Taylor|Greenwood, Town of": [
         50000
+      ],
+      "Taylor|Grover, Town of": [
+        85450
       ],
       "Taylor|Holway, Town of": [
         23757
@@ -9316,6 +8576,8 @@
         180000
       ],
       "Taylor|Medford, City of": [
+        5000,
+        187500,
         210000,
         225000,
         240500,
@@ -9345,18 +8607,23 @@
       ],
       "Taylor|Westboro, Town of": [
         76000,
-        90000
+        90000,
+        337500
       ],
       "Shawano|Angelica, Town of": [
         67000,
         125000,
         450200,
+        523295,
         635000
       ],
       "Shawano|Belle Plaine, Town of": [
         175000,
         350000,
         669850
+      ],
+      "Shawano|Birnamwood, Town of": [
+        485000
       ],
       "Shawano|Birnamwood, Village of": [
         135000,
@@ -9365,13 +8632,18 @@
       ],
       "Shawano|Bonduel, Village of": [
         209000,
-        290000
+        290000,
+        600000
       ],
       "Shawano|Bowler, Village of": [
         155000
       ],
       "Shawano|Cecil, Village of": [
         220000
+      ],
+      "Shawano|Grant, Town of": [
+        3500,
+        180000
       ],
       "Shawano|Green Valley, Town of": [
         20000,
@@ -9380,6 +8652,9 @@
       ],
       "Shawano|Gresham, Village of": [
         117000
+      ],
+      "Shawano|Hartland, Town of": [
+        720000
       ],
       "Shawano|Herman, Town of": [
         120000
@@ -9394,6 +8669,9 @@
       ],
       "Shawano|Marion, City of": [
         362500
+      ],
+      "Shawano|Navarino, Town of": [
+        1047728
       ],
       "Shawano|Pella, Town of": [
         300000
@@ -9445,6 +8723,7 @@
         140000,
         215000,
         215000,
+        260000,
         450000,
         600000,
         740000,
@@ -9496,6 +8775,7 @@
       ],
       "Portage|Grant, Town of": [
         135300,
+        180000,
         266500
       ],
       "Portage|Hull, Town of": [
@@ -9503,6 +8783,8 @@
         90000,
         187000,
         280000,
+        300000,
+        310000,
         325000,
         327500,
         375000,
@@ -9540,6 +8822,7 @@
         314900,
         315000,
         326900,
+        326916,
         350000,
         365000,
         380000,
@@ -9549,6 +8832,7 @@
         800000
       ],
       "Portage|Sharon, Town of": [
+        207000,
         292000,
         337000,
         437000,
@@ -9558,10 +8842,13 @@
         57900,
         65000,
         138281,
+        175000,
+        175000,
         178000,
         198182,
         200000,
         200000,
+        206000,
         210000,
         210500,
         215000,
@@ -9570,10 +8857,14 @@
         224000,
         225000,
         229500,
+        229900,
         230000,
+        234000,
         235000,
         239700,
         240000,
+        242000,
+        244900,
         245000,
         250000,
         250000,
@@ -9584,6 +8875,7 @@
         265000,
         270000,
         280000,
+        345000,
         345900,
         360000,
         364677,
@@ -9601,7 +8893,138 @@
       "Portage|Whiting, Village of": [
         249900,
         250000,
+        300000,
         420000
+      ]
+    },
+    "2026-10": {
+      "Marathon|Easton, Town of": [
+        35000
+      ],
+      "Marathon|Green Valley, Town of": [
+        628500
+      ],
+      "Marathon|Hamburg, Town of": [
+        263000
+      ],
+      "Marathon|Kronenwetter, Village of": [
+        498400
+      ],
+      "Marathon|Marathon City, Village of": [
+        225000,
+        370000
+      ],
+      "Marathon|Mosinee, City of": [
+        400000
+      ],
+      "Marathon|Rothschild, Village of": [
+        223000
+      ],
+      "Marathon|Schofield, City of": [
+        175000,
+        279900
+      ],
+      "Marathon|Spencer, Village of": [
+        190000,
+        360000
+      ],
+      "Marathon|Wausau, City of": [
+        135000,
+        165000,
+        210000,
+        210000,
+        272500,
+        309900,
+        342500
+      ],
+      "Marathon|Weston, Village of": [
+        170000,
+        350000
+      ],
+      "Lincoln|Bradley, Town of": [
+        277000
+      ],
+      "Lincoln|Merrill, City of": [
+        35000,
+        90000,
+        175000,
+        184000,
+        229900,
+        340000,
+        461900
+      ],
+      "Lincoln|Pine River, Town of": [
+        350000
+      ],
+      "Lincoln|Russell, Town of": [
+        40000
+      ],
+      "Lincoln|Scott, Town of": [
+        329000
+      ],
+      "Lincoln|Tomahawk, City of": [
+        80000,
+        195000,
+        225000,
+        321000
+      ],
+      "Langlade|Antigo, City of": [
+        189000,
+        210000
+      ],
+      "Langlade|Elcho, Town of": [
+        649000
+      ],
+      "Langlade|Polar, Town of": [
+        120000
+      ],
+      "Langlade|Upham, Town of": [
+        120000
+      ],
+      "Taylor|Chelsea, Town of": [
+        216000
+      ],
+      "Taylor|Gilman, Village of": [
+        225000
+      ],
+      "Taylor|Greenwood, Town of": [
+        140000
+      ],
+      "Taylor|Medford, City of": [
+        196000
+      ],
+      "Taylor|Stetsonville, Village of": [
+        300000
+      ],
+      "Shawano|Angelica, Town of": [
+        289900
+      ],
+      "Shawano|Aniwa, Town of": [
+        330000
+      ],
+      "Shawano|Green Valley, Town of": [
+        230000
+      ],
+      "Shawano|Shawano, City of": [
+        205825,
+        219000,
+        450000
+      ],
+      "Shawano|Washington, Town of": [
+        427000
+      ],
+      "Shawano|Wescott, Town of": [
+        262000
+      ],
+      "Portage|Plover, Village of": [
+        490000
+      ],
+      "Portage|Stevens Point, City of": [
+        260000,
+        270000
+      ],
+      "Portage|Whiting, Village of": [
+        260000
       ]
     }
   }
