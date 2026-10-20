@@ -1,0 +1,44 @@
+name: data-freshness
+
+# The refresh runs on a local machine (scripts/refresh.ps1 on Windows Task Scheduler,
+# Sundays 06:00 CT) because DOR TAP refuses GitHub's hosted runners - so no CI run
+# shows whether it is still working. This one does: it fails once the committed data
+# is older than a missed weekly refresh, which surfaces in the fleet-health digest and
+# GitHub's failed-run email. It reads only the repo; it never touches DOR.
+#
+# Runs daily, and on every data push so a successful refresh turns it green at once.
+on:
+  schedule:
+    - cron: "23 14 * * *"   # 14:23 UTC daily (off-peak minute: GitHub delays :00 crons by hours)
+  push:
+    branches: [main]
+    paths:
+      - "data/*.json"
+      - ".github/workflows/freshness.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Fail if the data is older than a missed weekly refresh
+        run: |
+          # A week between refreshes plus a day of slack for a late "start when available".
+          max_age_days=8
+          today=$(TZ=America/Chicago date +%F)   # generated_on is the refresh machine's Central date
+          stale=false
+          for f in data/transactions.json data/price_history.json data/muni_medians.json; do
+            generated=$(jq -er .generated_on "$f")
+            age=$(( ($(date -ud "$today" +%s) - $(date -ud "$generated" +%s)) / 86400 ))
+            echo "$f: generated $generated ($age days old)"
+            if [ "$age" -gt "$max_age_days" ]; then
+              echo "::error file=$f::generated $generated, $age days old (limit $max_age_days). The local refresh has stopped: check Task Scheduler and logs/ on the refresh machine, or run scripts/refresh.ps1."
+              stale=true
+            fi
+          done
+          [ "$stale" = false ]

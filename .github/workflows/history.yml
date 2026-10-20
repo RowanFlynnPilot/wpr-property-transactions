@@ -8,6 +8,10 @@ name: price-history
 # NOT scheduled - same reason as scrape.yml: DOR TAP refuses GitHub's hosted
 # runners for days at a time. scripts/refresh.ps1 rebuilds the history from a
 # residential IP alongside the feed. Kept for manual dispatch.
+#
+# DISABLED in GitHub (2026-10-04), same reason as scrape.yml: its last failure
+# (2026-08-03) read as a live outage in the fleet-health digest. To use it:
+# `gh workflow enable price-history`, run it, then `gh workflow disable price-history`.
 on:
   workflow_dispatch: {}
 

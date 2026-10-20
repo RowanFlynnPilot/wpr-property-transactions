@@ -49,6 +49,11 @@ fresh week of sales is up before Monday. It runs under the logged-in user (git n
 that account's credentials to push), with "start when available" so a run lost to the
 machine being asleep happens at the next opportunity rather than being skipped.
 
+It must be allowed to **start and keep running on battery**. Windows' default refuses,
+and that cost the 2026-10-18 run: the laptop slept unplugged through 06:00, the
+missed-run check fired on wake a second before the charger registered, and Task
+Scheduler never retried it.
+
 To recreate it from scratch:
 
 ```powershell
@@ -58,6 +63,7 @@ $action = New-ScheduledTaskAction -Execute "powershell.exe" `
   -WorkingDirectory $root
 $trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At 6:00am
 $settings = New-ScheduledTaskSettingsSet -StartWhenAvailable `
+  -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
   -ExecutionTimeLimit (New-TimeSpan -Hours 2) -MultipleInstances IgnoreNew
 Register-ScheduledTask -TaskName "WPR Property Transactions refresh" `
   -Action $action -Trigger $trigger -Settings $settings -Force
@@ -73,9 +79,21 @@ Unregister-ScheduledTask -TaskName "WPR Property Transactions refresh"  # remove
 
 `.github/workflows/scrape.yml` and `history.yml` are kept for **manual dispatch**
 only — useful when TAP is answering hosted runners and the local machine is away.
+Both are **disabled in GitHub** so their last (failed) runs don't show up as live
+failures in the fleet-health digest. To use one:
 
-If a refresh stops happening for any reason, the page says so: the header shows
-"Sales recorded through <date>", and past 12 days it turns into a visible warning.
+```powershell
+gh workflow enable scrape-transactions ; gh workflow run scrape-transactions
+gh workflow disable scrape-transactions   # once the run has finished
+```
+
+If a refresh stops happening for any reason, two things say so:
+
+- **`.github/workflows/freshness.yml`** runs daily (and on every data push) and fails
+  once any `data/*.json` is more than 8 days old — one missed Sunday plus a day of
+  slack. That failure reaches the fleet-health digest and GitHub's failed-run email.
+- **The page itself:** the header shows "Sales recorded through <date>", and past 12
+  days it turns into a visible warning.
 
 ## WordPress embed
 

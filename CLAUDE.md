@@ -126,9 +126,14 @@ a time — every navigation times out — in recurring multi-day clusters (2026-
 published feed silently goes stale. It answers a residential IP reliably, so
 `scripts/refresh.ps1` runs the scrape + history from a local machine (Windows Task
 Scheduler, Sunday 06:00), commits, and pushes; the push triggers the Pages deploy.
-`scrape.yml`/`history.yml` are kept for **manual dispatch only** — no cron. Same
-lesson applies to any future automation here: do not put the TAP scrape back on a
-hosted runner. See "Refreshing the data" in README.md.
+`scrape.yml`/`history.yml` are kept for **manual dispatch only** — no cron — and are
+**disabled in GitHub** (enable → run → disable). The fleet-health digest
+(`wpr-ai-digest`) flags any *active* workflow whose latest run failed, however old,
+so their last failures read as a live outage for weeks. **`freshness.yml`** is what
+makes the local refresh visible to CI: it fails (daily, and on every data push) once
+any `data/*.json` `generated_on` is more than 8 days old. Same lesson applies to any
+future automation here: do not put the TAP scrape back on a hosted runner. See
+"Refreshing the data" in README.md.
 
 ## Editorial publish policy (SIGNED OFF 2026-06-07, AMENDED 2026-06-08)
 
@@ -243,8 +248,9 @@ wpr-property-transactions/
 │       │                     #   municipalities.js (generated), useCountUp.js, embed.js
 │       └── styles/           # tokens.css (design tokens) + app.css
 └── .github/workflows/
-    ├── scrape.yml            # MANUAL dispatch only (no cron; DOR blocks hosted runners)
-    ├── history.yml           # MANUAL dispatch only (no cron; same reason)
+    ├── scrape.yml            # MANUAL dispatch only, disabled in GitHub (DOR blocks hosted runners)
+    ├── history.yml           # MANUAL dispatch only, disabled in GitHub (same reason)
+    ├── freshness.yml         # daily: fail if the locally refreshed data is > 8 days old
     ├── test.yml              # pytest on push
     └── deploy.yml            # build + publish to GitHub Pages
 ```
@@ -324,6 +330,8 @@ npm run build                            # -> dist/, deployed to GitHub Pages
       screenshot on failure (tap.py honours `RETR_TRACE_DIR`).
 - [x] Staleness is visible: the header shows "Sales recorded through <date>" and warns
       after 12 days, so a refresh that silently stops can't go unnoticed again.
+      Operationally too (2026-10-04): `freshness.yml` turns red past 8 days, which the
+      fleet-health digest and GitHub's failed-run email pick up.
 - [x] Unit tests (`tests/`, pytest): address-redaction edge cases + price/date
       parsers; run on every push via `.github/workflows/test.yml`.
 - [x] Frontend built (filterable/sortable table + price charts + community Leaflet

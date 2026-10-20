@@ -7,6 +7,12 @@ name: scrape-transactions
 # runs from a residential IP via scripts/refresh.ps1 on Windows Task Scheduler
 # (see README). This workflow is kept for manual dispatch: when TAP is answering
 # hosted runners it still works, which is handy if the local machine is away.
+#
+# DISABLED in GitHub (2026-10-04). The fleet-health digest flags any active workflow
+# whose latest run failed, however old, so this one's last failure (2026-08-15) read
+# as a live outage for weeks. To use it: `gh workflow enable scrape-transactions`,
+# run it, then `gh workflow disable scrape-transactions`. freshness.yml is what
+# reports on the refresh that actually runs.
 on:
   workflow_dispatch: {}
 
