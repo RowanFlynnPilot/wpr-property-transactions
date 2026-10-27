@@ -189,6 +189,8 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
         </figcaption>
         <div className="donut-row">
           <div className="donut-body">
+            {/* The legend beside it lists every slice and value as text. */}
+            <div className="chart-visual" aria-hidden="true">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -208,6 +210,7 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
                 <Tooltip content={<DonutTooltip mode={mode} total={total} />} />
               </PieChart>
             </ResponsiveContainer>
+            </div>
             <div className="donut-center">
               <div className="donut-total">
                 {mode === "dollars" ? moneyCompact(totalDollars) : totalCount.toLocaleString()}

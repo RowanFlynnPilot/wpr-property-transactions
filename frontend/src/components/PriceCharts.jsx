@@ -13,6 +13,7 @@ import {
 import { median, money, moneyCompact, shortMuni } from "../lib/format.js";
 import { TEAL, TEAL_BRIGHT, AMBER, GRID, AXIS, LABEL } from "../lib/palette.js";
 import { BUCKETS, bucketLabel } from "../lib/buckets.js";
+import ChartDataTable from "./ChartDataTable.jsx";
 
 const HIGHLIGHT = AMBER; // marks the selected county/community against the teal bars
 
@@ -129,7 +130,7 @@ export default function PriceCharts({
           Median sale price by county
           {onSelectCounty && <span className="chart-hint"> · click a county to filter the page</span>}
         </figcaption>
-        <div className="chart-body">
+        <div className="chart-body" aria-hidden="true">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={byCounty} margin={{ left: 8, right: 16, top: 22 }}>
             <CartesianGrid vertical={false} stroke={GRID} />
@@ -155,6 +156,15 @@ export default function PriceCharts({
           </BarChart>
         </ResponsiveContainer>
         </div>
+        <ChartDataTable
+          caption="Median sale price by county, last 30 days"
+          rows={byCounty}
+          columns={[
+            { label: "County", value: (d) => `${d.county} County` },
+            { label: "Median sale price", value: (d) => money(d.medianPrice) },
+            { label: "Sales", value: (d) => d.count },
+          ]}
+        />
       </figure>
 
       <figure className="chart">
@@ -164,7 +174,7 @@ export default function PriceCharts({
             No community has {MIN_COMMUNITY_SALES} or more sales in this selection yet.
           </p>
         ) : (
-        <div className="chart-body">
+        <div className="chart-body" aria-hidden="true">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={byMuni} layout="vertical" margin={{ left: 8, right: 52 }}>
             <CartesianGrid horizontal={false} stroke={GRID} />
@@ -191,11 +201,20 @@ export default function PriceCharts({
         </ResponsiveContainer>
         </div>
         )}
+        <ChartDataTable
+          caption={communityTitle}
+          rows={byMuni}
+          columns={[
+            { label: "Community", value: (d) => `${d.muni}, ${d.county} County` },
+            { label: "Median sale price", value: (d) => money(d.medianPrice) },
+            { label: "Sales", value: (d) => d.count },
+          ]}
+        />
       </figure>
 
       <figure className="chart">
         <figcaption>Property sales by price range</figcaption>
-        <div className="chart-body">
+        <div className="chart-body" aria-hidden="true">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={distribution} margin={{ left: 8, right: 16 }}>
             <CartesianGrid vertical={false} stroke={GRID} />
@@ -210,6 +229,14 @@ export default function PriceCharts({
           </BarChart>
         </ResponsiveContainer>
         </div>
+        <ChartDataTable
+          caption="Property sales by price range, last 30 days"
+          rows={distribution}
+          columns={[
+            { label: "Price range", value: (d) => d.label },
+            { label: "Sales", value: (d) => d.count },
+          ]}
+        />
       </figure>
     </section>
   );

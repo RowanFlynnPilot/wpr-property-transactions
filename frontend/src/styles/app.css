@@ -1604,3 +1604,34 @@ h2 {
   font-size: 0.88rem;
   color: #666;
 }
+
+/* Placeholder for a section that loads as the reader scrolls toward it. */
+.section-loading,
+.chart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem 0;
+  color: #888;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+}
+
+/* Visually hidden but read by screen readers (chart data tables). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The drawn chart fills its container; its data lives in a sibling sr-only table. */
+.chart-visual {
+  width: 100%;
+  height: 100%;
+}

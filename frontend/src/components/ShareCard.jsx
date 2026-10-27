@@ -1,5 +1,4 @@
 import { useRef, useState, useMemo } from "react";
-import { toPng } from "html-to-image";
 import Sparkline from "./Sparkline.jsx";
 import { WPR_LOGO, WPR_MARK } from "../lib/wpr-logo.js";
 import { SPONSOR } from "../lib/sponsor.js";
@@ -43,6 +42,8 @@ export default function ShareCard({ history, selectedCounty, useGroup = "All", u
       // skipFonts: the page's web fonts are already loaded, so the rasterized
       // image still uses them — and it avoids html-to-image choking on Google
       // Fonts' cross-origin stylesheet (its cssRules can't be read).
+      // Loaded on click: only readers who download an image need it.
+      const { toPng } = await import("html-to-image");
       const url = await toPng(ref.current, {
         pixelRatio: 2,
         cacheBust: true,

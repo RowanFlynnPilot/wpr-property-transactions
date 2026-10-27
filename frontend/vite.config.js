@@ -13,17 +13,16 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // Split stable vendor libs into their own cacheable chunks. Leaflet/
-        // react-leaflet are excluded on purpose: they're reached only through the
-        // lazy map import (App.jsx), so Rollup already emits them as a separate
-        // on-demand chunk. Weekly feed-only deploys don't change these, so
-        // returning visitors re-use the cached vendor chunks.
+        // Split React into its own long-lived cacheable chunk. Everything else is
+        // left to Rollup on purpose: recharts and Leaflet are reached only through
+        // lazy imports (App.jsx, KpiHero.jsx), so Rollup emits each as its own
+        // on-demand chunk. A catch-all "vendor" chunk here would be a trap — it
+        // also swallows small libraries the entry needs (html-to-image for the
+        // share card), which makes the entry depend on the whole chart library
+        // and preloads it on every page view.
         manualChunks(id) {
-          if (!id.includes("node_modules")) return;
-          if (id.includes("leaflet")) return; // stays in the lazy map chunk
           if (/[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id))
             return "react";
-          return "charts"; // recharts + its d3/lodash deps
         },
       },
     },

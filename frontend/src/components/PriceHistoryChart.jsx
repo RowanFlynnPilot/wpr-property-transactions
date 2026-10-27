@@ -110,7 +110,9 @@ export default function PriceHistoryChart({ history, useGroup = "All", use = "Ov
         </label>
       </div>
 
-      <div className="history-chart">
+      {/* The table below carries every plotted value, so the drawing is hidden
+          from screen readers rather than duplicated. */}
+      <div className="history-chart" aria-hidden="true">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ left: 8, right: 16, top: 8 }}>
             <defs>
@@ -164,6 +166,7 @@ export default function PriceHistoryChart({ history, useGroup = "All", use = "Ov
 
       <div className="table-wrap">
         <table className="history-table">
+          <caption className="sr-only">Monthly median sale price, region overall and {county}</caption>
           <thead>
             <tr>
               <th>Month</th>

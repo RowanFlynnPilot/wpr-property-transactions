@@ -1,24 +1,15 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Cell,
-  LabelList,
-} from "recharts";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import Sparkline from "./Sparkline.jsx";
 import { money, moneyCompact, monthLong, monthName, pctChange, fmtPct, muniLabel, shortMuni } from "../lib/format.js";
 import { matchesUse } from "../lib/use.js";
 import { useCountUp } from "../lib/useCountUp.js";
-import { TEAL, TEAL_BRIGHT, AMBER, GRID, AXIS, LABEL } from "../lib/palette.js";
+import { TEAL, AMBER } from "../lib/palette.js";
 import { BUCKETS, bucketLabel } from "../lib/buckets.js";
 import { latestCompleteIndex } from "../lib/history.js";
+
+// The pop-out charts are the only part of the hero that needs recharts; load
+// them when a card is expanded rather than with the page.
+const KpiDetailChart = lazy(() => import("./KpiDetailChart.jsx"));
 
 function Delta({ value }) {
   if (value == null) return null;
@@ -96,46 +87,6 @@ function MiniHistogram({ bins, max }) {
           title={`${b.label}: ${b.count}`}
         />
       ))}
-    </div>
-  );
-}
-
-// --- Pop-out detail tooltips ----------------------------------------------
-function SeriesTip({ active, payload, kind }) {
-  if (!active || !payload?.length) return null;
-  const d = payload[0].payload;
-  return (
-    <div className="chart-tip">
-      <div className="chart-tip-title">{d.monthFull}</div>
-      <div className="chart-tip-row">
-        {kind === "median" ? "Median" : "Sales"}
-        <b>{kind === "median" ? money(d.median) : d.sales.toLocaleString()}</b>
-      </div>
-    </div>
-  );
-}
-function CommunityTip({ active, payload }) {
-  if (!active || !payload?.length) return null;
-  const d = payload[0].payload;
-  return (
-    <div className="chart-tip">
-      <div className="chart-tip-title">{d.label}</div>
-      <div className="chart-tip-row">
-        Sales<b>{d.count}</b>
-      </div>
-      <div className="chart-tip-sub">{d.county} County</div>
-    </div>
-  );
-}
-function RangeTip({ active, payload }) {
-  if (!active || !payload?.length) return null;
-  const d = payload[0].payload;
-  return (
-    <div className="chart-tip">
-      <div className="chart-tip-title">{d.label}</div>
-      <div className="chart-tip-row">
-        Sales<b>{d.count}</b>
-      </div>
     </div>
   );
 }
@@ -219,98 +170,14 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
 
   const detail = useMemo(() => {
     if (!expanded || !stats) return null;
-    if (expanded === "median") {
-      return {
-        title: `Median ${useWord}sale price · ${scopeName} · 12-month trend`,
-        node: (
-          <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={monthsData} margin={{ left: 8, right: 16, top: 8 }}>
-              <defs>
-                <linearGradient id="kpiMedGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={TEAL} stopOpacity={0.18} />
-                  <stop offset="100%" stopColor={TEAL} stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid stroke={GRID} vertical={false} />
-              <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke={AXIS} tickMargin={8} />
-              <YAxis tickFormatter={moneyCompact} tick={{ fontSize: 12 }} stroke={AXIS} width={56} domain={["auto", "auto"]} />
-              <Tooltip content={<SeriesTip kind="median" />} cursor={{ fill: "rgba(58,134,124,0.06)" }} />
-              <Area
-                type="monotone"
-                dataKey="median"
-                stroke={TEAL}
-                strokeWidth={2.5}
-                fill="url(#kpiMedGrad)"
-                dot={false}
-                activeDot={{ r: 4, strokeWidth: 0 }}
-                connectNulls
-                isAnimationActive={false}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        ),
-      };
-    }
-    if (expanded === "sales") {
-      return {
-        title: `Sales recorded · ${scopeName} · by month`,
-        node: (
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={monthsData} margin={{ left: 8, right: 16, top: 18 }}>
-              <CartesianGrid stroke={GRID} vertical={false} />
-              <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke={AXIS} tickMargin={8} />
-              <YAxis allowDecimals={false} tick={{ fontSize: 12 }} stroke={AXIS} width={40} />
-              <Tooltip content={<SeriesTip kind="sales" />} cursor={{ fill: "rgba(200,146,46,0.10)" }} />
-              <Bar dataKey="sales" fill={AMBER} radius={[3, 3, 0, 0]} isAnimationActive={false}>
-                <LabelList dataKey="sales" position="top" style={{ fontSize: 11, fill: LABEL }} />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        ),
-      };
-    }
-    if (expanded === "community" && communities.length) {
-      const rows = communities.slice(0, 12);
-      return {
-        title: `Most active ${useWord}communities · ${scopeName} · last 30 days`,
-        node: (
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={rows} layout="vertical" margin={{ left: 8, right: 36, top: 4 }}>
-              <CartesianGrid horizontal={false} stroke={GRID} />
-              <XAxis type="number" allowDecimals={false} tick={{ fontSize: 12 }} stroke={AXIS} />
-              <YAxis type="category" dataKey="short" width={112} tick={{ fontSize: 11 }} stroke={AXIS} />
-              <Tooltip content={<CommunityTip />} cursor={{ fill: "rgba(58,134,124,0.08)" }} />
-              <Bar dataKey="count" fill={TEAL} radius={[0, 3, 3, 0]} isAnimationActive={false}>
-                <LabelList dataKey="count" position="right" style={{ fontSize: 11, fill: LABEL }} />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        ),
-      };
-    }
-    if (expanded === "range" && priceStats) {
-      return {
-        title: `Sale price distribution · ${scopeName} · last 30 days`,
-        node: (
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={priceStats.bins} margin={{ left: 8, right: 16, top: 18 }}>
-              <CartesianGrid stroke={GRID} vertical={false} />
-              <XAxis dataKey="label" tick={{ fontSize: 11 }} stroke={AXIS} interval={0} />
-              <YAxis allowDecimals={false} tick={{ fontSize: 12 }} stroke={AXIS} width={40} />
-              <Tooltip content={<RangeTip />} cursor={{ fill: "rgba(58,134,124,0.08)" }} />
-              <Bar dataKey="count" radius={[3, 3, 0, 0]} isAnimationActive={false}>
-                {priceStats.bins.map((_, i) => (
-                  <Cell key={i} fill={i % 2 ? TEAL_BRIGHT : TEAL} />
-                ))}
-                <LabelList dataKey="count" position="top" style={{ fontSize: 11, fill: LABEL }} />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        ),
-      };
-    }
-    return null;
-  }, [expanded, stats, monthsData, communities, priceStats, scopeName, useWord]);
+    const titles = {
+      median: `Median ${useWord}sale price · ${scopeName} · 12-month trend`,
+      sales: `Sales recorded · ${scopeName} · by month`,
+      community: communities.length && `Most active ${useWord}communities · ${scopeName} · last 30 days`,
+      range: priceStats && `Sale price distribution · ${scopeName} · last 30 days`,
+    };
+    return titles[expanded] ? { kind: expanded, title: titles[expanded] } : null;
+  }, [expanded, stats, communities, priceStats, scopeName, useWord]);
 
   // Bring the pop-out into view on the standalone page (a no-op in the auto-height
   // embed, which simply grows to fit).
@@ -429,7 +296,17 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
               ×
             </button>
           </div>
-          <div className="kpi-detail-chart">{detail.node}</div>
+          <div className="kpi-detail-chart">
+            <Suspense fallback={<p className="chart-loading">Loading chart…</p>}>
+              <KpiDetailChart
+                kind={detail.kind}
+                title={detail.title}
+                monthsData={monthsData}
+                communities={communities}
+                priceStats={priceStats}
+              />
+            </Suspense>
+          </div>
         </div>
       )}
     </section>

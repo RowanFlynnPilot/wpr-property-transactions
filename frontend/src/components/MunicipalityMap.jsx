@@ -4,6 +4,7 @@ import "leaflet/dist/leaflet.css";
 import { median, money, muniLabel } from "../lib/format.js";
 import { MUNI_CENTROIDS, REGION_CENTER, REGION_ZOOM } from "../lib/municipalities.js";
 import { TEAL, TEAL_BRIGHT, TEAL_DARK } from "../lib/palette.js";
+import ChartDataTable from "./ChartDataTable.jsx";
 
 // Case-insensitive centroid index: DOR and Census disagree on some capitalization
 // (e.g. DOR "Mcmillan" vs Census "McMillan"), so match on lowercased keys.
@@ -90,6 +91,15 @@ export default function MunicipalityMap({ records, selectedKey, onSelect }) {
           })}
         </MapContainer>
       </div>
+      <ChartDataTable
+        caption="Sales by community, last 30 days"
+        rows={[...points, ...missing].sort((a, b) => b.count - a.count)}
+        columns={[
+          { label: "Community", value: (d) => `${muniLabel(d.muni)}, ${d.county} County` },
+          { label: "Sales", value: (d) => d.count },
+          { label: "Median sale price", value: (d) => money(d.medianPrice) },
+        ]}
+      />
       {missing.length > 0 && (
         <p className="map-missing">
           Not mapped (no centroid on file):{" "}

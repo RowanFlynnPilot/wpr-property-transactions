@@ -1,15 +1,13 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { lazy, useEffect, useMemo, useState } from "react";
 import Masthead from "./components/Masthead.jsx";
 import KpiHero from "./components/KpiHero.jsx";
 import SponsorBanner from "./components/SponsorBanner.jsx";
 import BiggestDeals from "./components/BiggestDeals.jsx";
 import Filters from "./components/Filters.jsx";
 import TransactionTable from "./components/TransactionTable.jsx";
-import PriceCharts from "./components/PriceCharts.jsx";
-import PriceHistoryChart from "./components/PriceHistoryChart.jsx";
-import MarketBreakdown from "./components/MarketBreakdown.jsx";
 import ShareCard from "./components/ShareCard.jsx";
 import BookmarkButton from "./components/BookmarkButton.jsx";
+import LoadWhenVisible from "./components/LoadWhenVisible.jsx";
 import { weekStartISO, weekLabel, prettyDate } from "./lib/format.js";
 import { matchesUse, historyGroup } from "./lib/use.js";
 
@@ -17,6 +15,12 @@ import { matchesUse, historyGroup } from "./lib/use.js";
 // code-split: the initial bundle excludes Leaflet and the map chunk streams in
 // after first paint, behind a placeholder that reserves its height.
 const MunicipalityMap = lazy(() => import("./components/MunicipalityMap.jsx"));
+// Same for the chart sections: recharts is the single biggest dependency (~116 KB
+// gzipped) and none of it is visible on arrival, so it loads as the reader scrolls
+// toward it (LoadWhenVisible) instead of with the page.
+const PriceHistoryChart = lazy(() => import("./components/PriceHistoryChart.jsx"));
+const PriceCharts = lazy(() => import("./components/PriceCharts.jsx"));
+const MarketBreakdown = lazy(() => import("./components/MarketBreakdown.jsx"));
 
 const EMPTY_FILTERS = {
   use: "Overall",
@@ -216,7 +220,10 @@ export default function App() {
       />
       <BiggestDeals records={all} selectedCounty={filters.county} use={filters.use} />
       <SponsorBanner label="Sponsored by" />
-      <PriceHistoryChart history={history} useGroup={historyGroup(filters.use)} use={filters.use} />
+      <LoadWhenVisible minHeight={860} label="Loading the 12-month trend…">
+        <PriceHistoryChart history={history} useGroup={historyGroup(filters.use)} use={filters.use} />
+      </LoadWhenVisible>
+      <LoadWhenVisible minHeight={700} label="Loading charts…">
       <PriceCharts
         records={filtered}
         communityRecords={filteredNoMuni}
@@ -225,32 +232,28 @@ export default function App() {
         selectedCounty={filters.county}
         onSelectCounty={selectCounty}
       />
+      </LoadWhenVisible>
+      <LoadWhenVisible minHeight={700} label="Loading market breakdown…">
       <MarketBreakdown
         records={filtered}
         history={history}
         useGroup={historyGroup(filters.use)}
         use={filters.use}
       />
+      </LoadWhenVisible>
       <ShareCard
         history={history}
         selectedCounty={filters.county}
         useGroup={historyGroup(filters.use)}
         use={filters.use}
       />
-      <Suspense
-        fallback={
-          <section className="map-section">
-            <h2>Where the sales were</h2>
-            <div className="map-wrap map-loading">Loading map…</div>
-          </section>
-        }
-      >
+      <LoadWhenVisible minHeight={500} label="Loading map…">
         <MunicipalityMap
           records={filteredNoMuni}
           selectedKey={selectedKey}
           onSelect={selectMapPoint}
         />
-      </Suspense>
+      </LoadWhenVisible>
 
       <SponsorBanner label="Sponsored by" />
       <h2>All transactions</h2>
