@@ -235,15 +235,16 @@ wpr-property-transactions/
 │   └── tap_spike.py          # throwaway selector-discovery script (not part of pipeline)
 ├── frontend/                 # Vite + React
 │   ├── package.json
-│   ├── vite.config.js        # base + publicDir(../data) + vendor manualChunks
+│   ├── vite.config.js        # base + publicDir(../data) + React-only manualChunks
 │   ├── index.html
 │   └── src/
 │       ├── main.jsx
 │       ├── App.jsx           # feed load, layered filtering, layout
 │       ├── components/       # Masthead, SponsorBanner, KpiHero, BiggestDeals,
 │       │                     #   PriceHistoryChart, PriceCharts, MarketBreakdown,
-│       │                     #   TransactionTable, MunicipalityMap (lazy), ShareCard,
-│       │                     #   Sparkline, SponsorTag
+│       │                     #   TransactionTable, MunicipalityMap, ShareCard,
+│       │                     #   Sparkline, SponsorTag, BookmarkButton,
+│       │                     #   KpiDetailChart, LoadWhenVisible, ChartDataTable
 │       ├── lib/              # format.js, use.js, wpr-logo.js, sponsor.js,
 │       │                     #   municipalities.js (generated), useCountUp.js, embed.js
 │       └── styles/           # tokens.css (design tokens) + app.css
@@ -282,6 +283,15 @@ Matched to wausaupilotandreview.com (2026-07-04 brand pass):
 - **Logo:** wordmark + typewriter roundel embedded as base64 (`lib/wpr-logo.js`)
   to avoid hotlink failures; both render in the shared Masthead and ShareCard.
 - Chart-led and map-led (Leaflet).
+- **Load budget:** the first paint ships only the app + React (~85 KB gz). recharts,
+  Leaflet and html-to-image are reached only through lazy imports — chart sections
+  and the map via `LoadWhenVisible`, KPI pop-outs via `KpiDetailChart`, image export
+  on click. Keep it that way: never add a catch-all vendor chunk in `manualChunks`
+  (it swallowed html-to-image and made every page preload all of recharts), and
+  don't import recharts from an eagerly loaded component.
+- **Chart accessibility:** every chart drawing is `aria-hidden` and paired with a
+  `ChartDataTable` (visually hidden table, same numbers) — or with visible text that
+  already carries every value. New charts follow the same rule.
 
 ## Dev environment
 
