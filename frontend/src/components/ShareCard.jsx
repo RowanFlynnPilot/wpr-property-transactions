@@ -88,17 +88,13 @@ export default function ShareCard({ history, selectedCounty, useGroup = "All", u
         </div>
         <div className="share-foot">
           <span>wausaupilotandreview.com</span>
-          <span className="share-sponsor">
-            {SPONSOR.name ? (
-              <>
-                Presented by{" "}
-                {SPONSOR.logo && <img className="share-sponsor-logo" src={SPONSOR.logo} alt="" />}
-                <span>{SPONSOR.name}</span>
-              </>
-            ) : (
-              "Presented by  [ your brand here ]"
-            )}
-          </span>
+          {SPONSOR.name && (
+            <span className="share-sponsor">
+              Presented by{" "}
+              {SPONSOR.logo && <img className="share-sponsor-logo" src={SPONSOR.logo} alt="" />}
+              <span>{SPONSOR.name}</span>
+            </span>
+          )}
         </div>
       </div>
     </section>
