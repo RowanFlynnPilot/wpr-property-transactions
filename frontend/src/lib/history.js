@@ -1,18 +1,19 @@
 // Helpers for reading the rolling 12-month history series.
 
-// Index of the most recent month that actually has a median.
+// Index of the most recent COMPLETE month that has a median — the month every
+// headline reports.
 //
-// The newest month in the window can legitimately be empty: the monthly rebuild
-// runs on the 2nd, so the current month covers only the 1st-2nd, and if those
-// days fall on a weekend or holiday no deeds were recorded at all. Indexing the
-// array end would then report a $0 median and suppress the trend sentence, so
-// every headline reads the latest month that has data instead.
+// The current calendar month is always partial: DOR posts recordings with a
+// days-to-weeks lag, so early in a month its median rests on a few dozen sales
+// and swings week to week (it has been empty outright when the 1st-2nd fell on
+// a weekend). Headlining it made the KPI number wobble with every refresh, so
+// headlines skip it; the trend chart and table still show it, labelled partial.
 //
-// Returns -1 when the series is empty or all-null (callers render nothing).
-export function latestIndexWithData(series) {
-  if (!series?.length) return -1;
-  for (let i = series.length - 1; i >= 0; i--) {
-    if (series[i] != null) return i;
+// Returns -1 when no complete month has data (callers render nothing).
+export function latestCompleteIndex(months, series, today = new Date()) {
+  const current = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}`;
+  for (let i = (series?.length ?? 0) - 1; i >= 0; i--) {
+    if (months[i] < current && series[i] != null) return i;
   }
   return -1;
 }

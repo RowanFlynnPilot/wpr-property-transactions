@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { money, prettyDate, muniLabel } from "../lib/format.js";
 import { matchesUse, useGroupOf } from "../lib/use.js";
 import SponsorTag from "./SponsorTag.jsx";
+import { typeLabel } from "../lib/propertyType.js";
 
 // The month's top sales — the most screenshot-able thing on the page. Scoped to
 // the selected county when one is active.
@@ -42,7 +43,7 @@ export default function BiggestDeals({ records, selectedCounty, use = "Overall" 
               <span className={`use-badge use-${useGroupOf(d.property_use).toLowerCase()}`}>
                 {d.property_use}
               </span>
-              {d.property_type}
+              {typeLabel(d.property_type)}
             </div>
             <div className="deal-parties">
               <span className="deal-party">{d.grantor}</span>

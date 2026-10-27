@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { median, money, moneyCompact, monthShort, pctChange, fmtPct, signedMoney } from "../lib/format.js";
 import { DONUT_COLORS } from "../lib/palette.js";
-import { latestIndexWithData } from "../lib/history.js";
+import { latestCompleteIndex } from "../lib/history.js";
 import { typeLabel, useLabel } from "../lib/propertyType.js";
 
 
@@ -72,9 +72,9 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
 
   const { rows, curMonth } = useMemo(() => {
     if (!history) return { rows: [], curMonth: "" };
-    // Report the latest month with data region-wide, so the column isn't a wall
-    // of "—" when the newest month hasn't accrued any recordings yet.
-    const last = latestIndexWithData(history.series[useGroup]?.Region ?? []);
+    // Report the latest complete month region-wide (the current month is partial
+    // and still accruing recordings).
+    const last = latestCompleteIndex(history.months, history.series[useGroup]?.Region ?? []);
     if (last < 0) return { rows: [], curMonth: "" };
     const rows = (history.counties ?? [])
       .map((c) => {
@@ -140,7 +140,7 @@ export default function MarketBreakdown({ records, history, useGroup = "All", us
           </div>
           <p className="movers-foot">
             “12-mo median” is the median of the trailing 12 monthly medians; Δ compares the
-            current month to it. The current month is still accruing recordings.
+            latest complete month to it.
           </p>
         </figure>
       )}

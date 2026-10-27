@@ -43,8 +43,26 @@ class TestCleanAddress:
         assert _clean_address("N5678 County Road K") == "N5678 County Road K"
         assert _clean_address("N12W3456 Smith Rd") == "N12W3456 Smith Rd"
 
+    def test_ordinals_stay_lowercase(self):
+        assert _clean_address("1201 S 50TH AVE") == "1201 S 50th Ave"
+        assert _clean_address("410 N 1ST ST") == "410 N 1st St"
+        assert _clean_address("22 3RD AVE") == "22 3rd Ave"
+        assert _clean_address("7 2ND ST") == "7 2nd St"
+
+    def test_joiner_in_address_range_is_lowercase(self):
+        assert _clean_address("103 AND 113 MADISON WAY") == "103 and 113 Madison Way"
+
+    def test_lettered_county_road_is_uppercase(self):
+        assert _clean_address("1671 COUNTY ROAD XX") == "1671 County Road XX"
+        assert _clean_address("N5678 county road kk") == "N5678 County Road KK"
+
+    def test_street_named_with_road_word_is_untouched(self):
+        # 'Rd' here is a suffix, not an ordinal; 'And'/'Of' only lowered mid-address.
+        assert _clean_address("500 OAK RD") == "500 Oak Rd"
+        assert _clean_address("12 ANDERSON ST") == "12 Anderson St"
+
     def test_keeps_ordinal_street_name(self):
-        assert _clean_address("15th Street") == "15Th Street"
+        assert _clean_address("15th Street") == "15th Street"
 
     def test_keeps_address_with_no_number(self):
         assert _clean_address("County Road X") == "County Road X"
@@ -68,7 +86,7 @@ class TestStripCityZip:
         assert _clean_address("225 JAMES STREET, KRONENWETTER, WI 54455") == "225 James Street"
 
     def test_no_comma_before_state(self):
-        assert _clean_address("400 11TH STREET, MOSINEE WI 54455") == "400 11Th Street"
+        assert _clean_address("400 11TH STREET, MOSINEE WI 54455") == "400 11th Street"
 
     def test_no_comma_before_city(self):
         # City runs onto the street with only a space.
@@ -89,7 +107,7 @@ class TestMalformedAddresses:
     def test_embedded_parcel_number_stripped(self):
         assert (
             _clean_address("COUNTY ROAD FF (VACANT LAND) - 004-3006-032-0999")
-            == "County Road Ff (Vacant Land)"
+            == "County Road FF (Vacant Land)"
         )
 
     def test_duplicated_street_keeps_numbered_form(self):
@@ -100,7 +118,7 @@ class TestMalformedAddresses:
         assert _clean_address("BROOKS PL, 639 BROOKS PL") == "639 Brooks Pl"
 
     def test_leading_ampersand_kept_number(self):
-        assert _clean_address("& 1007 N 3RD AVE") == "1007 N 3Rd Ave"
+        assert _clean_address("& 1007 N 3RD AVE") == "1007 N 3rd Ave"
 
     def test_trailing_comma_artifact(self):
         assert _clean_address("ALLEN STREET,") == "Allen Street"

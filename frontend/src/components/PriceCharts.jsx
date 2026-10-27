@@ -51,6 +51,11 @@ function CountTooltip({ active, payload }) {
   );
 }
 
+// A community needs at least this many sales in the window to be ranked by
+// median. Most communities record only one or two sales a month, so without a
+// floor the "top 10 by median" was mostly single deals, not community prices.
+const MIN_COMMUNITY_SALES = 3;
+
 const TIP_CURSOR = { fill: "rgba(58,134,124,0.08)" };
 
 export default function PriceCharts({
@@ -99,6 +104,7 @@ export default function PriceCharts({
         count: g.prices.length,
         medianPrice: median(g.prices),
       }))
+      .filter((g) => g.count >= MIN_COMMUNITY_SALES)
       .sort((a, b) => b.medianPrice - a.medianPrice)
       .slice(0, 10);
   }, [comparisonRows]);
@@ -113,7 +119,8 @@ export default function PriceCharts({
   if (!records.length) return null;
 
   const communityTitle =
-    "Median sale price by community (top 10)" + (selectedCounty ? ` · ${selectedCounty}` : "");
+    `Median sale price by community · top 10 with ${MIN_COMMUNITY_SALES}+ sales` +
+    (selectedCounty ? ` · ${selectedCounty}` : "");
 
   return (
     <section className="charts" aria-label="Price charts">
@@ -152,6 +159,11 @@ export default function PriceCharts({
 
       <figure className="chart">
         <figcaption>{communityTitle}</figcaption>
+        {byMuni.length === 0 ? (
+          <p className="chart-empty">
+            No community has {MIN_COMMUNITY_SALES} or more sales in this selection yet.
+          </p>
+        ) : (
         <div className="chart-body">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={byMuni} layout="vertical" margin={{ left: 8, right: 52 }}>
@@ -178,6 +190,7 @@ export default function PriceCharts({
           </BarChart>
         </ResponsiveContainer>
         </div>
+        )}
       </figure>
 
       <figure className="chart">

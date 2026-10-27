@@ -5,7 +5,7 @@ import { WPR_LOGO, WPR_MARK } from "../lib/wpr-logo.js";
 import { SPONSOR } from "../lib/sponsor.js";
 import { money, fmtPct, monthLong, pctChange } from "../lib/format.js";
 import { TEAL } from "../lib/palette.js";
-import { latestIndexWithData } from "../lib/history.js";
+import { latestCompleteIndex } from "../lib/history.js";
 
 // A co-branded, downloadable headline card — the "share image". Built from the
 // same history data; carries the WPR wordmark and the sponsor slot, so every share
@@ -18,9 +18,9 @@ export default function ShareCard({ history, selectedCounty, useGroup = "All", u
     if (!history) return null;
     const geoKey = selectedCounty || "Region";
     const med = history.series[useGroup]?.[geoKey] ?? [];
-    // Latest month WITH data — the newest month can legitimately be empty, and a
-    // share image reading "$0" would be worse than showing last month's figure.
-    const last = latestIndexWithData(med);
+    // Latest COMPLETE month — a partial month's median is too thin to put on an
+    // image people will screenshot and share.
+    const last = latestCompleteIndex(history.months, med);
     if (last < 0) return null;
     return {
       scopeName: selectedCounty ? `${selectedCounty} County` : "6-County Region",
@@ -28,6 +28,7 @@ export default function ShareCard({ history, selectedCounty, useGroup = "All", u
       med,
       medianNow: med[last],
       yoy: pctChange(med[last], med[0]),
+      since: monthLong(history.months[0]),
       month: monthLong(history.months[last]),
       slug: `${(use === "Overall" ? "all" : use.toLowerCase())}-${(selectedCounty || "region").toLowerCase()}`,
     };
@@ -81,7 +82,7 @@ export default function ShareCard({ history, selectedCounty, useGroup = "All", u
         <div className="share-median">{money(data.medianNow)}</div>
         <div className="share-sublabel">
           {data.useWord}median sale price ·{" "}
-          <span className={data.yoy >= 0 ? "up" : "down"}>{fmtPct(data.yoy)} year over year</span>
+          <span className={data.yoy >= 0 ? "up" : "down"}>{fmtPct(data.yoy)} since {data.since}</span>
         </div>
         <div className="share-spark">
           <Sparkline values={data.med} color={TEAL} width={420} height={60} />

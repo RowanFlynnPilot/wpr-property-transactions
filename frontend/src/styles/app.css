@@ -1004,6 +1004,9 @@ h2 {
   margin-top: 1.5rem;
 }
 .breakdown-card {
+  /* These are <figure>s: reset the UA's 40px side margin so they line up with
+     every other section. */
+  margin: 0;
   background: #fff;
   border: 1px solid var(--wpr-rule);
   padding: 1rem 1.1rem 1rem;
@@ -1592,4 +1595,12 @@ h2 {
   .deals-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Chart with nothing qualifying to plot (e.g. community chart's sales floor). */
+.chart-empty {
+  margin: 1.5rem 0;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: #666;
 }

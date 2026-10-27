@@ -66,6 +66,23 @@ def _strip_leading_number(segment: str) -> str:
     return s
 
 
+# str.title() alone mangles three things common in WI addresses: ordinals
+# ("50th" -> "50Th"), the joiner in ranges ("103 and 113" -> "103 And 113"), and
+# lettered county roads ("County Road XX" -> "County Road Xx").
+_ORDINAL = re.compile(r"\b(\d+)(St|Nd|Rd|Th)\b")
+_LOWER_WORDS = re.compile(r"(?<=\s)(And|Of)(?=\s)")
+_COUNTY_ROAD = re.compile(
+    r"\b(County Road|County Rd|County Highway|County Hwy|Cty Rd|Co Rd)\s+([A-Za-z]{1,2})\b"
+)
+
+
+def _title_address(a: str) -> str:
+    t = a.title()
+    t = _ORDINAL.sub(lambda m: m.group(1) + m.group(2).lower(), t)
+    t = _LOWER_WORDS.sub(lambda m: m.group(1).lower(), t)
+    return _COUNTY_ROAD.sub(lambda m: f"{m.group(1)} {m.group(2).upper()}", t)
+
+
 def _clean_address(address: str) -> str:
     """Normalize a raw DOR address to a clean full street address (house number
     KEPT, per the 2026-06-08 amendment):
@@ -74,7 +91,8 @@ def _clean_address(address: str) -> str:
       - remove any embedded parcel number (still withheld),
       - per comma-segment, drop a stray leading '&' and trailing-comma artifacts,
         and collapse malformed 'St, <num> St' duplications to the numbered form,
-      - title-case the result.
+      - title-case the result (``_title_address``: keeps ordinals, 'and', and
+        lettered county roads correct).
     `_strip_leading_number` is used only to derive a street key for dedupe — the
     house number itself is preserved in the output."""
     a = _PARCEL.sub("", _strip_city_zip(address.strip()))
@@ -93,7 +111,7 @@ def _clean_address(address: str) -> str:
             order.append(key)
         elif has_number and _strip_leading_number(chosen[key]) == chosen[key]:
             chosen[key] = s  # upgrade a bare street to its numbered duplicate
-    return ", ".join(chosen[k] for k in order).title()
+    return _title_address(", ".join(chosen[k] for k in order))
 
 
 def _is_publishable(t: Transaction) -> bool:

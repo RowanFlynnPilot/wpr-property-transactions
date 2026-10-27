@@ -18,7 +18,7 @@ import { matchesUse } from "../lib/use.js";
 import { useCountUp } from "../lib/useCountUp.js";
 import { TEAL, TEAL_BRIGHT, AMBER, GRID, AXIS, LABEL } from "../lib/palette.js";
 import { BUCKETS, bucketLabel } from "../lib/buckets.js";
-import { latestIndexWithData } from "../lib/history.js";
+import { latestCompleteIndex } from "../lib/history.js";
 
 function Delta({ value }) {
   if (value == null) return null;
@@ -157,8 +157,8 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
     const months = history.months;
     const med = history.series[useGroup]?.[geoKey] ?? [];
     const cnt = history.counts[useGroup]?.[geoKey] ?? [];
-    // Not months.length - 1: the newest month can legitimately have no sales yet.
-    const last = latestIndexWithData(med);
+    // The latest COMPLETE month — the current month is partial (see lib/history.js).
+    const last = latestCompleteIndex(months, med);
     if (last < 0) return null;
     return {
       months,
@@ -166,7 +166,11 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
       cnt,
       medianNow: med[last],
       mom: pctChange(med[last], med[last - 1]),
-      yearChange: pctChange(med[last], med[0]),
+      // Change since the first month in the window. That is 10-11 months back,
+      // not a true year, so the copy names the month rather than claiming "YoY".
+      sinceChange: pctChange(med[last], med[0]),
+      sinceLabel: monthLong(months[0]),
+      sinceShort: `${monthName(months[0])} '${months[0].slice(2, 4)}`,
       totalSales: cnt.reduce((a, b) => a + (b || 0), 0),
       latestLabel: monthLong(months[last]),
     };
@@ -319,11 +323,11 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
   if (!stats) return null;
 
   const trend =
-    stats.yearChange == null
+    stats.sinceChange == null
       ? ""
-      : `${scopeName}'s ${useWord}median sale price is ${stats.yearChange >= 0 ? "up" : "down"} ${fmtPct(
-          stats.yearChange
-        ).replace(/[+−-]/, "")} over the past year — ${money(stats.medianNow)} in ${stats.latestLabel}.`;
+      : `${scopeName}'s ${useWord}median sale price is ${stats.sinceChange >= 0 ? "up" : "down"} ${fmtPct(
+          stats.sinceChange
+        ).replace(/[+−-]/, "")} since ${stats.sinceLabel} — ${money(stats.medianNow)} in ${stats.latestLabel}.`;
 
   const topCommunity = communities[0];
 
@@ -348,9 +352,9 @@ export default function KpiHero({ history, records, selectedCounty, use = "Overa
                 <Delta value={stats.mom} /> <span className="kpi-sub">MoM</span>
               </span>
             )}
-            {stats.yearChange != null && (
+            {stats.sinceChange != null && (
               <span className="kpi-deltawrap">
-                <Delta value={stats.yearChange} /> <span className="kpi-sub">YoY</span>
+                <Delta value={stats.sinceChange} /> <span className="kpi-sub">since {stats.sinceShort}</span>
               </span>
             )}
           </div>
